@@ -15,7 +15,7 @@ It have many features basing on stellarium PC.
 
 
 
-- [x] update comets by click.
+- [x] update comets by clicking once.
 
 
 
@@ -23,5 +23,5 @@ It have many features basing on stellarium PC.
 
 
 
-About the stars and DSO, I think they is enough for us to use.
+About the stars and DSO, I think they are enough for us to use.
 
