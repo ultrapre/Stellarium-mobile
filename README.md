@@ -1,6 +1,28 @@
 # Stellarium-mobile
 
-I publish the new fixed android version here.
+
+
+## 1.base ver and assets:
+
+original version of v1.29.6.
+
+directly check from https://www.stellarium-labs.com/stellarium-mobile/
+
+assets from mobile apks.
+
+
+
+
+
+---
+
+
+
+## 2.New function base on external storage.
+
+
+
+I publish the new fixed android version here. （base on raymas's fixing ver.)
 
 https://github.com/ultrapre/Stellarium-android
 
