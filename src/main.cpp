@@ -50,6 +50,8 @@
 #include <QTranslator>
 #include <clocale>
 
+#include <QStandardPaths>
+
 #ifdef Q_OS_WIN
 #include <windows.h>
 #ifdef _MSC_BUILD
@@ -179,6 +181,8 @@ int main(int argc, char **argv)
 		++n;
 	}
 
+
+
 	// Now manage the loading of the proper config file
 	QString configName;
 	try
@@ -202,6 +206,7 @@ int main(int argc, char **argv)
 	QSettings* confSettings = NULL;
 	if (StelFileMgr::exists(configFileFullPath))
 	{
+        qDebug()<<"configFileFullPath exists: "<<configFileFullPath;
 		// Implement "restore default settings" feature.
 		bool restoreDefaultConfigFile = false;
 		if (CLIProcessor::argsGetOption(argList, "", "--restore-defaults"))
@@ -325,6 +330,7 @@ int main(int argc, char **argv)
 	if(timerGrain)
 		timeEndPeriod(timerGrain);
 #endif //Q_OS_WIN
+
 
 	return 0;
 }

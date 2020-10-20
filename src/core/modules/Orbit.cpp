@@ -30,6 +30,8 @@ using namespace std;
 // line from vsop87.c, but also used by Heafner, 5.3.12. This is mu, we ignore the comet's mass i.r.t. the Sun's.
 #define GAUSS_GRAV_CONST (0.01720209895*0.01720209895)
 
+#define GAUSS_GRAV_k 0.01720209895
+
 #if defined(_MSC_VER)
 // cuberoot is missing in VC++ !?
 #define cbrt(x) pow((x),1./3.)
@@ -551,3 +553,12 @@ void CachingOrbit::sample(double start, double t, int nSamples, OrbitSampleProc&
 		proc.sample(positionAtTime(start + dt * i));
 }
 */
+
+
+// Calculate sidereal period in days from semi-major axis.
+// Source: Heafner, Fundamental Eph. Comp. p.71.
+double KeplerOrbit::calculateSiderealPeriod(const double semiMajorAxis, const double centralMass)
+{
+    // Solution for non-Solar central mass (Moons:) we need to take central mass (in Solar units) into account. Tested with comparison of preconfigured Moon data.
+    return (semiMajorAxis >0 ? (2.*M_PI/GAUSS_GRAV_k)*sqrt(semiMajorAxis*semiMajorAxis*semiMajorAxis/centralMass) : std::numeric_limits<double>::max() );
+}

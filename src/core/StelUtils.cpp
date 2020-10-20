@@ -118,6 +118,41 @@ void radToDms(double angle, bool& sign, unsigned int& d, unsigned int& m, double
 	}
 }
 
+void radToDecDeg(double rad, bool &sign, double &deg)
+{
+    rad = std::fmod(rad,2.0*M_PI);
+    sign=true;
+    if (rad<0)
+    {
+        rad *= -1;
+        sign = false;
+    }
+    deg = rad*180./M_PI;
+}
+
+QString radToDecDegStr(const double angle, const int precision, const bool useD, const bool useC)
+{
+    QChar degsign('d');
+    QString str;
+    if (!useD)
+    {
+        degsign = 0x00B0;
+    }
+    bool sign;
+    double deg;
+    StelUtils::radToDecDeg(angle, sign, deg);
+    str = QString("%1%2%3").arg((sign?"+":"-"), QString::number(deg, 'f', precision), degsign);
+    if (useC)
+    {
+        if (!sign)
+            deg = 360. - deg;
+
+        str = QString("+%1%2").arg(QString::number(deg, 'f', precision), degsign);
+    }
+
+    return str;
+}
+
 /*************************************************************************
  Convert an angle in radian to a hms formatted string
  If the minute and second part are null are too small, don't print them
@@ -303,6 +338,14 @@ QString vec3fToHtmlColor(const Vec3f& v)
 		.arg(qMin(255, int(v[0] * 255)), 2, 16, QChar('0'))
 		.arg(qMin(255, int(v[1] * 255)), 2, 16, QChar('0'))
 		.arg(qMin(255, int(v[2] * 255)), 2, 16, QChar('0'));
+}
+
+QString vec3fToStr(const Vec3f &v)
+{
+    return QString("%1,%2,%3")
+        .arg(v[0],0,'f',6)
+        .arg(v[1],0,'f',6)
+        .arg(v[2],0,'f',6);
 }
 
 Vec3f htmlColorToVec3f(const QString& c)
@@ -1719,6 +1762,41 @@ QByteArray uncompress(const QByteArray& data)
 
     inflateEnd(&strm);
 	return out;
+}
+
+QString getOperatingSystemInfo()
+{
+    QString OS = "Unknown operating system";
+
+    #ifdef Q_OS_BSD4
+    // Check FreeBSD, NetBSD, OpenBSD and DragonFly BSD
+    QProcess uname;
+    uname.start("/usr/bin/uname -srm");
+    uname.waitForStarted();
+    uname.waitForFinished();
+    const QString BSDsystem = uname.readAllStandardOutput();
+    OS = BSDsystem.trimmed();
+    #else
+    OS = QSysInfo::prettyProductName();
+    #endif
+
+    return OS;
+}
+
+
+QString getUserAgentString()
+{
+    // Get info about operating system
+    QString os = StelUtils::getOperatingSystemInfo();
+    if (os.contains("FreeBSD"))
+        os = "FreeBSD";
+    else if (os.contains("NetBSD"))
+        os = "NetBSD";
+    else if (os.contains("OpenBSD"))
+        os = "OpenBSD";
+
+    // Set user agent as "Stellarium/$version$ ($operating system$; $CPU architecture$)"
+    return QString("Stellarium/%1 (%2; %3)").arg(StelUtils::getApplicationVersion(), os, QSysInfo::currentCpuArchitecture());
 }
 
 } // end of the StelUtils namespace

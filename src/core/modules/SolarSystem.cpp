@@ -58,6 +58,8 @@
 #include <QDebug>
 #include <QDir>
 
+#include <QStandardPaths>
+
 SolarSystem::SolarSystem()
 	: moonScale(1.),
 	  flagOrbits(false),
@@ -222,7 +224,19 @@ void cometOrbitPosFunc(double jd,double xyz[3], void* userDataPtr)
 // Init and load the solar system data
 void SolarSystem::loadPlanets()
 {
+
+    qDebug()<<"Silas:External: "<<QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 	qDebug() << "Loading Solar System data (1: planets and moons) ...";
+
+
+    StelFileMgr::makeSureDirExistsAndIsWritable(StelFileMgr::getUserDir()+"/data");
+    bool copyconfigflag = QFile::copy("assets:/data/ssystem_minor.ini", StelFileMgr::getUserDir()+"/data/ssystem_minor.ini");
+    QFile::setPermissions(StelFileMgr::getUserDir()+"/data/ssystem_minor.ini",
+                          QFile::permissions(StelFileMgr::getUserDir()+"/data/ssystem_minor.ini") | QFileDevice::WriteOwner);
+    if (!copyconfigflag)
+        qDebug()<<"copy ssystem_minor fail!";
+
+
 	QString solarSystemFile = StelFileMgr::findFile("data/ssystem_major.ini");
 	if (solarSystemFile.isEmpty())
 	{
@@ -246,9 +260,10 @@ void SolarSystem::loadPlanets()
 
 	foreach (const QString& solarSystemFile, solarSystemFiles)
 	{
+        qDebug()<<solarSystemFile<<" progressing:silas";
 		if (loadPlanets(solarSystemFile))
 		{
-			qDebug() << "File ssystem_minor.ini is loaded successfully...";
+            qDebug() << "File ssystem_minor.ini is loaded successfully..."<<solarSystemFile;
 			break;
 		}
 		else

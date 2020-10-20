@@ -34,6 +34,38 @@
 // speed of light (km/sec)
 #define SPEED_OF_LIGHT 299792.458
 
+// Add a few frequently used extra math-type literals
+#ifndef M_PI_180
+    #define M_PI_180    (M_PI/180.)
+#endif
+#ifndef M_180_PI
+    #define M_180_PI    (180./M_PI)
+#endif
+// Add some math literals in float version to avoid many static_casts
+#ifndef M_PIf
+    #define M_PIf       3.14159265358979323846f   // pi
+#endif
+#ifndef M_PI_2f
+    #define M_PI_2f     1.57079632679489661923f   // pi/2
+#endif
+#ifndef M_PI_4f
+    #define M_PI_4f     0.785398163397448309616f  // pi/4
+#endif
+#ifndef M_1_PIf
+    #define M_1_PIf     0.318309886183790671538f  // 1/pi
+#endif
+#ifndef M_2_PIf
+    #define M_2_PIf     0.636619772367581343076f  // 2/pi
+#endif
+#ifndef M_PI_180f
+    #define M_PI_180f   (M_PIf/180.f)
+#endif
+#ifndef M_180_PIf
+    #define M_180_PIf   (180.f/M_PIf)
+#endif
+
+#define stelpow10f(x) std::exp((x) * 2.3025850930f)
+
 //! @namespace StelUtils contains general purpose utility functions.
 namespace StelUtils
 {
@@ -72,6 +104,20 @@ namespace StelUtils
 	//! @param s second component
 	void radToDms(double rad, bool& sign, unsigned int& d, unsigned int& m, double& s);
 
+    //! Convert an angle in radian to decimal degree.
+    //! @param rad input angle in radian
+    //! @param sign true if positive, false otherwise
+    //! @param deg decimal degree
+    void radToDecDeg(double rad, bool& sign, double& deg);
+
+    //! Convert an angle in radian to a decimal degree string.
+    //! @param angle input angle in radian
+    //! @param precision
+    //! @param useD Define if letter "d" must be used instead of deg sign
+    //! @param useC Define if function should use 0-360 degrees
+    QString radToDecDegStr(const double angle, const int precision = 4, const bool useD=false, const bool useC=false);
+
+
 	//! Convert an angle in radian to a hms formatted string.
 	//! If the second, minute part is == 0, it is not output
 	//! @param angle input angle in radian
@@ -109,6 +155,8 @@ namespace StelUtils
 	//! @param v The vector
 	//! @return The string in HTML color notation "#rrggbb".
 	QString vec3fToHtmlColor(const Vec3f& v);
+
+    QString vec3fToStr(const Vec3f &v);
 
 	//! Converts a color in HTML notation to a Vec3f.
 	//! @param c The HTML spec color string
@@ -568,6 +616,12 @@ namespace StelUtils
 	}
 	//! Uncompress gzip or zlib compressed data.
 	QByteArray uncompress(const QByteArray& data);
+
+    //! Return the user agent name, i.e. "Stellarium/0.15.0 (Linux)"
+    QString getUserAgentString();
+
+    //! Return the name and the version of operating system, i.e. "Mac OS X 10.7"
+    QString getOperatingSystemInfo();
 }
 
 #endif // _STELUTILS_HPP_

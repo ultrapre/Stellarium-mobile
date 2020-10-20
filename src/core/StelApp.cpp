@@ -52,6 +52,8 @@
 #include "StelVideoMgr.hpp"
 #include "StelGuiBase.hpp"
 #include "StelPainter.hpp"
+
+
 #ifndef DISABLE_SCRIPTING
  #include "StelScriptMgr.hpp"
  #include "StelMainScriptAPIProxy.hpp"

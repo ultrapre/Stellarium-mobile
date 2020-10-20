@@ -116,11 +116,23 @@ StelDialog {
 					picker.valueChanged.connect(onValueChanged)
 				}
 			}
+
+            StelButton {
+                text: qsTr("Update Comets (GVB)")
+                action: "action_updatecomets1"
+            }
+
+            StelButton {
+                text: qsTr("Update Comets (MPC)")
+                action: "action_updatecomets2"
+            }
+
 			StelButton {
 				text: qsTr("Restore default settings")
 				anchors.margins: rootStyle.margin
 				onClicked: stellarium.resetSettings()
 			}
+
 		}
 	}
 }

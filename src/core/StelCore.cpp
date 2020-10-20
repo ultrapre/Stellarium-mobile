@@ -38,6 +38,9 @@
 #include "StelTranslator.hpp"
 #include "StelActionMgr.hpp"
 
+#include "SolarSystemEditor.hpp"
+#include "updatecomets.h"
+
 #include <qopengl.h>
 #include <QSettings>
 #include <QDebug>
@@ -205,6 +208,10 @@ void StelCore::init()
 	actionsMgr->addAction("actionHorizontal_Flip", displayGroup, N_("Flip scene horizontally"), this, "flipHorz", "Ctrl+Shift+H", "", true);
 	actionsMgr->addAction("actionVertical_Flip", displayGroup, N_("Flip scene vertically"), this, "flipVert", "Ctrl+Shift+V", "", true);
 	
+    //silas
+    actionsMgr->addAction("action_updatecomets1", "Plugins", N_("Update Comets (GVB)"), this, "UpdateCometsCore1()");
+    actionsMgr->addAction("action_updatecomets2", "Plugins", N_("Update Comets (MPC)"), this, "UpdateCometsCore2()");
+
 }
 
 
@@ -1696,4 +1703,31 @@ QString StelCore::getCurrentDeltaTAlgorithmValidRange(double jDay, QString *mark
 		*marker = "?";
 
 	return QString(" %1").arg(validRange);
+}
+
+
+
+//!
+class UpdateComets;
+
+//overwrite
+void StelCore::UpdateCometsCore1()
+{
+    qDebug()<<"update comets now!";
+    UpdateComets * uc = new UpdateComets();
+    uc->startDownload("http://astro.vanbuitenen.nl/cometelements?format=mpc&mag=obs");
+}
+//overwrite
+void StelCore::UpdateCometsCore2()
+{
+    qDebug()<<"update comets now!";
+    UpdateComets * uc = new UpdateComets();
+    uc->startDownload("https://www.minorplanetcenter.net/iau/Ephemerides/Comets/Soft00Cmt.txt");
+}
+//overwrite
+void StelCore::UpdateCometsCore3()
+{
+    qDebug()<<"update comets now!";
+    UpdateComets * uc = new UpdateComets();
+    uc->startDownload("https://www.minorplanetcenter.net/iau/MPCORB/CometEls.txt");
 }

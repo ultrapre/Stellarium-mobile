@@ -76,14 +76,14 @@ QMap<QString, StelLocation> StelLocationMgr::loadCitiesBin(const QString& fileNa
 	if (fileName.endsWith(".gz"))
 	{
 		QDataStream in(StelUtils::uncompress(sourcefile.readAll()));
-		in.setVersion(QDataStream::Qt_4_6);
+        in.setVersion(QDataStream::Qt_4_6);
 		in >> res;
 		return res;
 	}
 	else
 	{
 		QDataStream in(&sourcefile);
-		in.setVersion(QDataStream::Qt_4_6);
+        in.setVersion(QDataStream::Qt_4_6);
 		in >> res;
 		return res;
 	}

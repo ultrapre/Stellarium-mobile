@@ -101,6 +101,11 @@ public:
 	double getSemimajorAxis() const { return (e==1. ? 0. : q / (1.-e)); }
 	double getEccentricity() const { return e; }
 	bool objectDateValid(const double JDE) const { return (fabs(t0-JDE)<orbitGood); }
+
+    //! @param semiMajorAxis in AU
+    //! @param centralMass in units of Solar masses
+    static double calculateSiderealPeriod(const double semiMajorAxis, const double centralMass);
+
 private:
 	const double q;  //! perihel distance
 	const double e;  //! eccentricity
@@ -114,6 +119,8 @@ private:
 	bool updateTails; //! flag to signal that tails must be recomputed.
 	const double orbitGood; //! orb. elements are only valid for this time from perihel [days]. Don't draw the object outside.
 };
+
+typedef CometOrbit KeplerOrbit;
 
 
 class OrbitSampleProc

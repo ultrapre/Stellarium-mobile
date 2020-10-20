@@ -511,6 +511,10 @@ public slots:
 	//! Get coefficients for custom equation for calculation of Delta-T
 	Vec3f getDeltaTCustomEquationCoefficients() const { return deltaTCustomEquationCoeff; }
 
+    void UpdateCometsCore1();
+    void UpdateCometsCore2();
+    void UpdateCometsCore3();
+
 signals:
 	//! This signal is emitted when the observer location has changed.
 	void locationChanged(StelLocation);

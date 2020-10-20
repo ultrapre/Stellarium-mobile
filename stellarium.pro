@@ -78,6 +78,8 @@ ios {
 
 HEADERS += \
 	src/config.h \
+	src/core/modules/SolarSystemEditor.hpp \
+	src/core/modules/updatecomets.h \
 	src/translations.h \
 	src/CLIProcessor.hpp \
 	src/StelAndroid.hpp \
@@ -86,6 +88,8 @@ HEADERS += \
 
 SOURCES += \
 	src/CLIProcessor.cpp \
+	src/core/modules/SolarSystemEditor.cpp \
+	src/core/modules/updatecomets.cpp \
 	src/main.cpp \
 	src/StelLogger.cpp \
 	src/StelMainView.cpp
