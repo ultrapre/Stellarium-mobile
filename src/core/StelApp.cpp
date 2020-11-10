@@ -41,6 +41,8 @@
 #include "SensorsMgr.hpp"
 #include "GPSMgr.hpp"
 
+#include "Oculars.hpp"
+
 #include "StelProgressController.hpp"
 #include "StelModuleMgr.hpp"
 #include "StelLocaleMgr.hpp"
@@ -447,6 +449,13 @@ void StelApp::init(QSettings* conf)
 	GPSMgr* gps = new GPSMgr();
 	gps->init();
 	getModuleMgr().registerModule(gps);
+
+
+    //telrad_oculars
+    Oculars* occu = new Oculars();
+    occu->init();
+    getModuleMgr().registerModule(occu);
+
 
 	skyCultureMgr->init();
 

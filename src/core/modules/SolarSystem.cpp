@@ -153,7 +153,7 @@ void SolarSystem::init()
 	addAction("actionShow_Planets_Labels", displayGroup, N_("Planet labels"), "labelsDisplayed", "P");
 	addAction("actionShow_Planets_Orbits", displayGroup, N_("Planet orbits"), "orbitsDisplayed", "O");
 	addAction("actionShow_Planets_Trails", displayGroup, N_("Planet trails"), "trailsDisplayed", "Shift+T");
-	addAction("actionShow_Planets_Hints", displayGroup, N_("Planet markers"), "hintsDisplayed");
+    addAction("actionShow_Planets_Hints", displayGroup, N_("Planet markers"), "hintsDisplayed");
 }
 
 void SolarSystem::recreateTrails()
