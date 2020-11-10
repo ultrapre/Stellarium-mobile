@@ -90,6 +90,10 @@ public:
 	//! Return the global landscape luminance, for being used e.g for setting eye adaptation.
 	float getLuminance();
 
+
+    //! return average luminance [cd/m^2] of atmosphere. Expect 10 at sunset, 6400 in daylight, >0 in dark night.
+    float getAtmosphereAverageLuminance() const;
+
 	//! Load a landscape based on a hash of parameters mirroring the landscape.ini
 	//! file and make it the current landscape.
 	bool loadLandscape(QMap<QString, QString>& param);

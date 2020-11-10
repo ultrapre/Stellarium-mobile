@@ -26,6 +26,7 @@
 #include <QString>
 #include <QVarLengthArray>
 #include <QFontMetrics>
+#include "config.h" //silas
 
 class QOpenGLShaderProgram;
 
@@ -229,6 +230,15 @@ public:
 	//! Get the font metrics for the current font.
 	QFontMetrics getFontMetrics() const;
 
+	//! Enable OpenGL blending. By default, blending is disabled.
+    //! The additional parameters specify the blending mode, the default parameters are suitable for
+    //! "normal" blending operations that you want in most cases. Blending will be automatically disabled when
+    //! the StelPainter is destroyed.
+    void setBlending(bool enableBlending, GLenum blendSrc = GL_SRC_ALPHA, GLenum blendDst = GL_ONE_MINUS_SRC_ALPHA);
+
+    //! Set the OpenGL GL_CULL_FACE state, by default face culling is disabled
+    void setCullFace(bool enable);
+
 	//! Create the OpenGL shaders programs used by the StelPainter.
 	//! This method needs to be called once at init.
 	static void initGLShaders();
@@ -299,11 +309,18 @@ private:
 	public:
 		GLState();
 		~GLState();
-	private:
+	public:
 		bool blend;
 		int blendSrcRGB, blendDstRGB, blendSrcAlpha, blendDstAlpha;
-	};
+   
 
+		GLenum blendSrc, blendDst;
+		bool depthTest;
+		bool depthMask;
+		bool cullFace;
+		bool lineSmooth;
+		GLfloat lineWidth;
+	}glState;
 	static QCache<QByteArray, struct StringTexture> texCache;
 	struct StringTexture* getTexTexture(const QString& str, int pixelSize);
 

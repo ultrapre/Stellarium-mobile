@@ -2170,3 +2170,38 @@ void StelPainterLight::disable()
 {
 	enabled = false;
 }
+
+
+void StelPainter::setBlending(bool enableBlending, GLenum blendSrc, GLenum blendDst)
+{
+    if(enableBlending != glState.blend)
+    {
+        glState.blend = enableBlending;
+        if(enableBlending)
+            glEnable(GL_BLEND);
+        else
+            glDisable(GL_BLEND);
+    }
+    if(enableBlending)
+    {
+        if(blendSrc!=glState.blendSrc||blendDst!=glState.blendDst)
+        {
+            glState.blendSrc = blendSrc;
+            glState.blendDst = blendDst;
+            glBlendFunc(blendSrc,blendDst);
+        }
+    }
+}
+
+
+void StelPainter::setCullFace(bool enable)
+{
+    if(glState.cullFace!=enable)
+    {
+        glState.cullFace = enable;
+        if(enable)
+            glEnable(GL_CULL_FACE);
+        else
+            glDisable(GL_CULL_FACE);
+    }
+}
