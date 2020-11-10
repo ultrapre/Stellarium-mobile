@@ -118,21 +118,21 @@ void StelTexture::wrapGLTexture(GLuint texId)
  *************************************************************************/
 void StelTexture::reportError(const QString& aerrorMessage)
 {
-	errorOccured = true;
-	errorMessage = aerrorMessage;
-	// Report failure of texture loading
-	emit(loadingProcessFinished(true));
+    errorOccured = true;
+    errorMessage = aerrorMessage;
+    // Report failure of texture loading
+    emit(loadingProcessFinished(true));
 }
 
 StelTexture::GLData StelTexture::imageToGLData(const QImage &image)
 {
-	GLData ret;
-	if (image.isNull())
-		return ret;
-	ret.width = image.width();
-	ret.height = image.height();
-	ret.data = convertToGLFormat(image, &ret.format, &ret.type);
-	return ret;
+    GLData ret = GLData();
+    if (image.isNull())
+        return ret;
+    ret.width = image.width();
+    ret.height = image.height();
+    ret.data = convertToGLFormat(image, &ret.format, &ret.type);
+    return ret;
 }
 
 
@@ -279,21 +279,21 @@ void StelTexture::onNetworkReply()
 *************************************************************************/
 bool StelTexture::getDimensions(int &awidth, int &aheight)
 {
-	if (width<0 || height<0)
-	{
-		// Try to get the size from the file without loading data
-		QImageReader im(fullPath);
-		if (!im.canRead())
-		{
-			return false;
-		}
-		QSize size = im.size();
-		width = size.width();
-		height = size.height();
-	}
-	awidth = width;
-	aheight = height;
-	return true;
+    if (width<0 || height<0)
+    {
+        // Try to get the size from the file without loading data
+        QImageReader im(fullPath);
+        if (!im.canRead())
+        {
+            return false;
+        }
+        QSize size = im.size();
+        width = size.width();
+        height = size.height();
+    }
+    awidth = width;
+    aheight = height;
+    return true;
 }
 
 QByteArray StelTexture::convertToGLFormat(const QImage& image, GLint *format, GLint *type)
