@@ -8,7 +8,7 @@ Archive Version of v1.29.6: https://github.com/ultrapre/Stellarium-mobile/releas
 
 This also can be compiled to Windows Version, see release
 
-[fixing way here](https://github.com/ultrapre/stellarium_lite)
+[fixing way here:](https://github.com/ultrapre/stellarium_lite)
 
 **New feature:**
 
