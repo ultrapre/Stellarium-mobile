@@ -1,4 +1,4 @@
-/*
+﻿/*
  * The big star catalogue extension to Stellarium:
  * Author and Copyright: Johannes Gajdosik, 2006, 2007
  *
@@ -51,7 +51,9 @@ static inline float IndexToBV(unsigned char bV) {
 #pragma pack(1)
 #endif
 struct Star1 { // 28 byte
-#ifdef _MSC_BUILD
+    //silas
+#ifdef Q_OS_WIN
+//#ifdef _MSC_BUILD
   unsigned int hip:24;         // 17 bits needed
   unsigned int componentIds:8; //  5 bits needed
 #else

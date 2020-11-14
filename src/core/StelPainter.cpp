@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Stellarium
  * Copyright (C) 2008 Fabien Chereau
  *
@@ -141,7 +141,8 @@ StelPainter::GLState::~GLState()
 	if (blend)
 	{
 		glEnable(GL_BLEND);
-		glBlendFuncSeparate(blendSrcRGB, blendDstRGB, blendSrcAlpha, blendDstAlpha);
+        //silas
+//		glBlendFuncSeparate(blendSrcRGB, blendDstRGB, blendSrcAlpha, blendDstAlpha);
 	}
 	else
 	{
