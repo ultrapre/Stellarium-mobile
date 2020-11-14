@@ -8,6 +8,8 @@ Archive Version of v1.29.6: https://github.com/ultrapre/Stellarium-mobile/releas
 
 This also can be compiled to Windows Version, see release
 
+[fixing way](https://github.com/ultrapre/stellarium_lite)
+
 **New feature:**
 
 - [x] Button for update comets in Advance Panel
