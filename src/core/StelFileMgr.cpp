@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Stellarium
  * Copyright (C) 2010 Fabien Chereau
  *
@@ -36,11 +36,16 @@
 # include <QLibrary>
 # endif
 #endif
-
+#ifdef Q_OS_ANDROID
+#include <QtAndroid>
+#endif
 #include "StelFileMgr.hpp"
 
 // Initialize static members.
 QStringList StelFileMgr::fileLocations;
+#ifdef Q_OS_ANDROID
+QString StelFileMgr::cuserDir;
+#endif
 QString StelFileMgr::userDir;
 QString StelFileMgr::screenshotDir;
 QString StelFileMgr::installDir;
@@ -57,7 +62,34 @@ void StelFileMgr::init()
 #elif defined(Q_OS_MAC)
 	userDir = QDir::homePath() + "/Library/Application Support/Stellarium";
 #else
-	userDir = QDir::homePath() + "/.stellarium";
+    userDir = QDir::homePath() + "/.stellarium";
+#endif
+
+#ifdef Q_OS_ANDROID
+    QStringList perms;
+    perms << "android.permission.WRITE_EXTERNAL_STORAGE" << "android.permission.ACCESS_FINE_LOCATION" << "android.permission.READ_EXTERNAL_STORAGE" << "android.permission.ACCESS_COARSE_LOCATION";
+    QtAndroid::PermissionResultMap checkPerms = QtAndroid::requestPermissionsSync(perms);
+    QHash<QString, QtAndroid::PermissionResult>::iterator i;
+    for (i = checkPerms.begin(); i != checkPerms.end(); i++)
+        qDebug() << i.key() << ": " << (i.value() == QtAndroid::PermissionResult::Granted);
+
+    cuserDir = QString::fromLocal8Bit(qgetenv("EXTERNAL_STORAGE")) + "/stellarium";
+
+    //cuser
+    if (!QFile(cuserDir).exists())
+    {
+        qWarning() << "User config directory does not exist: " << QDir::toNativeSeparators(cuserDir);
+    }
+    try
+    {
+        makeSureDirExistsAndIsWritable(cuserDir);
+        fileLocations.append(cuserDir);  // Higher priority than default dir
+        qDebug() << "User config directory " << QDir::toNativeSeparators(cuserDir) << " added to list.";
+    }
+    catch (std::runtime_error &e)
+    {
+        qWarning() << "Cannot write to SD card, will not add custom user directory";
+    }
 #endif
 
 	if (!QFile(userDir).exists())
@@ -71,7 +103,7 @@ void StelFileMgr::init()
 	catch (std::runtime_error &e)
 	{
 		qFatal("Error: cannot create user config directory: %s", e.what());
-	}
+    }
 
     //silas
     fileLocations.append(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));

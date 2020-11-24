@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Stellarium
  * Copyright (C) 2008 Stellarium Developers
  *
@@ -210,7 +210,10 @@ private:
 
 	//! Used to store the user data directory
 	static QString userDir;
-
+#ifdef Q_OS_ANDROID
+    // Custom user dir
+    static QString cuserDir;
+#endif
 	//! Used to store the screenshot directory
 	static QString screenshotDir;
 

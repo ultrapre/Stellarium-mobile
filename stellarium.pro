@@ -11,6 +11,22 @@ INCLUDEPATH += \
 
 TEMPLATE = app
 QT += network gui sensors qml quick positioning concurrent
+
+QT += \
+        core \
+        gui \
+        widgets \
+        concurrent \
+        script \
+        multimedia \
+        multimediawidgets \
+        positioning \
+        serialport \
+        printsupport \
+        network \
+        opengl \
+        sensors
+
 android {
 	QT += androidextras
 }
@@ -38,7 +54,7 @@ android {
 	QT += androidextras
 	ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 	ANDROID_PACKAGE = com.noctuasoftware.stellarium
-        ANDROID_MINIMUM_VERSION = 16
+        ANDROID_MINIMUM_VERSION = 21
 	ANDROID_TARGET_VERSION = 24
 	ANDROID_APP_NAME = Stellarium Mobile
 
@@ -126,7 +142,7 @@ DEFINES += MOBILE_GUI_VERSION_NOSTR=$${MOBILE_VERSION}
 DEFINES += INSTALL_DATADIR_NOSTR=
 
 contains(QT, quick) {
-	DEFINES += USE_QUICKVIEW
+        DEFINES += USE_QUICKVIEW
 	SOURCES += src/StelQuickView.cpp src/StelQuickStelItem.cpp
 	HEADERS += src/StelQuickView.hpp src/StelQuickStelItem.hpp
 }
@@ -378,4 +394,12 @@ OTHER_FILES += \
 	data/qml/ValuePicker.qml \
 
 DISTFILES += \
+    android/AndroidManifest.xml \
     mobile-guide/guide.md
+
+ANDROID_ABIS = armeabi-v7a
+
+contains(ANDROID_TARGET_ARCH,) {
+    ANDROID_ABIS = \
+        armeabi-v7a
+}
