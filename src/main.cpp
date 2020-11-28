@@ -117,8 +117,9 @@ int main(int argc, char **argv)
 	// Set QSG_RENDER_LOOP so that the qml view doesn't use a different thread
 	// for the rendering.  This is not optimized, but might fix some random
 	// crashes on android.
+#ifdef Q_OS_ANDROID
 	setenv("QSG_RENDER_LOOP", "basic", 1);
-
+#endif
 	QCoreApplication::setApplicationName("Stellarium Mobile");
 	QCoreApplication::setApplicationVersion(StelUtils::getApplicationVersion());
 	QCoreApplication::setOrganizationDomain("stellarium.org");
@@ -133,7 +134,9 @@ int main(int argc, char **argv)
 	// The QApplication MUST be created before the StelFileMgr is initialized.
 	QApplication app(argc, argv);
 #else
-	QGuiApplication::setDesktopSettingsAware(false);
+#ifdef Q_OS_ANDROID
+    QGuiApplication::setDesktopSettingsAware(false);
+#endif
 	QGuiApplication app(argc, argv);
 #endif
 
