@@ -35,7 +35,7 @@ jobs:
         export ANDROID_SDK_ROOT=$ANDROID_HOME
         export ANDROID_NDK_ROOT=$ANDROID_HOME/ndk-bundle
         qmake
-        make
+        make -j12
         make apk
     - name: show filetrees
       run: |
