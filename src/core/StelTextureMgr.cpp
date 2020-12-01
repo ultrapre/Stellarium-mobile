@@ -43,7 +43,7 @@ StelTextureMgr::StelTextureMgr(QObject *parent)
 #ifdef Q_PROCESSOR_X86_64
 	//allow up to 4 textures to be loaded in parallel on 64 bit
 	loaderThreadPool->setMaxThreadCount(std::min(4,QThread::idealThreadCount()));
-    qDebug() << "Architecture is x86_64 using " << loaderThreadPool->maxThreadCout() << " Thread";
+    //qDebug() << "Architecture is x86_64 using " << loaderThreadPool->maxThreadCout() << " Thread";
 #else
 	//on other archs, for now ensure that just 1 texture is at once in background
 	//otherwise, for large textures loaded in parallel (some scenery3d scenes), the risk of an out-of-memory error is greater on 32bit systems
