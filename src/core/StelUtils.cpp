@@ -1768,7 +1768,9 @@ QString getOperatingSystemInfo()
 {
     QString OS = "Unknown operating system";
 
-    #ifdef Q_OS_BSD4
+    #ifdef Q_OS_IOS  //silas
+    OS = QSysInfo::prettyProductName();
+    #elif defined Q_OS_BSD4
     // Check FreeBSD, NetBSD, OpenBSD and DragonFly BSD
     QProcess uname;
     uname.start("/usr/bin/uname -srm");

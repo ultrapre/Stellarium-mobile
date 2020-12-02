@@ -230,7 +230,11 @@ void SolarSystem::loadPlanets()
 
 
     StelFileMgr::makeSureDirExistsAndIsWritable(StelFileMgr::getUserDir()+"/data");
+#ifdef Q_OS_IOS
+    bool copyconfigflag = QFile::copy("./data/ssystem_minor.ini", StelFileMgr::getUserDir()+"/data/ssystem_minor.ini");
+#else
     bool copyconfigflag = QFile::copy("assets:/data/ssystem_minor.ini", StelFileMgr::getUserDir()+"/data/ssystem_minor.ini");
+#endif
     QFile::setPermissions(StelFileMgr::getUserDir()+"/data/ssystem_minor.ini",
                           QFile::permissions(StelFileMgr::getUserDir()+"/data/ssystem_minor.ini") | QFileDevice::WriteOwner);
     if (!copyconfigflag)
