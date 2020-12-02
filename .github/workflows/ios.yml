@@ -14,9 +14,9 @@ jobs:
     strategy:
       matrix:
         # qt_ver: [5.12.10, 5.15.2]
-        qt_ver: [5.12.10]
+        qt_ver: [5.12.3, 5.12.10]
         qt_target: [ios]
-        xcode: [10.1]
+        xcode: [10.1, 10.3]
     steps:
       - name: Install Qt
         # if: steps.cacheqt.outputs.cache-hit != 'true'
@@ -36,7 +36,12 @@ jobs:
       - name: show filetrees
         run: |
           ls -R
+          mkdir stellarium
+          mkdir stellarium/Payload
+          cp -r Release-iphonesimulator/stellarium.app stellarium/Payload/stellarium.app
+          cd stellarium
+          zip -r stellarium-${{ matrix.qt_ver }}-${{ matrix.xcode }}.ipa Payload
       - uses: actions/upload-artifact@v1
         with:
-          name: Debug-APP
-          path: Release-iphonesimulator/stellarium.app
+          name: stellarium-${{ matrix.qt_ver }}-${{ matrix.xcode }}.ipa
+          path: stellarium/stellarium-${{ matrix.qt_ver }}-${{ matrix.xcode }}.ipa
