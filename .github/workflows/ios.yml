@@ -14,10 +14,11 @@ jobs:
     strategy:
       matrix:
         # qt_ver: [5.12.10, 5.15.2]
-        qt_ver: [5.12.3, 5.12.10]
+        qt_ver: [5.12.3]
         qt_target: [ios]
-        xcode: [10.1, 10.3]
+        xcode: [10.1]
     steps:
+      - run: sudo xcode-select -s '/Applications/Xcode_${{ matrix.xcode }}.app'
       - name: Install Qt
         # if: steps.cacheqt.outputs.cache-hit != 'true'
         uses: jurplel/install-qt-action@v2.10.0
