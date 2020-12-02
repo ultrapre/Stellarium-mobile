@@ -69,11 +69,11 @@ ios {
 	stars_dir.files = $$PWD/mobileData/stars
 	textures_dir.files = $$PWD/mobileData/textures
 	translations_dir.files = $$PWD/mobileData/translations
-	app_launch_images.files = $$PWD/ios/Launch.xib
-	QMAKE_BUNDLE_DATA += data_dir landscapes_dir nebulae_dir skycultures_dir stars_dir textures_dir translations_dir app_launch_images
-	QMAKE_INFO_PLIST = ios/Info.plist
+	# app_launch_images.files = $$PWD/ios/Launch.xib
+	QMAKE_BUNDLE_DATA += data_dir landscapes_dir nebulae_dir skycultures_dir stars_dir textures_dir translations_dir
+	# QMAKE_INFO_PLIST = ios/Info.plist
 	OBJECTIVE_SOURCES += src/core/modules/SensorsMgr.mm
-	QMAKE_ASSET_CATALOGS += ios/Images.xcassets
+	# QMAKE_ASSET_CATALOGS += ios/Images.xcassets
 }
 
 HEADERS += \
