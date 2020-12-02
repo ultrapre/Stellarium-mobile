@@ -16,7 +16,7 @@ jobs:
         # qt_ver: [5.12.10, 5.15.2]
         qt_ver: [5.12.10]
         qt_target: [ios]
-        xcode: [10.1, 10.3, 11]
+        xcode: [10.1]
     steps:
       - name: Install Qt
         # if: steps.cacheqt.outputs.cache-hit != 'true'
