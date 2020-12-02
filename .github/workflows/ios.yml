@@ -10,7 +10,7 @@ jobs:
   build:
     name: Build
     runs-on: macos-10.15
-    # 10.15
+    # 10.15 / 10.13.6
     strategy:
       matrix:
         # qt_ver: [5.12.10, 5.15.2]
