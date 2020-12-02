@@ -18,7 +18,7 @@ jobs:
         qt_target: [ios]
         xcode: [10.1, 10.3, 11]
     steps:
-      - run: sudo xcode-select -s '/Applications/Xcode_${{ matrix.xcode }}.app'
+      - run: sudo xcode-select -s '/Applications/Xcode_10.1.app'
       - name: Install Qt
         # if: steps.cacheqt.outputs.cache-hit != 'true'
         uses: jurplel/install-qt-action@v2.10.0
