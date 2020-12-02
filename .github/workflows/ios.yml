@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: macos-10.13.6
+    runs-on: macos-10.13
     # 10.15 / 10.13.6
     strategy:
       matrix:
