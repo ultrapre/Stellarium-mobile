@@ -91,7 +91,7 @@ public:
 	void setUndergroundExtinctionMode(UndergroundExtinctionMode mode) {undergroundExtinctionMode=mode;}
 	UndergroundExtinctionMode getUndergroundExtinctionMode() const {return undergroundExtinctionMode;}
 	
-private:
+public:
 	//! airmass computation for @param cosZ = cosine of zenith angle z (=sin(altitude)!).
 	//! The default (@param apparent_z = true) is computing airmass from observed altitude, following Rozenberg (1966) [X(90)~40].
 	//! if (@param apparent_z = false), we have geometrical altitude and compute airmass from that,

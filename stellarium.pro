@@ -10,7 +10,9 @@ INCLUDEPATH += \
 	src/core/planetsephems src/scripting
 
 TEMPLATE = app
-QT += network gui sensors qml quick positioning concurrent
+QT += network gui sensors qml quick positioning concurrent widgets
+
+
 android {
 	QT += androidextras
 }
@@ -347,7 +349,8 @@ SOURCES += \
 	src/core/planetsephems/sideral_time.c \
 	src/core/planetsephems/stellplanet.c \
 	src/core/planetsephems/tass17.c \
-	src/core/planetsephems/vsop87.c
+        src/core/planetsephems/vsop87.c \
+        src/core/VecMath.cpp \
 
 OTHER_FILES += \
 	data/qml/AboutDialog.qml \

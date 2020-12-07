@@ -72,6 +72,14 @@ public:
 	virtual QStringList listAllObjects(bool inEnglish) const = 0;
 
 	virtual QString getName() const = 0;
+
+
+    //! Auxiliary method of listMatchingObjects()
+    //! @param objName object name
+    //! @param objPrefix the first letters of the searched object
+    //! @param useStartOfWords decide if start of word is searched
+    //! @return true if it matches
+    bool matchObjectName(const QString& objName, const QString& objPrefix, bool useStartOfWords) const;
 };
 
 #endif // _STELOBJECTMODULE_HPP_
