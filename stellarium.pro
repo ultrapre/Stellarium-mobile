@@ -1,5 +1,5 @@
 
-TARGET = stellarium
+TARGET = stellariumMobile
 VERSION = 0.12.3
 MOBILE_VERSION = 1.29.6
 INCLUDEPATH += \
@@ -379,3 +379,5 @@ OTHER_FILES += \
 
 DISTFILES += \
     mobile-guide/guide.md
+
+ANDROID_ABIS = armeabi-v7a
