@@ -126,11 +126,6 @@ int main(int argc, char **argv)
     setenv("QSG_RENDER_LOOP", "basic", 1);
 #endif
 
-=======
-#ifdef Q_OS_ANDROID
-	setenv("QSG_RENDER_LOOP", "basic", 1);
-#endif
-
 	QCoreApplication::setApplicationName("Stellarium Mobile");
 	QCoreApplication::setApplicationVersion(StelUtils::getApplicationVersion());
 	QCoreApplication::setOrganizationDomain("stellarium.org");
