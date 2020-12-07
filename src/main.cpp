@@ -120,9 +120,15 @@ int main(int argc, char **argv)
 	// for the rendering.  This is not optimized, but might fix some random
 	// crashes on android.
 
+
     //silas
 #ifdef Q_OS_ANDROID
     setenv("QSG_RENDER_LOOP", "basic", 1);
+#endif
+
+=======
+#ifdef Q_OS_ANDROID
+	setenv("QSG_RENDER_LOOP", "basic", 1);
 #endif
 
 	QCoreApplication::setApplicationName("Stellarium Mobile");
@@ -139,7 +145,7 @@ int main(int argc, char **argv)
 	// The QApplication MUST be created before the StelFileMgr is initialized.
 	QApplication app(argc, argv);
 #else
-    //silas
+
 #ifdef Q_OS_ANDROID
     QGuiApplication::setDesktopSettingsAware(false);
 #endif

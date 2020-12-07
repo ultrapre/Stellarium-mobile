@@ -141,8 +141,9 @@ StelPainter::GLState::~GLState()
 	if (blend)
 	{
 		glEnable(GL_BLEND);
-        //silas
-//		glBlendFuncSeparate(blendSrcRGB, blendDstRGB, blendSrcAlpha, blendDstAlpha);
+#ifdef Q_OS_ANDROID
+		glBlendFuncSeparate(blendSrcRGB, blendDstRGB, blendSrcAlpha, blendDstAlpha);
+#endif
 	}
 	else
 	{
