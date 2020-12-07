@@ -983,8 +983,7 @@ QList<SsoElements> SolarSystemEditor::readMpcOneLineMinorPlanetElementsFromFile(
 
 bool SolarSystemEditor::appendToSolarSystemConfigurationFile(QList<SsoElements> objectList)
 {
-	qDebug() << "appendToSolarSystemConfigurationFile begin ... ";
-    qDebug() << "objectList.length():"<<objectList.length();
+
 	if (objectList.isEmpty())
 	{
 		return false;
@@ -992,6 +991,8 @@ bool SolarSystemEditor::appendToSolarSystemConfigurationFile(QList<SsoElements> 
 
 
     QString customSolarSystemFilePath = StelFileMgr::getUserDir()+"/data/ssystem_minor.ini";
+    qDebug() << "appendToSolarSystemConfigurationFile begin ... "<<customSolarSystemFilePath;
+    qDebug() << "objectList.length():"<<objectList.length();
 
 	//Check if the configuration file exists
 	if (!QFile::exists(customSolarSystemFilePath))

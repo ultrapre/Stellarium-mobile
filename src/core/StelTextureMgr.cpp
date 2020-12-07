@@ -31,10 +31,26 @@
 #include <QSettings>
 #include <cstdlib>
 #include <QOpenGLContext>
-
+#include <QThreadPool>
 
 void StelTextureMgr::init()
 {
+}
+
+StelTextureMgr::StelTextureMgr(QObject *parent)
+	: QObject(parent), glMemoryUsage(0), loaderThreadPool(new QThreadPool(this))
+{
+#ifdef Q_PROCESSOR_X86_64
+	//allow up to 4 textures to be loaded in parallel on 64 bit
+	loaderThreadPool->setMaxThreadCount(std::min(4,QThread::idealThreadCount()));
+    //qDebug() << "Architecture is x86_64 using " << loaderThreadPool->maxThreadCout() << " Thread";
+#else
+	//on other archs, for now ensure that just 1 texture is at once in background
+	//otherwise, for large textures loaded in parallel (some scenery3d scenes), the risk of an out-of-memory error is greater on 32bit systems
+    int tc = 2;
+    loaderThreadPool->setMaxThreadCount(tc);
+    qDebug() << "[TextureManager] Using" << tc << "Thread(s)";
+#endif
 }
 
 StelTextureSP StelTextureMgr::createTexture(const QString& afilename, const StelTexture::StelTextureParams& params)
@@ -42,8 +58,24 @@ StelTextureSP StelTextureMgr::createTexture(const QString& afilename, const Stel
 	if (afilename.isEmpty())
 		return StelTextureSP();
 
-	StelTextureSP tex = StelTextureSP(new StelTexture());
-	tex->fullPath = afilename;
+	QFileInfo info(afilename);
+	QString canPath = info.canonicalFilePath();
+
+	if(canPath.isEmpty()) //file does not exist
+	{
+		qWarning()<<"Texture"<<afilename<<"does not exist";
+		return StelTextureSP();
+	}
+
+	//lock it for thread safety
+	QMutexLocker locker(&mutex);
+
+	//try to find out if the tex is already loaded
+	StelTextureSP cache = lookupCache(canPath);
+	if(!cache.isNull()) return cache;
+
+    StelTextureSP tex = StelTextureSP(new StelTexture(this));
+	tex->fullPath = canPath;
 
 	QImage image(tex->fullPath);
 	if (image.isNull())
@@ -51,9 +83,15 @@ StelTextureSP StelTextureMgr::createTexture(const QString& afilename, const Stel
 
 	tex->loadParams = params;
 	if (tex->glLoad(image))
+	{
+		textureCache.insert(canPath,tex);
 		return tex;
+	}
 	else
+	{
+		qWarning()<<tex->getErrorMessage();
 		return StelTextureSP();
+	}
 }
 
 
@@ -62,12 +100,101 @@ StelTextureSP StelTextureMgr::createTextureThread(const QString& url, const Stel
 	if (url.isEmpty())
 		return StelTextureSP();
 
-	StelTextureSP tex = StelTextureSP(new StelTexture());
+	QString canPath = url;
+	if(!url.startsWith("http", Qt::CaseInsensitive) && !url.startsWith("file://", Qt::CaseInsensitive))
+	{
+		QFileInfo info(url);
+		canPath = info.canonicalFilePath();
+	}
+
+	if(canPath.isEmpty()) //file does not exist
+	{
+		qWarning()<<"Texture"<<url<<"does not exist";
+		return StelTextureSP();
+	}
+
+	//lock it for thread safety
+	QMutexLocker locker(&mutex);
+
+	//try to find out if the tex is already loaded
+	StelTextureSP cache = lookupCache(canPath);
+	if(!cache.isNull()) return cache;
+
+	StelTextureSP tex = StelTextureSP(new StelTexture(this));
 	tex->loadParams = params;
-	tex->fullPath = url;
+	tex->fullPath = canPath;
 	if (!lazyLoading)
 	{
-		tex->bind();
+		//use load() instead of bind() to prevent potential - if very unlikey - OpenGL errors
+		//because GL must be called in the main thread
+		tex->load();
 	}
+	textureCache.insert(canPath,tex);
 	return tex;
+}
+
+//! Create a texture from a QImage.
+StelTextureSP StelTextureMgr::createTexture(const QImage &image, const StelTexture::StelTextureParams& params)
+{
+	bool r;
+	StelTextureSP tex = StelTextureSP(new StelTexture(this));
+	tex->loadParams = params;
+	r = tex->glLoad(image);
+	Q_ASSERT(r);
+	return tex;
+}
+
+StelTextureSP StelTextureMgr::wrapperForGLTexture(GLuint texId)
+{
+	auto it = idMap.find(texId);
+	if(it!=idMap.end())
+	{
+		//find out if it is valid
+		StelTextureSP ref = it->toStrongRef();
+		if(ref)
+		{
+			return ref; //valid texture!
+		}
+		else
+		{
+			//remove the cache entry
+			it=idMap.erase(it);
+		}
+	}
+
+
+	//no existing tex with this ID found, create a new wrapper
+	StelTextureSP newTex(new StelTexture(this));
+	newTex->wrapGLTexture(texId);
+	if(!newTex->errorOccured)
+	{
+		idMap.insert(texId, newTex);
+		return newTex;
+	}
+	else
+	{
+		//error while wrapping
+		qWarning()<<newTex->getErrorMessage();
+		return StelTextureSP();
+	}
+}
+
+StelTextureSP StelTextureMgr::lookupCache(const QString &file)
+{
+	auto it = textureCache.find(file);
+	if(it!=textureCache.end())
+	{
+		//find out if it is valid
+		StelTextureSP ref = it->toStrongRef();
+		if(ref)
+		{
+			return ref; //valid texture!
+		}
+		else
+		{
+			//remove the cache entry
+			it=textureCache.erase(it);
+		}
+	}
+	return StelTextureSP();
 }

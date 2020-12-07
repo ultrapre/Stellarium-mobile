@@ -648,6 +648,7 @@ void StelQuickStelItem::resetSettings()
 	    {"actionShow_Meridian_Line", "viewing/flag_meridian_line"},
 	    {"actionNight_Mode", "viewing/flag_night"},
 	    {"actionShow_Constellation_Boundaries", "viewing/flag_constellation_boundaries"},
+//        {"actionShow_Telrads", "astro/flag_telrads"},
 	};
 	for (unsigned int i = 0; i < sizeof(actions) / sizeof(actions[0]); i++)
 	{

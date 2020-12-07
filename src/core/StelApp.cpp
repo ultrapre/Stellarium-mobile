@@ -41,6 +41,9 @@
 #include "SensorsMgr.hpp"
 #include "GPSMgr.hpp"
 
+#include "ToastMgr.hpp"
+#include "Oculars.hpp"
+
 #include "StelProgressController.hpp"
 #include "StelModuleMgr.hpp"
 #include "StelLocaleMgr.hpp"
@@ -403,6 +406,11 @@ void StelApp::init(QSettings* conf)
 	skyImageMgr->init();
 	getModuleMgr().registerModule(skyImageMgr);
 
+    // Toast surveys
+    ToastMgr* toasts = new ToastMgr();
+    toasts->init();
+    getModuleMgr().registerModule(toasts);
+
 	// Init audio manager
 	audioMgr = new StelAudioMgr();
 
@@ -447,6 +455,13 @@ void StelApp::init(QSettings* conf)
 	GPSMgr* gps = new GPSMgr();
 	gps->init();
 	getModuleMgr().registerModule(gps);
+
+
+    //telrad_oculars
+    Oculars* occu = new Oculars();
+    occu->init();
+    getModuleMgr().registerModule(occu);
+
 
 	skyCultureMgr->init();
 

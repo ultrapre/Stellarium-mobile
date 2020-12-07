@@ -986,3 +986,10 @@ QString LandscapeMgr::getDescription() const
 
 	return desc;
 }
+
+
+//m3
+float LandscapeMgr::getAtmosphereAverageLuminance() const
+{
+    return atmosphere->getAverageLuminance();
+}

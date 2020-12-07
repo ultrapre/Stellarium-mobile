@@ -100,12 +100,13 @@ public:
 	void reportLuminanceInFov(float lum, bool fastAdaptation=false);
 
 	//! To be called before the drawing stage starts
-	void preDraw();
+    void preDraw();
 
 	//! Compute the luminance for an extended source with the given surface brightness
 	//! @param sb surface brightness in V magnitude/arcmin^2
 	//! @return the luminance in cd/m^2
 	static float surfacebrightnessToLuminance(float sb);
+
 	//! Compute the surface brightness from the luminance of an extended source
 	//! @param lum luminance in cd/m^2
 	//! @return surface brightness in V magnitude/arcmin^2

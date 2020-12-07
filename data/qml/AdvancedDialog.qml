@@ -38,6 +38,20 @@ StelDialog {
 			width: root.width
 			height: childrenRect.height
 
+            StelListItem {
+                checkbox: true
+                action: "actionShow_Telrads"
+                setting: "astro/flag_telrads"
+                text: qsTr("Show telrads")
+            }
+
+            StelListItem {
+                checkbox: true
+                action: "actionShow_Toast_Survey"
+                setting: "astro/flag_toast_survey"
+                text: qsTr("Show toast survey")
+            }
+
 			StelListItem {
 				checkbox: true
 				action: "actionShow_Planets_Hints"

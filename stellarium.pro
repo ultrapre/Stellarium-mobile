@@ -10,7 +10,7 @@ INCLUDEPATH += \
 	src/core/planetsephems src/scripting
 
 TEMPLATE = app
-QT += network gui sensors qml quick positioning
+QT += network gui sensors qml quick positioning concurrent
 android {
 	QT += androidextras
 }
@@ -38,7 +38,7 @@ android {
 	QT += androidextras
 	ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 	ANDROID_PACKAGE = com.noctuasoftware.stellarium
-        ANDROID_MINIMUM_VERSION = 16
+        ANDROID_MINIMUM_VERSION = 21
 	ANDROID_TARGET_VERSION = 24
 	ANDROID_APP_NAME = Stellarium Mobile
 
@@ -78,7 +78,16 @@ ios {
 
 HEADERS += \
 	src/config.h \
+	src/core/StelOpenGL.hpp \
+	src/core/StelToast.hpp \
+	src/core/StelToastGrid.hpp \
+	src/core/modules/CCD.hpp \
+	src/core/modules/Lens.hpp \
+	src/core/modules/Ocular.hpp \
+	src/core/modules/Oculars.hpp \
 	src/core/modules/SolarSystemEditor.hpp \
+	src/core/modules/Telescope.hpp \
+	src/core/modules/ToastMgr.hpp \
 	src/core/modules/updatecomets.h \
 	src/translations.h \
 	src/CLIProcessor.hpp \
@@ -88,7 +97,16 @@ HEADERS += \
 
 SOURCES += \
 	src/CLIProcessor.cpp \
+	src/core/StelOpenGL.cpp \
+	src/core/StelToast.cpp \
+	src/core/StelToastGrid.cpp \
+	src/core/modules/CCD.cpp \
+	src/core/modules/Lens.cpp \
+	src/core/modules/Ocular.cpp \
+	src/core/modules/Oculars.cpp \
 	src/core/modules/SolarSystemEditor.cpp \
+	src/core/modules/Telescope.cpp \
+	src/core/modules/ToastMgr.cpp \
 	src/core/modules/updatecomets.cpp \
 	src/main.cpp \
 	src/StelLogger.cpp \
