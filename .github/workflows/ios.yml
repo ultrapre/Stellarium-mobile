@@ -9,14 +9,16 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: macos-10.15
-    # 10.15
+    runs-on: macos-10.14
+    # 10.15 / 10.13.6
     strategy:
       matrix:
         # qt_ver: [5.12.10, 5.15.2]
-        qt_ver: [5.12.10]
+        qt_ver: [5.12.3]
         qt_target: [ios]
+        xcode: [10.1]
     steps:
+      - run: sudo xcode-select -s '/Applications/Xcode_${{ matrix.xcode }}.app'
       - name: Install Qt
         # if: steps.cacheqt.outputs.cache-hit != 'true'
         uses: jurplel/install-qt-action@v2.10.0
@@ -35,7 +37,12 @@ jobs:
       - name: show filetrees
         run: |
           ls -R
+          mkdir stellarium
+          mkdir stellarium/Payload
+          cp -r Release-iphonesimulator/stellarium.app stellarium/Payload/stellarium.app
+          cd stellarium
+          zip -r stellarium-${{ matrix.qt_ver }}-${{ matrix.xcode }}.ipa Payload
       - uses: actions/upload-artifact@v1
         with:
-          name: Debug-APP
-          path: Release-iphonesimulator/stellarium.app
+          name: stellarium-${{ matrix.qt_ver }}-${{ matrix.xcode }}.ipa
+          path: stellarium/stellarium-${{ matrix.qt_ver }}-${{ matrix.xcode }}.ipa
