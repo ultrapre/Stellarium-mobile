@@ -414,30 +414,47 @@ QString Nebula::getInfoString(const StelCore *core, const InfoStringGroup& flags
 
     if ((flags&Name) || (flags&CatalogNumber))
         oss << "<h2>";
+// too short
 
-    if (nameI18!="" && flags&Name)
+//    if (nameI18!="" && flags&Name)
+//    {
+//        oss << getNameI18n();
+//    }
+
+//    if (flags&CatalogNumber)
+//    {
+//        if (nameI18!="" && flags&Name)
+//            oss << " (";
+
+//        QStringList catIds;
+//        if ((M_nb > 0) && (M_nb < 111))
+//            catIds << QString("M %1").arg(M_nb);
+//        if (NGC_nb > 0)
+//            catIds << QString("NGC %1").arg(NGC_nb);
+//        if (IC_nb > 0)
+//            catIds << QString("IC %1").arg(IC_nb);
+//        if ((C_nb > 0) && (C_nb < 110))
+//            catIds << QString("C %1").arg(C_nb);
+//        oss << catIds.join(" - ");
+
+//        if (nameI18!="" && flags&Name)
+//            oss << ")";
+//    }
+
+    if (!nameI18.isEmpty() && flags&Name)
     {
         oss << getNameI18n();
+        QString aliases = getI18nAliases();
+        if (!aliases.isEmpty() && flagShowAdditionalNames)
+            oss << " (" << aliases << ")";
     }
 
     if (flags&CatalogNumber)
     {
-        if (nameI18!="" && flags&Name)
-            oss << " (";
+        if (!nameI18.isEmpty() && !withoutID && flags&Name)
+            oss << "<br>";
 
-        QStringList catIds;
-        if ((M_nb > 0) && (M_nb < 111))
-            catIds << QString("M %1").arg(M_nb);
-        if (NGC_nb > 0)
-            catIds << QString("NGC %1").arg(NGC_nb);
-        if (IC_nb > 0)
-            catIds << QString("IC %1").arg(IC_nb);
-        if ((C_nb > 0) && (C_nb < 110))
-            catIds << QString("C %1").arg(C_nb);
-        oss << catIds.join(" - ");
-
-        if (nameI18!="" && flags&Name)
-            oss << ")";
+        oss << designations.join(" - ");
     }
 
     if ((flags&Name) || (flags&CatalogNumber))
