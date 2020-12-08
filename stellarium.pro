@@ -381,6 +381,12 @@ OTHER_FILES += \
 	data/qml/ValuePicker.qml \
 
 DISTFILES += \
+    data/qml/ViewDialog.qml \
     mobile-guide/guide.md
 
 ANDROID_ABIS = armeabi-v7a
+
+contains(ANDROID_TARGET_ARCH,) {
+    ANDROID_ABIS = \
+        armeabi-v7a
+}

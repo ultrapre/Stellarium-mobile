@@ -106,6 +106,10 @@ public:
 	float getGuiScaleFactor() const;
 	float getFov() const;
 	Q_INVOKABLE void writeSetting(const QString& key, bool value);
+
+    Q_INVOKABLE void updateSkyView();
+    Q_INVOKABLE bool getboolSetting(const QString key);
+
 	Q_INVOKABLE QStringList search(const QString& name);
 	Q_INVOKABLE void gotoObject(const QString& objectName);
 	QString getVersion() const {return MOBILE_GUI_VERSION;}

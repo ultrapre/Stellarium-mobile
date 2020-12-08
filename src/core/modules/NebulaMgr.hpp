@@ -407,6 +407,9 @@ public:
 	///////////////////////////////////////////////////////////////////////////
 	// Properties setters and getters
 public slots:
+
+    void updateCatalogShow();
+
 	void setCatalogFilters(Nebula::CatalogGroup cflags);
 	Nebula::CatalogGroup getCatalogFilters() const { return Nebula::catalogFilters; }
 

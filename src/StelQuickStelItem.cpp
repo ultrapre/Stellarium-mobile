@@ -37,6 +37,8 @@
 #include "StelActionMgr.hpp"
 #include "MilkyWay.hpp"
 
+#include "NebulaMgr.hpp"
+
 #ifdef Q_OS_ANDROID
 #include "StelAndroid.hpp"
 #endif
@@ -496,6 +498,19 @@ void StelQuickStelItem::writeSetting(const QString& key, bool value)
 	QSettings* conf = StelApp::getInstance().getSettings();
 	if (conf->value(key).toBool() == value) return;
 	conf->setValue(key, value);
+}
+
+
+void StelQuickStelItem::updateSkyView()
+{
+    qDebug()<<"GETSTELMODULE(NebulaMgr)->updateCatalogShow()";
+    GETSTELMODULE(NebulaMgr)->updateCatalogShow();
+}
+
+bool StelQuickStelItem::getboolSetting(const QString key)
+{
+    QSettings* conf = StelApp::getInstance().getSettings();
+    return conf->value(key,false).toBool();
 }
 
 QStringList StelQuickStelItem::search(const QString& text)

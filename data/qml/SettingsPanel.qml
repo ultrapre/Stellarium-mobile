@@ -49,7 +49,11 @@ StelDialog {
 		ListElement {
 			title: QT_TR_NOOP("Location")
 			page: "LocationDialog.qml"
-		}
+        }
+        ListElement {
+            title: QT_TR_NOOP("View")
+            page: "ViewDialog.qml"
+        }
 		ListElement {
 			title: QT_TR_NOOP("Starlore")
 			page: "StarloreDialog.qml"

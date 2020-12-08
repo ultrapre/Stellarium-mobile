@@ -524,6 +524,118 @@ struct DrawNebulaFuncObject
 	bool checkMaxMagHints;
 };
 
+void NebulaMgr::updateCatalogShow()
+{
+    QSettings* conf = StelApp::getInstance().getSettings();
+    Q_ASSERT(conf);
+
+
+
+    setFlagUseTypeFilters(conf->value("astro/flag_use_type_filter", false).toBool());
+
+
+    Nebula::CatalogGroup catalogFilters = Nebula::CatalogGroup(Q_NULLPTR);
+
+        conf->beginGroup("dso_catalog_filters");
+        if (conf->value("flag_show_ngc", true).toBool())
+            catalogFilters	|= Nebula::CatNGC;
+        if (conf->value("flag_show_ic", true).toBool())
+            catalogFilters	|= Nebula::CatIC;
+        if (conf->value("flag_show_m", true).toBool())
+            catalogFilters	|= Nebula::CatM;
+        if (conf->value("flag_show_c", false).toBool())
+            catalogFilters	|= Nebula::CatC;
+        if (conf->value("flag_show_b", false).toBool())
+            catalogFilters	|= Nebula::CatB;
+        if (conf->value("flag_show_sh2", false).toBool())
+            catalogFilters	|= Nebula::CatSh2;
+        if (conf->value("flag_show_vdb", false).toBool())
+            catalogFilters	|= Nebula::CatVdB;
+        if (conf->value("flag_show_lbn", false).toBool())
+            catalogFilters	|= Nebula::CatLBN;
+        if (conf->value("flag_show_ldn", false).toBool())
+            catalogFilters	|= Nebula::CatLDN;
+        if (conf->value("flag_show_rcw", false).toBool())
+            catalogFilters	|= Nebula::CatRCW;
+        if (conf->value("flag_show_cr", false).toBool())
+            catalogFilters	|= Nebula::CatCr;
+        if (conf->value("flag_show_mel", false).toBool())
+            catalogFilters	|= Nebula::CatMel;
+        if (conf->value("flag_show_pgc", false).toBool())
+            catalogFilters	|= Nebula::CatPGC;
+        if (conf->value("flag_show_ced", false).toBool())
+            catalogFilters	|= Nebula::CatCed;
+        if (conf->value("flag_show_ugc", false).toBool())
+            catalogFilters	|= Nebula::CatUGC;
+        if (conf->value("flag_show_arp", false).toBool())
+            catalogFilters	|= Nebula::CatArp;
+        if (conf->value("flag_show_vv", false).toBool())
+            catalogFilters	|= Nebula::CatVV;
+        if (conf->value("flag_show_pk", false).toBool())
+            catalogFilters	|= Nebula::CatPK;
+        if (conf->value("flag_show_png", false).toBool())
+            catalogFilters	|= Nebula::CatPNG;
+        if (conf->value("flag_show_snrg", false).toBool())
+            catalogFilters	|= Nebula::CatSNRG;
+        if (conf->value("flag_show_aco", false).toBool())
+            catalogFilters	|= Nebula::CatACO;
+        if (conf->value("flag_show_hcg", false).toBool())
+            catalogFilters	|= Nebula::CatHCG;
+        if (conf->value("flag_show_eso", false).toBool())
+            catalogFilters	|= Nebula::CatESO;
+        if (conf->value("flag_show_vdbh", false).toBool())
+            catalogFilters	|= Nebula::CatVdBH;
+        if (conf->value("flag_show_dwb", false).toBool())
+            catalogFilters	|= Nebula::CatDWB;
+        if (conf->value("flag_show_tr", false).toBool())
+            catalogFilters	|= Nebula::CatTr;
+        if (conf->value("flag_show_st", false).toBool())
+            catalogFilters	|= Nebula::CatSt;
+        if (conf->value("flag_show_ru", false).toBool())
+            catalogFilters	|= Nebula::CatRu;
+        if (conf->value("flag_show_vdbha", false).toBool())
+            catalogFilters	|= Nebula::CatVdBHa;
+        if (conf->value("flag_show_other", true).toBool())
+            catalogFilters	|= Nebula::CatOther;
+        conf->endGroup();
+
+        // NB: nebula set loaded inside setter of catalog filter
+        setCatalogFilters(catalogFilters);
+
+
+
+        Nebula::TypeGroup typeFilters = Nebula::TypeGroup(Q_NULLPTR);
+
+        conf->beginGroup("dso_type_filters");
+        if (conf->value("flag_show_galaxies", true).toBool())
+            typeFilters	|= Nebula::TypeGalaxies;
+        if (conf->value("flag_show_active_galaxies", true).toBool())
+            typeFilters	|= Nebula::TypeActiveGalaxies;
+        if (conf->value("flag_show_interacting_galaxies", true).toBool())
+            typeFilters	|= Nebula::TypeInteractingGalaxies;
+        if (conf->value("flag_show_open_clusters", true).toBool())
+            typeFilters	|= Nebula::TypeOpenStarClusters;
+        if (conf->value("flag_show_globular_clusters", true).toBool())
+            typeFilters	|= Nebula::TypeGlobularStarClusters;
+        if (conf->value("flag_show_bright_nebulae", true).toBool())
+            typeFilters	|= Nebula::TypeBrightNebulae;
+        if (conf->value("flag_show_dark_nebulae", true).toBool())
+            typeFilters	|= Nebula::TypeDarkNebulae;
+        if (conf->value("flag_show_planetary_nebulae", true).toBool())
+            typeFilters	|= Nebula::TypePlanetaryNebulae;
+        if (conf->value("flag_show_hydrogen_regions", true).toBool())
+            typeFilters	|= Nebula::TypeHydrogenRegions;
+        if (conf->value("flag_show_supernova_remnants", true).toBool())
+            typeFilters	|= Nebula::TypeSupernovaRemnants;
+        if (conf->value("flag_show_galaxy_clusters", true).toBool())
+            typeFilters	|= Nebula::TypeGalaxyClusters;
+        if (conf->value("flag_show_other", true).toBool())
+            typeFilters	|= Nebula::TypeOther;
+        conf->endGroup();
+
+        setTypeFilters(typeFilters);
+}
+
 void NebulaMgr::setCatalogFilters(Nebula::CatalogGroup cflags)
 {
 	if(static_cast<int>(cflags) != static_cast<int>(Nebula::catalogFilters))
