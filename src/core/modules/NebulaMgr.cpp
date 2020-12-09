@@ -234,13 +234,17 @@ void NebulaMgr::init()
 	setFlagHints(conf->value("astro/flag_nebula_name",false).toBool());
 	setHintsAmount(conf->value("astro/nebula_hints_amount", 3.0).toDouble());
 	setLabelsAmount(conf->value("astro/nebula_labels_amount", 3.0).toDouble());
-	setHintsProportional(conf->value("astro/flag_nebula_hints_proportional", false).toBool());
+
+    setHintsProportional(conf->value("astro/flag_nebula_hints_proportional", false).toBool());
 	setFlagOutlines(conf->value("astro/flag_dso_outlines_usage", false).toBool());
 	setFlagAdditionalNames(conf->value("astro/flag_dso_additional_names",true).toBool());
 	setDesignationUsage(conf->value("astro/flag_dso_designation_usage", false).toBool());
-	setFlagSurfaceBrightnessUsage(conf->value("astro/flag_surface_brightness_usage", false).toBool());
-	setFlagSurfaceBrightnessArcsecUsage(conf->value("gui/flag_surface_brightness_arcsec", false).toBool());
+
+    setFlagSurfaceBrightnessUsage(conf->value("astro/flag_surface_brightness_usage", false).toBool());
+
+    setFlagSurfaceBrightnessArcsecUsage(conf->value("gui/flag_surface_brightness_arcsec", false).toBool());
 	setFlagSurfaceBrightnessShortNotationUsage(conf->value("gui/flag_surface_brightness_short", false).toBool());
+
 
 	setFlagSizeLimitsUsage(conf->value("astro/flag_size_limits_usage", false).toBool());
 	setMinSizeLimit(conf->value("astro/size_limit_min", 1.0).toDouble());
@@ -529,7 +533,21 @@ void NebulaMgr::updateCatalogShow()
     QSettings* conf = StelApp::getInstance().getSettings();
     Q_ASSERT(conf);
 
+    setHintsProportional(conf->value("astro/flag_nebula_hints_proportional", false).toBool());
+    setFlagOutlines(conf->value("astro/flag_dso_outlines_usage", false).toBool());
+    setFlagAdditionalNames(conf->value("astro/flag_dso_additional_names",true).toBool());
+    setDesignationUsage(conf->value("astro/flag_dso_designation_usage", false).toBool());
+    setFlagSurfaceBrightnessUsage(conf->value("astro/flag_surface_brightness_usage", false).toBool());
 
+    setFlagSizeLimitsUsage(conf->value("astro/flag_size_limits_usage", false).toBool());
+    setMinSizeLimit(conf->value("astro/size_limit_min", 1.0).toDouble());
+    setMaxSizeLimit(conf->value("astro/size_limit_max", 600.0).toDouble());
+
+//    GETSTELMODULE(StelSkyDrawer)->setFlagNebulaMagnitudeLimit((conf->value("astro/flag_nebula_magnitude_limit", false).toBool()));
+//    GETSTELMODULE(StelSkyDrawer)->setCustomNebulaMagnitudeLimit(conf->value("astro/nebula_magnitude_limit", 8.5).toFloat());
+
+    setHintsAmount(conf->value("astro/nebula_hints_amount", 3.0).toDouble());
+    setLabelsAmount(conf->value("astro/nebula_labels_amount", 3.0).toDouble());
 
     setFlagUseTypeFilters(conf->value("astro/flag_use_type_filter", false).toBool());
 

@@ -496,21 +496,39 @@ float StelQuickStelItem::getFov() const
 void StelQuickStelItem::writeSetting(const QString& key, bool value)
 {
 	QSettings* conf = StelApp::getInstance().getSettings();
-	if (conf->value(key).toBool() == value) return;
+//	if (conf->value(key).toBool() == value) return;
 	conf->setValue(key, value);
 }
 
+void StelQuickStelItem::writeDoubleSetting(const QString& key, double value)
+{
+    QSettings* conf = StelApp::getInstance().getSettings();
+//	if (conf->value(key).toBool() == value) return;
+    conf->setValue(key, value);
+}
 
 void StelQuickStelItem::updateSkyView()
 {
     qDebug()<<"GETSTELMODULE(NebulaMgr)->updateCatalogShow()";
     GETSTELMODULE(NebulaMgr)->updateCatalogShow();
+
+//    GETSTELMODULE(StelSkyDrawer)->updateCatalog();
+//    QSettings* conf = StelApp::getInstance().getSettings();
+//    Q_ASSERT(conf);
+//        GETSTELMODULE(StelSkyDrawer)->setFlagNebulaMagnitudeLimit((conf->value("astro/flag_nebula_magnitude_limit", false).toBool()));
+//        GETSTELMODULE(StelSkyDrawer)->setCustomNebulaMagnitudeLimit(conf->value("astro/nebula_magnitude_limit", 8.5).toFloat());
 }
 
 bool StelQuickStelItem::getboolSetting(const QString key)
 {
     QSettings* conf = StelApp::getInstance().getSettings();
     return conf->value(key,false).toBool();
+}
+
+double StelQuickStelItem::getDoubleSetting(const QString key)
+{
+    QSettings* conf = StelApp::getInstance().getSettings();
+    return conf->value(key,0.0).toDouble();
 }
 
 QStringList StelQuickStelItem::search(const QString& text)

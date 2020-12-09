@@ -192,8 +192,17 @@ void StelSkyDrawer::init()
 	update(0);
 }
 
+void StelSkyDrawer::updateCatalog()
+{
+    QSettings* conf = StelApp::getInstance().getSettings();
+//    Q_ASSERT(conf);
+    setFlagNebulaMagnitudeLimit((conf->value("astro/flag_nebula_magnitude_limit", false).toBool()));
+    setCustomNebulaMagnitudeLimit(conf->value("astro/nebula_magnitude_limit", 8.5).toFloat());
+}
+
 void StelSkyDrawer::update(double)
 {
+
 	float fov = core->getMovementMgr()->getCurrentFov();
 	if (fov > maxAdaptFov)
 	{

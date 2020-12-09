@@ -125,6 +125,9 @@ public:
 	}
 
 public slots:
+
+    void updateCatalog();
+
 	//! Set the way brighter stars will look bigger as the fainter ones
 	void setRelativeStarScale(double b=1.0) {starRelativeScale=b;}
 	//! Get the way brighter stars will look bigger as the fainter ones

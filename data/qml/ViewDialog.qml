@@ -41,15 +41,106 @@ StelDialog {
         }
         clip: true
         contentWidth: width
-        contentHeight: dsolistview.height+dsotypeview.height
+        contentHeight: dsoAmountview.height+dsoLimitview.height+dsolistview.height+dsotypeview.height+dsoAdvView.height
         flickableDirection: Flickable.VerticalFlick
+
+
+        GridLayout{
+            id:dsoAmountview;
+            columns: 2
+            y:0
+            Text{
+                color: "white"
+                text: "hints"
+            }
+
+            Slider{
+                id: hintsAmount
+                from: 0
+                value: stellarium.getDoubleSetting("astro/nebula_hints_amount")
+                to: 10
+                live: false
+                onValueChanged: {
+                    stellarium.writeDoubleSetting("astro/nebula_hints_amount", value)
+                    stellarium.updateSkyView()
+                }
+            }
+            Text{
+                color: "white"
+                text: "labels"
+            }
+            Slider{
+                id: labelsAmount
+                from: 0
+                value: stellarium.getDoubleSetting("astro/nebula_labels_amount")
+                to: 10
+                live: false
+                onValueChanged: {
+                    stellarium.writeDoubleSetting("astro/nebula_labels_amount", value)
+                    stellarium.updateSkyView()
+                }
+            }
+        }
+
+        GridLayout{
+            id:dsoLimitview;
+            columns: 1
+            y:dsoAmountview.height+dsoAmountview.y
+            CheckBox{
+                id:chMagLimit
+                checked: stellarium.getboolSetting("astro/flag_nebula_magnitude_limit")
+                onCheckedChanged: {
+                stellarium.writeSetting("astro/flag_nebula_magnitude_limit", checked)
+//                stellarium.setFlagNebulaMagnitudeLimit(checked)
+                stellarium.flagNebulaMagnitudeLimit = checked
+//                stellarium.updateSkyView()
+                }
+                text: qsTr("VMag Limit")
+            }
+            Slider{
+//                width: dsoLimitview.width - chMagLimit.width
+                from: 3
+                to: 21
+                value: 21
+                live: false
+                onValueChanged: {
+                    stellarium.writeDoubleSetting("astro/nebula_magnitude_limit", value) //*(21-3)/5
+                    stellarium.setCustomNebulaMagnitudeLimit(value)
+//                    stellarium.update()
+                }
+            }
+            CheckBox{
+//                width: dsoLimitview.width - chMagLimit.width
+                id:chSizeLimits
+                checked: stellarium.getboolSetting("astro/flag_size_limits_usage")
+                onCheckedChanged: {
+                stellarium.writeSetting("astro/flag_size_limits_usage", checked)
+                stellarium.updateSkyView()}
+                text: qsTr("Size Limit")
+            }
+            RangeSlider{
+                from: 0
+                to: 10
+                first.value: Math.log(stellarium.getDoubleSetting("astro/size_limit_min"))/Math.log(Math.E)/0.7
+                second.value: Math.log(stellarium.getDoubleSetting("astro/size_limit_max"))/Math.log(Math.E)/0.7
+                live: false
+                first.onValueChanged: {
+                    stellarium.writeDoubleSetting("astro/size_limit_min", Math.exp(0.7*first.value))//first.value*first.value/1200
+                    stellarium.updateSkyView()
+                }
+                second.onValueChanged: {
+                    stellarium.writeDoubleSetting("astro/size_limit_max", Math.exp(0.7*second.value))
+                    stellarium.updateSkyView()
+                }
+            }
+        }
+
 
 
         GridLayout {
                   id:dsolistview;
                   columns: 3
-
-
+                  y:dsoLimitview.height+dsoLimitview.y
                   CheckBox {id:chM
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_m")
                   onCheckedChanged: {
@@ -236,8 +327,7 @@ StelDialog {
         GridLayout {
                   id:dsotypeview;
                   columns: 1
-                  y:dsolistview.height
-
+                  y:dsolistview.height+dsolistview.y
                   CheckBox {id:chDSOTypeFilter
                   checked: stellarium.getboolSetting("astro/flag_use_type_filter")
                   onCheckedChanged: {
@@ -317,9 +407,56 @@ StelDialog {
                   stellarium.writeSetting("dso_type_filters/flag_show_other", ch_other.checked)
                   stellarium.updateSkyView()}
                   text: qsTr("other")}
-
         }
 
+
+
+        GridLayout {
+                  id:dsoAdvView;
+                  columns: 1
+                  y:dsotypeview.height+dsotypeview.y
+
+                  CheckBox{
+                      id:chHintsProportional
+                      checked: stellarium.getboolSetting("astro/flag_nebula_hints_proportional")
+                      onCheckedChanged: {
+                      stellarium.writeSetting("astro/flag_nebula_hints_proportional", checked)
+                      stellarium.updateSkyView()}
+                      text: qsTr("Use proportional hints")
+                  }
+                  CheckBox{
+                      id:chFlagOutlines
+                      checked: stellarium.getboolSetting("astro/flag_dso_outlines_usage")
+                      onCheckedChanged: {
+                      stellarium.writeSetting("astro/flag_dso_outlines_usage", checked)
+                      stellarium.updateSkyView()}
+                      text: qsTr("outlines for dso")
+                  }
+                  CheckBox{
+                      id:chFlagAdditionalNames
+                      checked: stellarium.getboolSetting("astro/flag_dso_additional_names")
+                      onCheckedChanged: {
+                      stellarium.writeSetting("astro/flag_dso_additional_names", checked)
+                      stellarium.updateSkyView()}
+                      text: qsTr("Use additional names of DSO")
+                  }
+                  CheckBox{
+                      id:chDesignationUsage
+                      checked: stellarium.getboolSetting("astro/flag_dso_designation_usage")
+                      onCheckedChanged: {
+                      stellarium.writeSetting("astro/flag_dso_designation_usage", checked)
+                      stellarium.updateSkyView()}
+                      text: qsTr("Use designations for screen labels")
+                  }
+                  CheckBox{
+                      id:chFlagSurfaceBrightnessUsage
+                      checked: stellarium.getboolSetting("astro/flag_surface_brightness_usage")
+                      onCheckedChanged: {
+                      stellarium.writeSetting("astro/flag_surface_brightness_usage", checked)
+                      stellarium.updateSkyView()}
+                      text: qsTr("Use surface brightness")
+                  }
+        }
 //              Button{
 //                  text: "获取CheckBox状态"
 //                  onClicked: {
