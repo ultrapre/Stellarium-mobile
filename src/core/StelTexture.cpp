@@ -34,22 +34,9 @@
 #include <QFuture>
 #include <QtConcurrent>
 
-#include <cstdlib>
-#include "glues.h"
-
-/*StelTexture::StelTexture() : networkReply(NULL), errorOccured(false), id(0), avgLuminance(-1.f)
-{
-	width = -1;
-	height = -1;
-	initializeOpenGLFunctions();
-}*/
-
 StelTexture::StelTexture(StelTextureMgr *mgr) : textureMgr(mgr), gl(Q_NULLPTR), networkReply(Q_NULLPTR), loader(Q_NULLPTR), errorOccured(false), alphaChannel(false), id(0),
     width(-1), height(-1), glSize(0)
 {
-			
-			 
-							 
 }
 
 StelTexture::~StelTexture()
@@ -135,7 +122,6 @@ StelTexture::GLData StelTexture::imageToGLData(const QImage &image)
     return ret;
 }
 
-
 /*************************************************************************
  Defined to be passed to QtConcurrent::run
  *************************************************************************/
@@ -173,7 +159,7 @@ StelTexture::GLData StelTexture::loadFromData(const QByteArray& data)
  Bind the texture so that it can be used for openGL drawing (calls glBindTexture)
  *************************************************************************/
 
-bool StelTexture::bind(int slot)
+bool StelTexture::bind(uint slot)
 {
     if (id != 0)
     {
@@ -184,7 +170,6 @@ bool StelTexture::bind(int slot)
     }
     if (errorOccured)
         return false;
-			 
 
     if(load())
     {
@@ -200,7 +185,6 @@ bool StelTexture::bind(int slot)
             return true;
         }
         if (errorOccured)
-						  
             return false;
     }
     return false;
@@ -256,10 +240,6 @@ void StelTexture::onNetworkReply()
 {
     Q_ASSERT(loader == Q_NULLPTR);
     if (networkReply->error() == QNetworkReply::NoError && networkReply->bytesAvailable()>0)
-  
-										   
-  
-	 
     {
         QByteArray data = networkReply->readAll();
         if(data.isEmpty()) //prevent starting the loader when there is nothing to load
@@ -324,8 +304,8 @@ QByteArray StelTexture::convertToGLFormat(const QImage& image, GLint *format, GL
     int ipl = tmp.bytesPerLine() / 4;
     for (int y = 0; y < height / 2; ++y)
     {
-        int *a = (int *) tmp.scanLine(y);
-        int *b = (int *) tmp.scanLine(height - y - 1);
+        int *a = reinterpret_cast<int *>(tmp.scanLine(y));
+        int *b = reinterpret_cast<int *>(tmp.scanLine(height - y - 1));
         for (int x = 0; x < ipl; ++x)
             qSwap(a[x], b[x]);
     }
@@ -334,11 +314,11 @@ QByteArray StelTexture::convertToGLFormat(const QImage& image, GLint *format, GL
     // we always use a tightly packed format, with 1-4 bpp
     for (int i = 0; i < height; ++i)
     {
-        uint *p = (uint *) tmp.scanLine(i);
+        uint *p = reinterpret_cast<uint *>( tmp.scanLine(i));
         for (int x = 0; x < width; ++x)
         {
             uint c = qToBigEndian(p[x]);
-            const char* ptr = (const char*)&c;
+            const char* ptr = reinterpret_cast<const char*>(&c);
             switch (*format)
             {
                 case GL_RGBA:
@@ -361,14 +341,6 @@ QByteArray StelTexture::convertToGLFormat(const QImage& image, GLint *format, GL
         }
     }
     return ret;
-}
-
-// Bug fix to disable mipmap on Tegra 3 OpenGL renderer (nexus 7)
-// XXX: need to retest with later versions of Qt to see if it works better then.
-// The fix is needed at least with Qt 5.4.
-static bool isTegra3(void)
-{
-	return strstr((const char *)glGetString(GL_RENDERER), "Tegra 3");
 }
 
 bool StelTexture::glLoad(const GLData& data)
@@ -428,11 +400,11 @@ bool StelTexture::glLoad(const GLData& data)
     }
 
     //do pixel transfer
-    gl->glTexImage2D(GL_TEXTURE_2D, 0, data.format, width, height, 0, data.format,
-             data.type, data.data.constData());
+    gl->glTexImage2D(GL_TEXTURE_2D, 0, data.format, width, height, 0, static_cast<GLenum>(data.format),
+             static_cast<GLenum>(data.type), data.data.constData());
 
     //for now, assume full sized 8 bit GL formats used internally
-    glSize = data.data.size();
+    glSize = static_cast<uint>(data.data.size());
 
 #ifndef NDEBUG
     if (qApp->property("verbose") == true)

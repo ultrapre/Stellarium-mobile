@@ -10,8 +10,12 @@ INCLUDEPATH += \
 	src/core/planetsephems src/scripting
 
 TEMPLATE = app
-QT += network gui sensors qml quick positioning concurrent widgets
+QT += network gui sensors qml quick positioning concurrent widgets opengl
 
+windows{
+DEFINES += _USE_MATH_DEFINES NOMINMAX _WINDOWS
+LIBS    += -lWinmm
+}
 
 android {
 	QT += androidextras

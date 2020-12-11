@@ -509,7 +509,7 @@ void StelQuickStelItem::writeDoubleSetting(const QString& key, double value)
 
 void StelQuickStelItem::updateSkyView()
 {
-    qDebug()<<"GETSTELMODULE(NebulaMgr)->updateCatalogShow()";
+//    qDebug()<<"GETSTELMODULE(NebulaMgr)->updateCatalogShow()";
     GETSTELMODULE(NebulaMgr)->updateCatalogShow();
 
 //    GETSTELMODULE(StelSkyDrawer)->updateCatalog();
