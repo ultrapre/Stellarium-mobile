@@ -1,2 +1,9 @@
 /.release
 /src/core/.save
+/src/core/VecMath_.hpp
+/src/core/*.bak
+/src/core/modules/*.bak
+/mobileData.rar
+/stellarium.pro.user
+/stellarium.pro.user.b9d7154
+/stellariumMobile.pro.user

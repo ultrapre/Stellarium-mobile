@@ -37,12 +37,12 @@ jobs:
       - name: show filetrees
         run: |
           ls -R
-          mkdir stellarium
-          mkdir stellarium/Payload
-          cp -r Release-iphonesimulator/stellarium.app stellarium/Payload/stellarium.app
-          cd stellarium
-          zip -r stellarium-${{ matrix.qt_ver }}-${{ matrix.xcode }}.ipa Payload
+          mkdir stellariumMobile
+          mkdir stellariumMobile/Payload
+          cp -r Release-iphonesimulator/stellariumMobile.app stellariumMobile/Payload/stellariumMobile.app
+          cd stellariumMobile
+          zip -r stellariumMobile-${{ matrix.qt_ver }}-${{ matrix.xcode }}.ipa Payload
       - uses: actions/upload-artifact@v1
         with:
-          name: stellarium-${{ matrix.qt_ver }}-${{ matrix.xcode }}.ipa
-          path: stellarium/stellarium-${{ matrix.qt_ver }}-${{ matrix.xcode }}.ipa
+          name: stellariumMobile-${{ matrix.qt_ver }}-${{ matrix.xcode }}.ipa
+          path: stellariumMobile/stellariumMobile-${{ matrix.qt_ver }}-${{ matrix.xcode }}.ipa

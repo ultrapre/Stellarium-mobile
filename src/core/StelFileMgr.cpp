@@ -110,8 +110,10 @@ void StelFileMgr::init()
 #else
 		// Linux, BSD, Solaris etc.
 		// We use the value from the config.h filesystem
-		QFileInfo installLocation(QFile::decodeName(INSTALL_DATADIR));
-		QFileInfo checkFile(QFile::decodeName(INSTALL_DATADIR "/" CHECK_FILE));
+//		QFileInfo installLocation(QFile::decodeName(INSTALL_DATADIR));
+//		QFileInfo checkFile(QFile::decodeName(INSTALL_DATADIR "/" CHECK_FILE));
+        QFileInfo installLocation(QFile::decodeName("."));
+        QFileInfo checkFile(QFile::decodeName( "./" CHECK_FILE));
 #endif
 	
 		if (checkFile.exists())
