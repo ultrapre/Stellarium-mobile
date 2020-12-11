@@ -1,0 +1,83 @@
+name: build-ubuntu
+on: 
+  #push:
+  workflow_dispatch:
+env:
+  targetName: qmake_action
+jobs:
+  build-test:
+    name: Build the project on ubuntu platform with Qt5
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-16.04]
+    steps:
+      - name: Update System
+        run: sudo apt-get update --fix-missing -y
+        
+      - name: Install Environment
+        run: sudo apt-get install gcc g++ libgl1-mesa-dev make wget -y
+      
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v1
+        with:
+          path: ../Qt
+          key: ${{ runner.os }}-QtCache
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2.11.1
+        with:
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+          version: 5.12.10
+          target: desktop
+          modules: qtcharts
+          
+      #- name: Install QtCharts
+      #  id: InstallQtCharts
+      #  # Qt 5.5 has no charts module.
+      #  if: ${{ matrix.os != 'ubuntu-16.04' }}
+      #  run: sudo apt-get install libqt5charts5 libqt5charts5-dev -y
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Build project
+        id: BuildPorject
+        run: |
+          qmake
+          make
+        
+      - name: Deploy
+        continue-on-error: true
+        env:
+          outputdir: ${{ env.targetName }}-${{ steps.latest_release_info.outputs.tag_name }}-for-linux-x64
+          #linuxdeployqt_url: https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
+          linuxdeployqt_url: https://github.com/probonopd/linuxdeployqt/releases/download/7/linuxdeployqt-7-x86_64.AppImage
+          linuxdeployqt: linuxdeployqt-7-x86_64.AppImage
+        run: |
+          export PATH=$PATH:$PWD
+          echo $PATH
+          pwd
+          mkdir ${{ env.outputdir }}
+          cp ${{ env.targetName }} ${{ env.outputdir }}
+          wget ${{ env.linuxdeployqt_url }}
+          ls -l
+          chmod a+x ${{ env.linuxdeployqt }}
+          ./${{ env.linuxdeployqt }} -version
+          ./${{ env.linuxdeployqt }} ${{ env.outputdir }}/${{ env.targetName }} -appimage
+          
+      - name: Packet with tar
+        env:
+          outputdir: ${{ env.targetName }}-${{ steps.latest_release_info.outputs.tag_name }}-for-linux-x64
+        run: |
+            tar -zcvf ${{ env.outputdir }}.tar.gz ${{ env.outputdir }}
+            ls -l
+      
+      - name: artifacts
+        env:
+          outputdir: ${{ env.targetName }}-${{ steps.latest_release_info.outputs.tag_name }}-for-linux-x64
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.outputdir }}
+          path: ${{ env.outputdir }}.tar.gz
+
