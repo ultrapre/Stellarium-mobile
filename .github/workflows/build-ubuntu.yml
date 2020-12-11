@@ -5,7 +5,7 @@ on:
       - "**.md"
   workflow_dispatch:
 env:
-  targetName: stellarium
+  targetName: stellariumMobile
 jobs:
   build-test:
     name: Build the project on ubuntu platform with Qt5

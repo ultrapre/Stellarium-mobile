@@ -5,22 +5,22 @@ on:
       - "**.md"
   workflow_dispatch:
 env:
-  targetName: stellarium
+  targetName: stellariumMobile
 jobs:
   build-test:
     name: Build the project for windows platform with Qt5 and mingw
     runs-on: windows-2019
     strategy:
       matrix:
-        qt_ver: [5.12.10, 5.15.2]
+        qt_ver: [5.12.10] #, 5.15.2]
         qt_target: [desktop]
         include:
           - qt_ver: 5.12.10
             qt_arch: win64_mingw73
             qt_arch_install: mingw73_64
-          - qt_ver: 5.15.2
-            qt_arch: win64_mingw81
-            qt_arch_install: mingw81_64
+          # - qt_ver: 5.15.2
+          #   qt_arch: win64_mingw81
+          #   qt_arch_install: mingw81_64
     steps:
       # Cache Qt
       - name: cacheQt
