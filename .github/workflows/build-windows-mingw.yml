@@ -1,9 +1,11 @@
 name: build-windows-mingw
 on:
-  #push:
+  push:
+    paths-ignore:
+      - "**.md"
   workflow_dispatch:
 env:
-  targetName: qmake_action
+  targetName: stellarium
 jobs:
   build-test:
     name: Build the project for windows platform with Qt5 and mingw

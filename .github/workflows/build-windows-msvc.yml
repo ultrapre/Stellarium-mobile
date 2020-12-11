@@ -1,10 +1,12 @@
 name: build-windows-msvc
 on:
-  #push:
+  push:
+    paths-ignore:
+      - "**.md"
   workflow_dispatch:
 
 env:
-  targetName: qmake_action
+  targetName: stellarium
 
 jobs:
   Build-MSVC:

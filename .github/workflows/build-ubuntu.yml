@@ -1,9 +1,11 @@
 name: build-ubuntu
 on: 
-  #push:
+  push:
+    paths-ignore:
+      - "**.md"
   workflow_dispatch:
 env:
-  targetName: qmake_action
+  targetName: stellarium
 jobs:
   build-test:
     name: Build the project on ubuntu platform with Qt5
