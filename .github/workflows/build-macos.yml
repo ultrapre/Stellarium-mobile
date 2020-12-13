@@ -1,8 +1,5 @@
 name: build-macos
 on: 
-  push:
-    paths-ignore:
-      - "**.md"
   workflow_dispatch:
 env:
   targetName: stellariumMobile
