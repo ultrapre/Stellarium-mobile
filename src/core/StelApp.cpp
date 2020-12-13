@@ -452,9 +452,9 @@ void StelApp::init(QSettings* conf)
 	getModuleMgr().registerModule(sensors);
 
 	// GPS
-	GPSMgr* gps = new GPSMgr();
-	gps->init();
-	getModuleMgr().registerModule(gps);
+//	GPSMgr* gps = new GPSMgr();
+//	gps->init();
+//	getModuleMgr().registerModule(gps);
 
 
     //telrad_oculars

@@ -93,8 +93,8 @@ StelQuickStelItem::StelQuickStelItem()
 	connect(omgr, SIGNAL(selectedObjectChanged(StelModule::StelModuleSelectAction)), this, SIGNAL(selectedObjectInfoChanged()));
 	connect(omgr, SIGNAL(selectedObjectChanged(StelModule::StelModuleSelectAction)), this, SIGNAL(selectedObjectShortInfoChanged()));
 	connect(StelApp::getInstance().getCore(), SIGNAL(locationChanged(StelLocation)), this, SIGNAL(positionChanged()));
-	GPSMgr* gpsMgr = GETSTELMODULE(GPSMgr);
-	connect(gpsMgr, SIGNAL(stateChanged(GPSMgr::State)), this, SIGNAL(gpsStateChanged()));
+//	GPSMgr* gpsMgr = GETSTELMODULE(GPSMgr);
+//	connect(gpsMgr, SIGNAL(stateChanged(GPSMgr::State)), this, SIGNAL(gpsStateChanged()));
 
 	QSettings* conf = StelApp::getInstance().getSettings();
 	setAutoGotoNight(conf->value("gui/auto_goto_night", true).toBool());
@@ -591,7 +591,7 @@ bool StelQuickStelItem::isDesktop() const
 	return true;
 #endif
 }
-
+/*
 QString StelQuickStelItem::getGpsState() const
 {
 	switch (GETSTELMODULE(GPSMgr)->getState())
@@ -608,7 +608,7 @@ QString StelQuickStelItem::getGpsState() const
 			return "";
 	}
 }
-
+*/
 int StelQuickStelItem::getLightPollution() const
 {
 	return StelApp::getInstance().getCore()->getSkyDrawer()->getBortleScale();

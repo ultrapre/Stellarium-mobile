@@ -17,6 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA  02110-1335, USA.
  */
 
+/*
 #include "GPSMgr.hpp"
 #include "StelTranslator.hpp"
 #include "StelApp.hpp"
@@ -32,7 +33,7 @@ GPSMgr* GPSMgr::singleton = NULL;
 
 GPSMgr::GPSMgr() :
 	state(GPSMgr::Disabled),
-	source(NULL)
+    source(NULL)
 {
 	singleton = this;
 	setObjectName("GPSMgr");
@@ -79,7 +80,7 @@ void GPSMgr::positionUpdated(const QGeoPositionInfo &info)
 			info.timestamp().secsTo(QDateTime::currentDateTime()) < 60 * 60 && // Less than one hour ago.
 			info.attribute(QGeoPositionInfo::HorizontalAccuracy) < 500)
 	{
-		source->stopUpdates();
+        source->stopUpdates();
 		state = Found;
 		emit stateChanged(state);
 	}
@@ -128,3 +129,5 @@ void GPSMgr::setEnabled(bool value)
 	if (value && source->lastKnownPosition().isValid())
 		positionUpdated(source->lastKnownPosition());
 }
+
+*/

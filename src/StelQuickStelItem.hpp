@@ -61,7 +61,7 @@ class StelQuickStelItem : public QQuickFramebufferObject
 	Q_PROPERTY(QString model READ getModel CONSTANT)
 	Q_PROPERTY(bool autoGotoNight READ getAutoGotoNight WRITE setAutoGotoNight)
 	Q_PROPERTY(bool desktop READ isDesktop CONSTANT)
-	Q_PROPERTY(QString gpsState READ getGpsState NOTIFY gpsStateChanged)
+//	Q_PROPERTY(QString gpsState READ getGpsState NOTIFY gpsStateChanged)
 	Q_PROPERTY(int lightPollution READ getLightPollution WRITE setLightPollution NOTIFY lightPollutionChanged)
 	Q_PROPERTY(int milkyWayBrightness READ getMilkyWayBrightness WRITE setMilkyWayBrightness NOTIFY milkyWayBrightnessChanged)
 	Q_PROPERTY(int linesThickness READ getLinesThickness WRITE setLinesThickness NOTIFY LinesThicknessChanged)
@@ -120,7 +120,7 @@ public:
 	bool getAutoGotoNight() const {return autoGotoNight;}
 	void setAutoGotoNight(bool value) {autoGotoNight = value;}
 	bool isDesktop() const;
-	QString getGpsState() const;
+//	QString getGpsState() const;
 	int getLightPollution() const;
 	void setLightPollution(int value);
 	int getMilkyWayBrightness() const;

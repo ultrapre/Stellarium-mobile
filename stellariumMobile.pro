@@ -12,7 +12,9 @@ INCLUDEPATH += \
 TEMPLATE = app
 QT += network gui sensors qml quick widgets #positioning concurrent
 
-
+wasm{
+DEFINES += QOS_WASM
+}
 android {
 	QT += androidextras
 }

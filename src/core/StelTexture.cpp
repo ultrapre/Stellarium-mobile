@@ -32,7 +32,7 @@
 #include <QNetworkReply>
 #include <QtEndian>
 #include <QFuture>
-#include <QtConcurrent>
+//#include <QtConcurrent>
 
 #include <cstdlib>
 #include "glues.h"
@@ -222,7 +222,8 @@ void StelTexture::startAsyncLoader(T (*functionPointer)(Param), const Arg &arg)
 {
     Q_ASSERT(loader==Q_NULLPTR);
     //own thread pool only supported with Qt 5.4+
-    loader = new QFuture<GLData>(QtConcurrent::run(textureMgr->loaderThreadPool, functionPointer, arg));
+    //wrong!
+//    loader = new QFuture<GLData>(QtConcurrent::run(textureMgr->loaderThreadPool, functionPointer, arg));
 }
 
 bool StelTexture::load()

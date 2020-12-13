@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Suite 500, Boston, MA  02110-1335, USA.
  */
-
+/*
 #include "StelModule.hpp"
 #include <QGeoPositionInfoSource>
 
@@ -40,10 +40,12 @@ signals:
 	void enabledChanged(bool value);
 private:
 	State state;
-	QGeoPositionInfoSource* source;
+    QGeoPositionInfoSource* source;
 private slots:
-	void positionUpdated(const QGeoPositionInfo &info);
-	void onError(QGeoPositionInfoSource::Error positioningError);
+    void positionUpdated(const QGeoPositionInfo &info);
+    void onError(QGeoPositionInfoSource::Error positioningError);
 };
 
 Q_DECLARE_METATYPE(GPSMgr::State)
+
+*/
