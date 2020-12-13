@@ -1,0 +1,73 @@
+name: WASM CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+    
+  linux_wasm_5_14_2:
+  
+    runs-on: ubuntu-latest
+      
+    steps:
+    - uses: actions/checkout@v2
+    - uses: mymindstorm/setup-emsdk@v7
+    - uses: jurplel/install-qt-action@v2
+      with:
+        # Directory to install Qt
+        dir: # optional
+        # Version of Qt to install
+        version: '5.14.2'
+        # Host platform
+        host: # optional
+        # Target platform for build
+        target: 'desktop'
+        # Architecture for Windows/Android
+        arch: 'wasm_32' # optional
+        # Whether or not to install Qt dependencies on Linux
+        install-deps: 'true'
+        # Additional Qt modules to install
+        modules: 'qtscript qtscripttools' # qtcharts, qtdatavis3d, qtpurchasing, qtvirtualkeyboard, qtwebengine, qtnetworkauth, qtwebglplugin, qtscript, debug_info
+        # Force a Qt mirror in case the default is not working
+        mirror: # optional
+        # Whether or not to actually download Qt
+        cached: # optional, default is false
+        # Version of aqtinstall to use in case of issues
+        aqtversion: # optional, default is ==0.8
+        # Version of py7zr to use in case of issues
+        py7zrversion: # optional, default is ==0.6
+        # Any extra arguments to append to the back
+        extra: # optional
+    - name: Install Qt and compile
+      run: |
+        em++ --version
+        which em++
+        echo $PATH
+        #python3 -m aqt install -O /home/runner/work/Stellarium-mobile/Qt 5.14.2 linux desktop wasm_32 -m qtscript qtscripttools
+        emsdk install sdk-fastcomp-1.38.27-64bit
+        emsdk activate sdk-fastcomp-1.38.27-64bit
+        echo $PATH
+        echo $EMSDK
+        . $EMSDK/emsdk_env.sh
+        em++ --version
+        which em++
+        ls -lrt
+        ls -lrt ..
+        ls -lrt ../Qt
+        which qmake
+        qmake -v
+        ../Qt/5.14.2/wasm_32/bin/qmake -v
+        ../Qt/5.14.2/wasm_32/bin/qmake -r stellariumMobile.pro
+        ls -lrt
+        make
+        ls -lrt
+        zip stellariumMobile_wasm_5_14_2.zip ./*
+        
+    - uses: actions/upload-artifact@v1
+      with:
+        name: stellariumMobile
+        path: stellariumMobile_wasm_5_14_2.zip

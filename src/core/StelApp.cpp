@@ -458,9 +458,12 @@ void StelApp::init(QSettings* conf)
 
 
     //telrad_oculars
+#if defined (Q_OS_MAC) && !defined (Q_OS_IOS)
+#else
     Oculars* occu = new Oculars();
     occu->init();
     getModuleMgr().registerModule(occu);
+#endif
 
 
 	skyCultureMgr->init();
