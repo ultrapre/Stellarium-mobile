@@ -26,7 +26,7 @@
 #include "CLIProcessor.hpp"
 #include "StelIniParser.hpp"
 #include "StelUtils.hpp"
-
+#include "StelMainWindow.hpp"
 #include <QDebug>
 
 #ifndef USE_QUICKVIEW
@@ -327,6 +327,21 @@ int main(int argc, char **argv)
 	}
 #endif
 	
+
+    StelMainWindow mainWin;
+    mainWin.init(confSettings);
+    app.exec();
+    mainWin.deinit();
+
+    delete confSettings;
+    StelLogger::deinit();
+
+    #ifdef Q_OS_WIN
+    if(timerGrain)
+        timeEndPeriod(timerGrain);
+    #endif //Q_OS_WIN
+
+/*
 	StelMainView mainWin;
 	mainWin.init(confSettings);
 	app.exec();
@@ -338,7 +353,7 @@ int main(int argc, char **argv)
 	if(timerGrain)
 		timeEndPeriod(timerGrain);
 #endif //Q_OS_WIN
-
+*/
 
 	return 0;
 }

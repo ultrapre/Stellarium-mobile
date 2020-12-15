@@ -7,7 +7,7 @@ INCLUDEPATH += \
 	src/core/external/glues_stel/source src/core/external/kfilter \
 	src/core/external/gsatellite \
 	src/core/external/glues_stel/source src/core/external/qtcompress \
-	src/core/planetsephems src/scripting
+        src/core/planetsephems src/scripting src/gui src/gui_n9
 
 TEMPLATE = app
 QT += network gui sensors qml quick positioning concurrent widgets
@@ -79,7 +79,15 @@ ios {
 }
 
 HEADERS += \
+	src/StelMainGraphicsView.hpp \
+	src/StelMainWindow.hpp \
+	src/StelQmlDateTime.hpp \
+	src/StelQmlGui.hpp \
+	src/StelQmlHudSettings.hpp \
+	src/StelQmlSearch.hpp \
+	src/StelQuaternion.hpp \
 	src/config.h \
+	src/core/StelAppGraphicsWidget.hpp \
 	src/core/StelOpenGL.hpp \
 	src/core/StelToast.hpp \
 	src/core/StelToastGrid.hpp \
@@ -91,6 +99,8 @@ HEADERS += \
 	src/core/modules/Telescope.hpp \
 	src/core/modules/ToastMgr.hpp \
 	src/core/modules/updatecomets.h \
+	src/gui_n9/SkyGuiN9.hpp \
+	src/gui_n9/StelGuiN9.hpp \
 	src/translations.h \
 	src/CLIProcessor.hpp \
 	src/StelAndroid.hpp \
@@ -99,6 +109,13 @@ HEADERS += \
 
 SOURCES += \
 	src/CLIProcessor.cpp \
+	src/StelMainGraphicsView.cpp \
+	src/StelMainWindow.cpp \
+	src/StelQmlDateTime.cpp \
+	src/StelQmlGui.cpp \
+	src/StelQmlHudSettings.cpp \
+	src/StelQmlSearch.cpp \
+	src/core/StelAppGraphicsWidget.cpp \
 	src/core/StelOpenGL.cpp \
 	src/core/StelToast.cpp \
 	src/core/StelToastGrid.cpp \
@@ -110,6 +127,8 @@ SOURCES += \
 	src/core/modules/Telescope.cpp \
 	src/core/modules/ToastMgr.cpp \
 	src/core/modules/updatecomets.cpp \
+	src/gui_n9/SkyGuiN9.cpp \
+	src/gui_n9/StelGuiN9.cpp \
 	src/main.cpp \
 	src/StelLogger.cpp \
 	src/StelMainView.cpp
@@ -382,7 +401,38 @@ OTHER_FILES += \
 
 DISTFILES += \
     data/qml/ViewDialog.qml \
-    mobile-guide/guide.md
+    mobile-guide/guide.md \
+    qml/stellarium-n9/AboutPage.qml \
+    qml/stellarium-n9/CheckBoxAndSliderRow.qml \
+    qml/stellarium-n9/CheckedButton.qml \
+    qml/stellarium-n9/DateTimePage.qml \
+    qml/stellarium-n9/HeaderRow.qml \
+    qml/stellarium-n9/Hud.qml \
+    qml/stellarium-n9/HudButton.qml \
+    qml/stellarium-n9/HudLabel.qml \
+    qml/stellarium-n9/HudSettingsPage.qml \
+    qml/stellarium-n9/HudWindow.qml \
+    qml/stellarium-n9/LandscapePage.qml \
+    qml/stellarium-n9/LocationListPage.qml \
+    qml/stellarium-n9/LocationPage.qml \
+    qml/stellarium-n9/MainSettingsPage.qml \
+    qml/stellarium-n9/MapPage.qml \
+    qml/stellarium-n9/MarkingsPage.qml \
+    qml/stellarium-n9/ObjectSearchPage.qml \
+    qml/stellarium-n9/PageRow.qml \
+    qml/stellarium-n9/PlanetListPage.qml \
+    qml/stellarium-n9/SavePage.qml \
+    qml/stellarium-n9/SearchField.qml \
+    qml/stellarium-n9/SearchListPage.qml \
+    qml/stellarium-n9/SectionRow.qml \
+    qml/stellarium-n9/SeparatorRow.qml \
+    qml/stellarium-n9/SettingsWindow.qml \
+    qml/stellarium-n9/SkyCulturePage.qml \
+    qml/stellarium-n9/SkyPage.qml \
+    qml/stellarium-n9/SliderRow.qml \
+    qml/stellarium-n9/StartupPage.qml \
+    qml/stellarium-n9/SwitchRow.qml \
+    qml/stellarium-n9/TextFieldPage.qml
 
 ANDROID_ABIS = armeabi-v7a
 
