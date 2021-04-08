@@ -42,7 +42,7 @@ StelDialog {
                 checkbox: true
                 action: "actionShow_Telrads"
                 setting: "astro/flag_telrads"
-                text: qsTr("Show telrads")
+                text: qsTr("Show telrads(1°,3.2°,7.5°,20.0°)")
             }
 
             StelListItem {
