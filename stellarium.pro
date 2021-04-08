@@ -37,8 +37,8 @@ QMAKE_CXXFLAGS_RELEASE += -Ofast
 android {
 	QT += androidextras
 	ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-	ANDROID_PACKAGE = com.noctuasoftware.stellarium
-        ANDROID_MINIMUM_VERSION = 16
+        ANDROID_PACKAGE = com.ultrapre.stellariummobile
+        ANDROID_MINIMUM_VERSION = 21
 	ANDROID_TARGET_VERSION = 24
 	ANDROID_APP_NAME = Stellarium Mobile
 
