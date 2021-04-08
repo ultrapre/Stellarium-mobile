@@ -1,5 +1,5 @@
 
-name: Build for Android
+name: Build for Android Release
 
 on:
   push:
