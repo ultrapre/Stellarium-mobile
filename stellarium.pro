@@ -1,7 +1,7 @@
 
 TARGET = stellarium
 VERSION = 0.12.3
-MOBILE_VERSION = 1.29.6
+MOBILE_VERSION = 1.30.2
 INCLUDEPATH += \
 	. src/ src/core src/core/modules src/core/external \
 	src/core/external/glues_stel/source src/core/external/kfilter \
