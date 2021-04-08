@@ -1,7 +1,7 @@
 
 TARGET = stellariumMobile
 VERSION = 0.12.3
-MOBILE_VERSION = 1.29.6
+MOBILE_VERSION = 1.30.4
 INCLUDEPATH += \
 	. src/ src/core src/core/modules src/core/external \
 	src/core/external/glues_stel/source src/core/external/kfilter \
@@ -39,7 +39,7 @@ QMAKE_CXXFLAGS_RELEASE += -Ofast
 android {
 	QT += androidextras
 	ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-	ANDROID_PACKAGE = com.noctuasoftware.stellarium
+	ANDROID_PACKAGE = com.ultrapre.stellarium
         ANDROID_MINIMUM_VERSION = 21
 	ANDROID_TARGET_VERSION = 24
 	ANDROID_APP_NAME = Stellarium Mobile
