@@ -386,7 +386,7 @@ void NebulaMgr::init()
 		catalogFilters	|= Nebula::CatRCW;
 	if (conf->value("flag_show_cr", false).toBool())
 		catalogFilters	|= Nebula::CatCr;
-	if (conf->value("flag_show_mel", false).toBool())
+    if (conf->value("flag_show_mel", true).toBool())
 		catalogFilters	|= Nebula::CatMel;
 	if (conf->value("flag_show_pgc", false).toBool())
 		catalogFilters	|= Nebula::CatPGC;
