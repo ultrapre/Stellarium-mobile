@@ -464,7 +464,6 @@ QString Nebula::getInfoString(const StelCore *core, const InfoStringGroup& flags
         QString mt = getMorphologicalTypeString();
         if (mt.isEmpty())
             oss << q_("Type: <b>%1</b>").arg(getTypeString()) << "<br>";
-            //oss << QString("%1: <b>%2</b>").arg(q_("Type"), getTypeString()) << "<br>";
         else
             oss << q_("Type: <b>%1</b> (%2)").arg(getTypeString(), mt) << "<br>";
     }
@@ -477,9 +476,33 @@ QString Nebula::getInfoString(const StelCore *core, const InfoStringGroup& flags
         else
         oss << q_("Magnitude: <b>%1</b>").arg(getVMagnitude(core), 0, 'f', 2) << "<br>";
     }
+
+    float mmag = qMin(vMag,bMag);
+    if (nType != NebDn && mmag < 50 && flags&Extra)
+    {
+        QString sb = q_("Surface brightness");
+        QString ae = q_("after extinction");
+        QString mu;
+        if (flagUseShortNotationSurfaceBrightness)
+        {
+            mu = QString("<sup>m</sup>/%1'").arg(QChar(0x2B1C));
+            if (flagUseArcsecSurfaceBrightness)
+                mu = QString("<sup>m</sup>/%1\"").arg(QChar(0x2B1C));
+        }
+        else
+        {
+            mu = QString("%1/%2^2").arg(qc_("mag", "magnitude"), q_("arc-min"));
+            if (flagUseArcsecSurfaceBrightness)
+                mu = QString("%1/%2^2").arg(qc_("mag", "magnitude"), q_("arc-sec"));
+        }
+        oss << QString("%1: <b>%2</b> %3").arg(sb, QString::number(getSurfaceBrightness(core, flagUseArcsecSurfaceBrightness), 'f', 2), mu) << "<br />";
+    }
     oss << getPositionInfoString(core, flags);
 
-    if (majorAxisSize>0 && flags&Size)
+    if (majorAxisSize>0 && minorAxisSize>0 && flags&Size)
+        oss << q_("Size: %1 x %2").arg(StelUtils::radToDmsStr(majorAxisSize*M_PI/180.),\
+                                       StelUtils::radToDmsStr(minorAxisSize*M_PI/180.)) << "<br>";
+    else if (majorAxisSize>0 && flags&Size)
         oss << q_("Size: %1").arg(StelUtils::radToDmsStr(majorAxisSize*M_PI/180.)) << "<br>";
 
     postProcessInfoString(str, flags);
