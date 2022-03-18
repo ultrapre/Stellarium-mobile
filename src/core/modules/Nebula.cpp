@@ -468,13 +468,32 @@ QString Nebula::getInfoString(const StelCore *core, const InfoStringGroup& flags
             oss << q_("Type: <b>%1</b> (%2)").arg(getTypeString(), mt) << "<br>";
     }
 
-    if (vMag < 50 && flags&Magnitude)
+    if ((vMag < 50 || bMag < 50) && flags&Magnitude)
     {
-        if (core->getSkyDrawer()->getFlagHasAtmosphere())
-        oss << q_("Magnitude: <b>%1</b> (extincted to: <b>%2</b>)").arg(QString::number(getVMagnitude(core), 'f', 2),
-                                        QString::number(getVMagnitudeWithExtinction(core), 'f', 2)) << "<br>";
-        else
-        oss << q_("Magnitude: <b>%1</b>").arg(getVMagnitude(core), 0, 'f', 2) << "<br>";
+        QString magstr;
+        QString magestr;
+        if (vMag < 50){
+            magstr = QString::number(getVMagnitude(core), 'f', 2);
+            magestr = QString::number(getVMagnitudeWithExtinction(core), 'f', 2);
+
+            if (core->getSkyDrawer()->getFlagHasAtmosphere())
+                oss << q_("Magnitude: <b>%1</b> (extincted to: <b>%2</b>)").arg(magstr,magestr)<< "<br>";
+            else
+                oss << q_("Magnitude: <b>%1</b>").arg(magstr) << "<br>";
+        }
+        else{
+            magstr = QString::number(getBMagnitude(core), 'f', 2);
+            magestr = QString::number(getBMagnitudeWithExtinction(core), 'f', 2);
+
+            if (core->getSkyDrawer()->getFlagHasAtmosphere())
+                oss << q_("Magnitude: <b>%1</b> (extincted to: <b>%2</b>)").arg(magstr+"(B)",magestr)<< "<br>";
+            else
+                oss << q_("Magnitude: <b>%1</b>").arg(magstr+"(B)") << "<br>";
+        }
+//        if (core->getSkyDrawer()->getFlagHasAtmosphere())
+//            oss << q_("Magnitude: <b>%1</b> (extincted to: <b>%2</b>)").arg(magstr,magestr)<< "<br>";
+//        else
+//            oss << q_("Magnitude: <b>%1</b>").arg(magstr) << "<br>";
     }
 
     float mmag = qMin(vMag,bMag);
