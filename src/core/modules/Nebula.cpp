@@ -460,8 +460,14 @@ QString Nebula::getInfoString(const StelCore *core, const InfoStringGroup& flags
     if ((flags&Name) || (flags&CatalogNumber))
         oss << "</h2>";
 
-    if (flags&Type)
-        oss << q_("Type: <b>%1</b>").arg(getTypeString()) << "<br>";
+    if (flags&Type){
+        QString mt = getMorphologicalTypeString();
+        if (mt.isEmpty())
+            oss << q_("Type: <b>%1</b>").arg(getTypeString()) << "<br>";
+            //oss << QString("%1: <b>%2</b>").arg(q_("Type"), getTypeString()) << "<br>";
+        else
+            oss << q_("Type: <b>%1</b> (%2)").arg(getTypeString(), mt) << "<br>";
+    }
 
     if (vMag < 50 && flags&Magnitude)
     {
