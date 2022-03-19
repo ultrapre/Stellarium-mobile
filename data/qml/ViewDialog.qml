@@ -5,7 +5,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.12
 import QtQuick.Controls.Styles 1.4
 import Stellarium 1.0
-
+import QtQuick.Dialogs 1.0
 
 StelDialog {
     id: root
@@ -14,9 +14,10 @@ StelDialog {
 
 
 //	property string current: stellarium.currentSkyCultureI18
+
     ListView {
         id: list
-        width: 140*rootStyle.scale
+        width: 80*rootStyle.scale
         height: 400*rootStyle.scale
         StelListItem {
             id: list_dso
@@ -28,6 +29,7 @@ StelDialog {
 //            text: qsTr("Solar")
 //        }
     }
+
 
     Flickable {
 //        left: list.right
@@ -684,13 +686,18 @@ StelDialog {
                       }
                   }
         }
-//              Button{
-//                  text: "获取CheckBox状态"
-//                  onClicked: {
-//                      console.log(chM.checked)
-//                      console.log(chNGC.checked)
-//                      console.log(chPGC.checked)
+
+
+//        GridLayout {
+//                  id:dsoObserveList;
+//                  columns: 1
+//                  y:dsoAdvView.height+dsoAdvView.y
+
+//                  Text{
+//                      text:""
 //                  }
-//              }
+
+
+//        }
     }
 }
