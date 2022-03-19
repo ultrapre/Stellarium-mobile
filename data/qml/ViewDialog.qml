@@ -52,7 +52,7 @@ StelDialog {
             y:0
             Text{
                 id: dsoAmountviewText
-                color: "white"
+                color: "grey"
                 text: "hints"
             }
 
@@ -71,7 +71,7 @@ StelDialog {
 
             }
             Text{
-                color: "white"
+                color: "grey"
                 text: "labels"
             }
             Slider{
@@ -90,7 +90,7 @@ StelDialog {
 
         GridLayout{
             id:dsoLimitview;
-            columns: 2
+            columns: 1
             y:dsoAmountview.height+dsoAmountview.y
 //            TextAreaStyle{
 //                textColor: "white"
@@ -104,7 +104,7 @@ StelDialog {
                 stellarium.writeSetting("astro/flag_nebula_magnitude_limit", checked)
 //                stellarium.setFlagNebulaMagnitudeLimit(checked)
                 stellarium.flagNebulaMagnitudeLimit = checked
-//                stellarium.updateSkyView()
+                stellarium.updateSkyView()
                 }
                 text: "   "+qsTr("Mag Limit")
                 contentItem: Text {
@@ -121,7 +121,7 @@ StelDialog {
                 onValueChanged: {
                     stellarium.writeDoubleSetting("astro/nebula_magnitude_limit", value) //*(21-3)/5
                     stellarium.setCustomNebulaMagnitudeLimit(value)
-//                    stellarium.update()
+                    stellarium.updateSkyView()
                 }
             }
             CheckBox{
