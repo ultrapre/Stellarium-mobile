@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls.Styles 1.4
 import Stellarium 1.0
 
+
 StelDialog {
     id: root
     title: qsTr("View")
@@ -86,6 +87,10 @@ StelDialog {
             id:dsoLimitview;
             columns: 1
             y:dsoAmountview.height+dsoAmountview.y
+            TextAreaStyle{
+                textColor: "white"
+            }
+
             CheckBox{
                 id:chMagLimit
                 checked: stellarium.getboolSetting("astro/flag_nebula_magnitude_limit")
@@ -95,7 +100,11 @@ StelDialog {
                 stellarium.flagNebulaMagnitudeLimit = checked
 //                stellarium.updateSkyView()
                 }
-                text: qsTr("VMag Limit")
+                text: "   "+qsTr("Mag Limit")
+                contentItem: Text {
+                    text: "   "+qsTr("Mag Limit")
+                    color: "grey"
+                }
             }
             Slider{
 //                width: dsoLimitview.width - chMagLimit.width
@@ -116,7 +125,11 @@ StelDialog {
                 onCheckedChanged: {
                 stellarium.writeSetting("astro/flag_size_limits_usage", checked)
                 stellarium.updateSkyView()}
-                text: qsTr("Size Limit")
+                text: "   "+qsTr("Size Limit")
+                contentItem: Text {
+                    text: "   "+qsTr("Size Limit")
+                    color: "grey"
+                }
             }
             RangeSlider{
                 from: 0
@@ -146,181 +159,301 @@ StelDialog {
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_m", chM.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("M")}
+                  text: "   "+qsTr("M")
+                  contentItem: Text {
+                      text: "   "+qsTr("M")
+                      color: "grey"
+                  }}
                   CheckBox {id:chC
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_c")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_c", chC.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("C")}
+                  text: "   "+qsTr("C")
+                  contentItem: Text {
+                      text: "   "+qsTr("C")
+                      color: "grey"
+                  }}
                   CheckBox {id:chNGC
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_ngc")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_ngc", chNGC.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("NGC")}
+                  text: "   "+qsTr("NGC")
+                  contentItem: Text {
+                      text: "   "+qsTr("NGC")
+                      color: "grey"
+                  }}
                   CheckBox {id:chIC
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_ic")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_ic", chIC.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("IC")}
+                  text: "   "+qsTr("IC")
+                  contentItem: Text {
+                      text: "   "+qsTr("IC")
+                      color: "grey"
+                  }}
                   CheckBox {id:chB
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_b")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_b", chB.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("B")}
+                  text: "   "+qsTr("B")
+                  contentItem: Text {
+                      text: "   "+qsTr("B")
+                      color: "grey"
+                  }}
                   CheckBox {id:chSh2
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_sh2")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_sh2", chSh2.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("Sh2")}
+                  text: "   "+qsTr("Sh2")
+                  contentItem: Text {
+                      text: "   "+qsTr("Sh2")
+                      color: "grey"
+                  }}
                   CheckBox {id:chvdB
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_vdb")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_vdb", chvdB.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("vdB")}
+                  text: "   "+qsTr("vdB")
+                  contentItem: Text {
+                      text: "   "+qsTr("vdB")
+                      color: "grey"
+                  }}
                   CheckBox {id:chRCW
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_rcw")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_rcw", chRCW.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("RCW")}
+                  text: "   "+qsTr("RCW")
+                  contentItem: Text {
+                      text: "   "+qsTr("RCW")
+                      color: "grey"
+                  }}
                   CheckBox {id:chLDN
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_ldn")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_ldn", chLDN.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("LDN")}
+                  text: "   "+qsTr("LDN")
+                  contentItem: Text {
+                      text: "   "+qsTr("LDN")
+                      color: "grey"
+                  }}
                   CheckBox {id:chLBN
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_lbn")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_lbn", chLBN.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("LBN")}
+                  text: "   "+qsTr("LBN")
+                  contentItem: Text {
+                      text: "   "+qsTr("LBN")
+                      color: "grey"
+                  }}
                   CheckBox {id:chCr
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_cr")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_cr", chCr.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("Cr")}
+                  text: "   "+qsTr("Cr")
+                  contentItem: Text {
+                      text: "   "+qsTr("Cr")
+                      color: "grey"
+                  }}
                   CheckBox {id:chMel
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_mel")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_mel", chMel.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("Mel")}
+                  text: "   "+qsTr("Mel")
+                  contentItem: Text {
+                      text: "   "+qsTr("Mel")
+                      color: "grey"
+                  }}
                   CheckBox {id:chPGC
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_pgc")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_pgc", chPGC.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("PGC")}
+                  text: "   "+qsTr("PGC")
+                  contentItem: Text {
+                      text: "   "+qsTr("PGC")
+                      color: "grey"
+                  }}
                   CheckBox {id:chUGC
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_ugc")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_ugc", chUGC.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("UGC")}
+                  text: "   "+qsTr("UGC")
+                  contentItem: Text {
+                      text: "   "+qsTr("UGC")
+                      color: "grey"
+                  }}
                   CheckBox {id:chCed
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_ced")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_ced", chCed.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("Ced")}
+                  text: "   "+qsTr("Ced")
+                  contentItem: Text {
+                      text: "   "+qsTr("Ced")
+                      color: "grey"
+                  }}
                   CheckBox {id:chArp
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_arp")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_arp", chArp.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("Arp")}
+                  text: "   "+qsTr("Arp")
+                  contentItem: Text {
+                      text: "   "+qsTr("Arp")
+                      color: "grey"
+                  }}
                   CheckBox {id:chVV
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_vv")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_vv", chVV.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("VV")}
+                  text: "   "+qsTr("VV")
+                  contentItem: Text {
+                      text: "   "+qsTr("VV")
+                      color: "grey"
+                  }}
                   CheckBox {id:chPK
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_pk")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_pk", chPK.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("PK")}
+                  text: "   "+qsTr("PK")
+                  contentItem: Text {
+                      text: "   "+qsTr("PK")
+                      color: "grey"
+                  }}
                   CheckBox {id:chPNG
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_png")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_png", chPNG.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("PN G")}
+                  text: "   "+qsTr("PN G")
+                  contentItem: Text {
+                      text: "   "+qsTr("PN G")
+                      color: "grey"
+                  }}
                   CheckBox {id:chSNRG
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_snrg")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_snrg", chSNRG.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("SNR G")}
+                  text: "   "+qsTr("SNR G")
+                  contentItem: Text {
+                      text: "   "+qsTr("SNR G")
+                      color: "grey"
+                  }}
                   CheckBox {id:chACO
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_aco")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_aco", chACO.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("ACO")}
+                  text: "   "+qsTr("ACO")
+                  contentItem: Text {
+                      text: "   "+qsTr("ACO")
+                      color: "grey"
+                  }}
                   CheckBox {id:chHCG
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_hcg")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_hcg", chHCG.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("HCG")}
+                  text: "   "+qsTr("HCG")
+                  contentItem: Text {
+                      text: "   "+qsTr("HCG")
+                      color: "grey"
+                  }}
                   CheckBox {id:chESO
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_eso")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_eso", chESO.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("ESO")}
+                  text: "   "+qsTr("ESO")
+                  contentItem: Text {
+                      text: "   "+qsTr("ESO")
+                      color: "grey"
+                  }}
                   CheckBox {id:chvdBH
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_vdbh")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_vdbh", chvdBH.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("vdBH")}
+                  text: "   "+qsTr("vdBH")
+                  contentItem: Text {
+                      text: "   "+qsTr("vdBH")
+                      color: "grey"
+                  }}
                   CheckBox {id:chDWB
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_dwb")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_dwb", chDWB.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("DWB")}
+                  text: "   "+qsTr("DWB")
+                  contentItem: Text {
+                      text: "   "+qsTr("DWB")
+                      color: "grey"
+                  }}
                   CheckBox {id:chTr
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_tr")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_tr", chTr.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("Tr")}
+                  text: "   "+qsTr("Tr")
+                  contentItem: Text {
+                      text: "   "+qsTr("Tr")
+                      color: "grey"
+                  }}
                   CheckBox {id:chSt
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_st")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_st", chSt.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("St")}
+                  text: "   "+qsTr("St")
+                  contentItem: Text {
+                      text: "   "+qsTr("St")
+                      color: "grey"
+                  }}
                   CheckBox {id:chRu
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_ru")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_ru", chRu.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("Ru")}
+                  text: "   "+qsTr("Ru")
+                  contentItem: Text {
+                      text: "   "+qsTr("Ru")
+                      color: "grey"
+                  }}
                   CheckBox {id:chvdBHa
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_vdbha")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_vdbha", chvdBHa.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("vdB-Ha")}
+                  text: "   "+qsTr("vdB-Ha")
+                  contentItem: Text {
+                      text: "   "+qsTr("vdB-Ha")
+                      color: "grey"
+                  }}
                   CheckBox {id:chOther
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_other")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_catalog_filters/flag_show_other", chvdBHa.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("Other")}
+                  text: "   "+qsTr("Other")
+                  contentItem: Text {
+                      text: "   "+qsTr("Other")
+                      color: "grey"
+                  }}
               }
 
 
@@ -333,80 +466,132 @@ StelDialog {
                   onCheckedChanged: {
                   stellarium.writeSetting("astro/flag_use_type_filter", chDSOTypeFilter.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("Type Filter")}
+                  text: "   "+qsTr("Type Filter")
+                  contentItem: Text {
+                      text: "   "+qsTr("Type Filter")
+                      color: "grey"
+                  }}
 
                   CheckBox {id:ch_galaxies
                   checked: stellarium.getboolSetting("dso_type_filters/flag_show_galaxies")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_type_filters/flag_show_galaxies", ch_galaxies.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("galaxies")}
+                  text: "   "+qsTr("galaxies")
+                  contentItem: Text {
+                      text: "   "+qsTr("galaxies")
+                      color: "grey"
+                  }}
                   CheckBox {id:ch_active_galaxies
                   checked: stellarium.getboolSetting("dso_type_filters/flag_show_active_galaxies")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_type_filters/flag_show_active_galaxies", ch_active_galaxies.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("active_galaxies")}
+                  text: "   "+qsTr("active galaxies")
+                  contentItem: Text {
+                      text: "   "+qsTr("active galaxies")
+                      color: "grey"
+                  }}
                   CheckBox {id:ch_interacting_galaxies
                   checked: stellarium.getboolSetting("dso_type_filters/flag_show_interacting_galaxies")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_type_filters/flag_show_interacting_galaxies", ch_interacting_galaxies.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("interacting_galaxies")}
+                  text: "   "+qsTr("interacting galaxies")
+                  contentItem: Text {
+                      text: "   "+qsTr("interacting galaxies")
+                      color: "grey"
+                  }}
                   CheckBox {id:ch_open_clusters
                   checked: stellarium.getboolSetting("dso_type_filters/flag_show_open_clusters")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_type_filters/flag_show_open_clusters", ch_open_clusters.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("open_clusters")}
+                  text: "   "+qsTr("open clusters")
+                  contentItem: Text {
+                      text: "   "+qsTr("open clusters")
+                      color: "grey"
+                  }}
                   CheckBox {id:ch_globular_clusters
                   checked: stellarium.getboolSetting("dso_type_filters/flag_show_globular_clusters")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_type_filters/flag_show_globular_clusters", ch_globular_clusters.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("globular_clusters")}
+                  text: "   "+qsTr("globular clusters")
+                  contentItem: Text {
+                      text: "   "+qsTr("globular clusters")
+                      color: "grey"
+                  }}
                   CheckBox {id:ch_bright_nebulae
                   checked: stellarium.getboolSetting("dso_type_filters/flag_show_bright_nebulae")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_type_filters/flag_show_bright_nebulae", ch_bright_nebulae.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("bright_nebulae")}
+                  text: "   "+qsTr("bright nebulae")
+                  contentItem: Text {
+                      text: "   "+qsTr("bright nebulae")
+                      color: "grey"
+                  }}
                   CheckBox {id:ch_dark_nebulae
                   checked: stellarium.getboolSetting("dso_type_filters/flag_show_dark_nebulae")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_type_filters/flag_show_dark_nebulae", ch_dark_nebulae.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("dark_nebulae")}
+                  text: "   "+qsTr("dark nebulae")
+                  contentItem: Text {
+                      text: "   "+qsTr("dark nebulae")
+                      color: "grey"
+                  }}
                   CheckBox {id:ch_planetary_nebulae
                   checked: stellarium.getboolSetting("dso_type_filters/flag_show_planetary_nebulae")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_type_filters/flag_show_planetary_nebulae", ch_planetary_nebulae.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("planetary_nebulae")}
+                  text: "   "+qsTr("planetary nebulae")
+                  contentItem: Text {
+                      text: "   "+qsTr("planetary nebulae")
+                      color: "grey"
+                  }}
                   CheckBox {id:ch_hydrogen_regions
                   checked: stellarium.getboolSetting("dso_type_filters/flag_show_hydrogen_regions")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_type_filters/flag_show_hydrogen_regions", ch_hydrogen_regions.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("hydrogen_regions")}
+                  text: "   "+qsTr("hydrogen regions")
+                  contentItem: Text {
+                      text: "   "+qsTr("hydrogen regions")
+                      color: "grey"
+                  }}
                   CheckBox {id:ch_supernova_remnants
                   checked: stellarium.getboolSetting("dso_type_filters/flag_show_supernova_remnants")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_type_filters/flag_show_supernova_remnants", ch_supernova_remnants.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("supernova_remnants")}
+                  text: "   "+qsTr("supernova remnants")
+                  contentItem: Text {
+                      text: "   "+qsTr("supernova remnants")
+                      color: "grey"
+                  }}
                   CheckBox {id:ch_galaxy_clusters
                   checked: stellarium.getboolSetting("dso_type_filters/flag_show_galaxy_clusters")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_type_filters/flag_show_galaxy_clusters", ch_galaxy_clusters.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("galaxy_clusters")}
+                  text: "   "+qsTr("galaxy clusters")
+                  contentItem: Text {
+                      text: "   "+qsTr("galaxy clusters")
+                      color: "grey"
+                  }}
                   CheckBox {id:ch_other
                   checked: stellarium.getboolSetting("dso_type_filters/flag_show_other")
                   onCheckedChanged: {
                   stellarium.writeSetting("dso_type_filters/flag_show_other", ch_other.checked)
                   stellarium.updateSkyView()}
-                  text: qsTr("other")}
+                  text: "   "+qsTr("other")
+                  contentItem: Text {
+                      text: "   "+qsTr("other")
+                      color: "grey"
+                  }}
         }
 
 
