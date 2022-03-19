@@ -107,6 +107,7 @@ public:
 	float getFov() const;
 	Q_INVOKABLE void writeSetting(const QString& key, bool value);
     Q_INVOKABLE void writeDoubleSetting(const QString& key, double value);
+    Q_INVOKABLE void writeStringSetting(const QString& key, QString value);
 
     Q_INVOKABLE void updateSkyView();
     Q_INVOKABLE bool getboolSetting(const QString key);

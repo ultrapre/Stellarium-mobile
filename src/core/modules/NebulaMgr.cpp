@@ -424,6 +424,10 @@ void NebulaMgr::init()
 		catalogFilters	|= Nebula::CatVdBHa;
 	if (conf->value("flag_show_other", true).toBool())
 		catalogFilters	|= Nebula::CatOther;
+    if (conf->value("flag_show_observed", true).toBool())
+        catalogFilters	|= Nebula::CatObserved;
+    if (conf->value("flag_show_observing", true).toBool())
+        catalogFilters	|= Nebula::CatObserving;
 	conf->endGroup();
 
 	// NB: nebula set loaded inside setter of catalog filter
@@ -615,6 +619,10 @@ void NebulaMgr::updateCatalogShow()
             catalogFilters	|= Nebula::CatVdBHa;
         if (conf->value("flag_show_other", true).toBool())
             catalogFilters	|= Nebula::CatOther;
+        if (conf->value("flag_show_observed", true).toBool())
+            catalogFilters	|= Nebula::CatObserved;
+        if (conf->value("flag_show_observing", true).toBool())
+            catalogFilters	|= Nebula::CatObserving;
         conf->endGroup();
 
         // NB: nebula set loaded inside setter of catalog filter

@@ -45,6 +45,7 @@
 #include <QSettings>
 #include <QDebug>
 #include <QMetaEnum>
+#include <QFileDialog>
 
 // Init statics transfo matrices
 // See vsop87.doc:
@@ -211,6 +212,8 @@ void StelCore::init()
     //silas
     actionsMgr->addAction("action_updatecomets1", "Plugins", N_("Update Comets (GVB)"), this, "UpdateCometsCore1()");
     actionsMgr->addAction("action_updatecomets2", "Plugins", N_("Update Comets (MPC)"), this, "UpdateCometsCore2()");
+
+    actionsMgr->addAction("action_applyObserving", "Plugins", N_("Apply Observing Filter"), this, "selectObservingFileToUpdate()");
 
 }
 
@@ -1730,4 +1733,23 @@ void StelCore::UpdateCometsCore3()
     qDebug()<<"update comets now!";
     UpdateComets * uc = new UpdateComets();
     uc->startDownload("https://www.minorplanetcenter.net/iau/MPCORB/CometEls.txt");
+}
+
+//overwrite
+void StelCore::selectObservingFileToUpdate()
+{
+    QSettings* conf = StelApp::getInstance().getSettings();
+    QString observingfile = conf->value("astro/observingListFile").toString();
+    observingfile=observingfile.replace("file://","");
+    qDebug()<<"file: "<<observingfile;
+    if (observingfile == NULL) {
+        return;
+    }
+    QFile f(observingfile);
+    f.open(QIODevice::ReadOnly);
+    QStringList lines = (QString::fromUtf8(f.readAll())).split("\n");
+    for (int i=0;i<lines.length();i+=1){
+        QString line = lines[i];
+        qDebug()<<line;
+    }
 }

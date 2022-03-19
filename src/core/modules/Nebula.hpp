@@ -75,7 +75,9 @@ public:
 		CatSt		= 0x04000000, //!< Stock Catalogue (St)
 		CatRu		= 0x08000000, //!< Ruprecht Catalogue (Ru)
 		CatVdBHa		= 0x10000000, //!< van den Bergh-Hagen Catalogue (vdB-Ha)
-		CatOther		= 0x20000000  //!< without ID
+        CatOther		= 0x20000000,  //!< without ID
+        CatObserved     = 0x40000000, // Observed flag
+        CatObserving    = 0x80000000 // Observing flag
 	};
 	Q_DECLARE_FLAGS(CatalogGroup, CatalogGroupFlags)
 
@@ -97,7 +99,7 @@ public:
 	Q_DECLARE_FLAGS(TypeGroup, TypeGroupFlags)
 
 	//! A pre-defined set of specifiers for the catalogs filter
-	static const CatalogGroupFlags AllCatalogs = static_cast<CatalogGroupFlags>(CatNGC|CatIC|CatM|CatC|CatB|CatSh2|CatLBN|CatLDN|CatRCW|CatVdB|CatCr|CatMel|CatPGC|CatUGC|CatCed|CatArp|CatVV|CatPK|CatPNG|CatSNRG|CatACO|CatHCG|CatESO|CatVdBH|CatDWB|CatTr|CatSt|CatRu|CatOther);
+    static const CatalogGroupFlags AllCatalogs = static_cast<CatalogGroupFlags>(CatNGC|CatIC|CatM|CatC|CatB|CatSh2|CatLBN|CatLDN|CatRCW|CatVdB|CatCr|CatMel|CatPGC|CatUGC|CatCed|CatArp|CatVV|CatPK|CatPNG|CatSNRG|CatACO|CatHCG|CatESO|CatVdBH|CatDWB|CatTr|CatSt|CatRu|CatOther|CatObserved|CatObserving);
 	static const TypeGroupFlags AllTypes = static_cast<TypeGroupFlags>(TypeGalaxies|TypeActiveGalaxies|TypeInteractingGalaxies|TypeOpenStarClusters|TypeGlobularStarClusters|TypeHydrogenRegions|TypeBrightNebulae|TypeDarkNebulae|TypePlanetaryNebulae|TypeSupernovaRemnants|TypeGalaxyClusters|TypeOther);
 
 	//! @enum NebulaType Nebula types
@@ -288,6 +290,10 @@ private:
 	QString HCG_nb;			// HCG number (Hickson Compact Group (Hickson, 1989))
 	QString ESO_nb;			// ESO number (ESO/Uppsala Survey of the ESO(B) Atlas (Lauberts, 1982))
 	QString VdBH_nb;			// VdBH number (Southern Stars embedded in nebulosity (van den Bergh+, 1975))
+
+    bool observed_nb;
+    bool observing_nb;
+
 	bool withoutID;
 	QString englishName;		// English name
 	QStringList englishAliases;	// English aliases

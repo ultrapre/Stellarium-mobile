@@ -507,6 +507,14 @@ void StelQuickStelItem::writeDoubleSetting(const QString& key, double value)
     conf->setValue(key, value);
 }
 
+void StelQuickStelItem::writeStringSetting(const QString& key, QString value)
+{
+    QSettings* conf = StelApp::getInstance().getSettings();
+//	if (conf->value(key).toBool() == value) return;
+    conf->setValue(key, value);
+    conf->sync();
+}
+
 void StelQuickStelItem::updateSkyView()
 {
     qDebug()<<"GETSTELMODULE(NebulaMgr)->updateCatalogShow()";

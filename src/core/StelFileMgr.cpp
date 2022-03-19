@@ -37,6 +37,10 @@
 # endif
 #endif
 
+#ifdef Q_OS_ANDROID
+#include <QtAndroid>
+#endif
+
 #include "StelFileMgr.hpp"
 
 // Initialize static members.
@@ -57,7 +61,16 @@ void StelFileMgr::init()
 #elif defined(Q_OS_MAC)
 	userDir = QDir::homePath() + "/Library/Application Support/Stellarium";
 #else
-	userDir = QDir::homePath() + "/.stellarium";
+    // Modifiable config file (Cheng Xinlun, May 14 2017)
+    // Permission request done in Qt-5.10 (Cheng Xinlun, June 21 2018)
+    QStringList perms;
+    perms << "android.permission.WRITE_EXTERNAL_STORAGE" << "android.permission.ACCESS_FINE_LOCATION" << "android.permission.READ_EXTERNAL_STORAGE" << "android.permission.ACCESS_COARSE_LOCATION";
+    QtAndroid::PermissionResultMap checkPerms = QtAndroid::requestPermissionsSync(perms);
+    QHash<QString, QtAndroid::PermissionResult>::iterator i;
+    for (i = checkPerms.begin(); i != checkPerms.end(); i++)
+        qDebug() << i.key() << ": " << (i.value() == QtAndroid::PermissionResult::Granted);
+    userDir = QDir::homePath() + "/.stellarium";
+    // cuserDir = QString::fromLocal8Bit(qgetenv("EXTERNAL_STORAGE")) + "/stellarium";
 #endif
 
 	if (!QFile(userDir).exists())

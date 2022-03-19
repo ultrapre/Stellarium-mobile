@@ -1048,6 +1048,9 @@ void Nebula::readDSO(QDataStream &in)
 	if (f==0 && Ced_nb.isEmpty() && PK_nb.isEmpty() && PNG_nb.isEmpty() && SNRG_nb.isEmpty() && ACO_nb.isEmpty() && HCG_nb.isEmpty() && ESO_nb.isEmpty() && VdBH_nb.isEmpty())
 		withoutID = true;
 
+    observed_nb = false;
+    observing_nb = false;
+
 	if (M_nb > 0) designations << QString("M %1").arg(M_nb);
 	if (C_nb > 0)  designations << QString("C %1").arg(C_nb);
 	if (NGC_nb > 0) designations << QString("NGC %1").arg(NGC_nb);
@@ -1077,7 +1080,6 @@ void Nebula::readDSO(QDataStream &in)
 	if (St_nb > 0) designations << QString("St %1").arg(St_nb);
 	if (Ru_nb > 0) designations << QString("Ru %1").arg(Ru_nb);
 	if (VdBHa_nb > 0) designations << QString("vdB-Ha %1").arg(VdBHa_nb);
-
 	StelUtils::spheToRect(ra,dec,XYZ);
 	Q_ASSERT(fabs(XYZ.lengthSquared()-1.)<1e-9);
 	nType = static_cast<Nebula::NebulaType>(oType);
@@ -1197,7 +1199,10 @@ bool Nebula::objectInDisplayedCatalog() const
 		|| ((catalogFilters&CatTr)	   && (Tr_nb>0))
 		|| ((catalogFilters&CatSt)	   && (St_nb>0))
 		|| ((catalogFilters&CatRu	)   && (Ru_nb>0))
-		|| ((catalogFilters&CatVdBHa)   && (VdBHa_nb>0)))
+        || ((catalogFilters&CatVdBHa)   && (VdBHa_nb>0)))
+
+        || ((catalogFilters&CatObserved)   && (observed_nb==true))
+        || ((catalogFilters&CatObserving)   && (observing_nb==true))
 
 		// Special case: objects without ID from current catalogs
 		|| ((catalogFilters&CatOther)   && withoutID);

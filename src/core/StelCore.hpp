@@ -514,6 +514,7 @@ public slots:
     void UpdateCometsCore1();
     void UpdateCometsCore2();
     void UpdateCometsCore3();
+    void selectObservingFileToUpdate();
 
 signals:
 	//! This signal is emitted when the observer location has changed.
