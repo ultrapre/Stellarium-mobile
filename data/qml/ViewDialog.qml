@@ -22,11 +22,11 @@ StelDialog {
             id: list_dso
             text: qsTr("DSO")
         }
-        StelListItem {
-            y:list_dso.height*1
-            id: list_ss
-            text: qsTr("Solar")
-        }
+//        StelListItem {
+//            y:list_dso.height*1
+//            id: list_ss
+//            text: qsTr("Solar")
+//        }
     }
 
     Flickable {
@@ -48,9 +48,10 @@ StelDialog {
 
         GridLayout{
             id:dsoAmountview;
-            columns: 2
+            columns: 3
             y:0
             Text{
+                id: dsoAmountviewText
                 color: "white"
                 text: "hints"
             }
@@ -65,6 +66,9 @@ StelDialog {
                     stellarium.writeDoubleSetting("astro/nebula_hints_amount", value)
                     stellarium.updateSkyView()
                 }
+                //width: dsoAmountview.width-dsoAmountviewText.width
+                Layout.columnSpan:2
+
             }
             Text{
                 color: "white"
@@ -80,16 +84,18 @@ StelDialog {
                     stellarium.writeDoubleSetting("astro/nebula_labels_amount", value)
                     stellarium.updateSkyView()
                 }
+                Layout.columnSpan:2
             }
         }
 
         GridLayout{
             id:dsoLimitview;
-            columns: 1
+            columns: 2
             y:dsoAmountview.height+dsoAmountview.y
-            TextAreaStyle{
-                textColor: "white"
-            }
+//            TextAreaStyle{
+//                textColor: "white"
+//            }
+
 
             CheckBox{
                 id:chMagLimit
@@ -154,6 +160,12 @@ StelDialog {
                   id:dsolistview;
                   columns: 3
                   y:dsoLimitview.height+dsoLimitview.y
+
+                  Text{
+                      text:""
+                      Layout.columnSpan: 3
+                  }
+
                   CheckBox {id:chM
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_m")
                   onCheckedChanged: {
@@ -461,6 +473,12 @@ StelDialog {
                   id:dsotypeview;
                   columns: 1
                   y:dsolistview.height+dsolistview.y
+
+
+                  Text{
+                      text:""
+                  }
+
                   CheckBox {id:chDSOTypeFilter
                   checked: stellarium.getboolSetting("astro/flag_use_type_filter")
                   onCheckedChanged: {
@@ -601,13 +619,21 @@ StelDialog {
                   columns: 1
                   y:dsotypeview.height+dsotypeview.y
 
+                  Text{
+                      text:""
+                  }
+
                   CheckBox{
                       id:chHintsProportional
                       checked: stellarium.getboolSetting("astro/flag_nebula_hints_proportional")
                       onCheckedChanged: {
                       stellarium.writeSetting("astro/flag_nebula_hints_proportional", checked)
                       stellarium.updateSkyView()}
-                      text: qsTr("Use proportional hints")
+                      text: "   "+qsTr("Use proportional hints")
+                      contentItem: Text {
+                          text: "   "+qsTr("Use proportional hints")
+                          color: "grey"
+                      }
                   }
                   CheckBox{
                       id:chFlagOutlines
@@ -615,7 +641,11 @@ StelDialog {
                       onCheckedChanged: {
                       stellarium.writeSetting("astro/flag_dso_outlines_usage", checked)
                       stellarium.updateSkyView()}
-                      text: qsTr("outlines for dso")
+                      text: "   "+qsTr("outlines for dso")
+                      contentItem: Text {
+                          text: "   "+qsTr("outlines for dso")
+                          color: "grey"
+                      }
                   }
                   CheckBox{
                       id:chFlagAdditionalNames
@@ -623,7 +653,11 @@ StelDialog {
                       onCheckedChanged: {
                       stellarium.writeSetting("astro/flag_dso_additional_names", checked)
                       stellarium.updateSkyView()}
-                      text: qsTr("Use additional names of DSO")
+                      text: "   "+qsTr("Use additional names of DSO")
+                      contentItem: Text {
+                          text: "   "+qsTr("Use additional names of DSO")
+                          color: "grey"
+                      }
                   }
                   CheckBox{
                       id:chDesignationUsage
@@ -631,7 +665,11 @@ StelDialog {
                       onCheckedChanged: {
                       stellarium.writeSetting("astro/flag_dso_designation_usage", checked)
                       stellarium.updateSkyView()}
-                      text: qsTr("Use designations for screen labels")
+                      text: "   "+qsTr("Use designations for screen labels")
+                      contentItem: Text {
+                          text: "   "+qsTr("Use designations for screen labels")
+                          color: "grey"
+                      }
                   }
                   CheckBox{
                       id:chFlagSurfaceBrightnessUsage
@@ -639,7 +677,11 @@ StelDialog {
                       onCheckedChanged: {
                       stellarium.writeSetting("astro/flag_surface_brightness_usage", checked)
                       stellarium.updateSkyView()}
-                      text: qsTr("Use surface brightness")
+                      text: "   "+qsTr("Use surface brightness")
+                      contentItem: Text {
+                          text: "   "+qsTr("Use surface brightness")
+                          color: "grey"
+                      }
                   }
         }
 //              Button{
