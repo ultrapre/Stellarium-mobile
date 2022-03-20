@@ -461,11 +461,31 @@ StelDialog {
                   CheckBox {id:chOther
                   checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_other")
                   onCheckedChanged: {
-                  stellarium.writeSetting("dso_catalog_filters/flag_show_other", chvdBHa.checked)
+                  stellarium.writeSetting("dso_catalog_filters/flag_show_other", chOther.checked)
                   stellarium.updateSkyView()}
                   text: "   "+qsTr("Other")
                   contentItem: Text {
                       text: "   "+qsTr("Other")
+                      color: "grey"
+                  }}
+                  CheckBox {id:chObserved
+                  checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_observed")
+                  onCheckedChanged: {
+                  stellarium.writeSetting("dso_catalog_filters/flag_show_observed", chObserved.checked)
+                  stellarium.updateSkyView()}
+                  text: "   "+qsTr("Observed")
+                  contentItem: Text {
+                      text: "   "+qsTr("Observed")
+                      color: "grey"
+                  }}
+                  CheckBox {id:chObserving
+                  checked: stellarium.getboolSetting("dso_catalog_filters/flag_show_observing")
+                  onCheckedChanged: {
+                  stellarium.writeSetting("dso_catalog_filters/flag_show_observing", chObserving.checked)
+                  stellarium.updateSkyView()}
+                  text: "   "+qsTr("Observing")
+                  contentItem: Text {
+                      text: "   "+qsTr("Observing")
                       color: "grey"
                   }}
               }

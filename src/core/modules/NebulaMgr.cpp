@@ -50,6 +50,9 @@
 #include <QStringList>
 #include <QRegExp>
 #include <QDir>
+#include <QRegExp>
+#include <QRegularExpression>
+#include <QRegularExpressionMatch>
 //#include <QMessageBox> //silas
 
 // Define version of valid Stellarium DSO Catalog
@@ -3341,3 +3344,103 @@ QStringList NebulaMgr::listMatchingObjects(const QString& objPrefix, int maxNbIt
     return result;
 }
 
+
+void NebulaMgr::setObservingList(QString observingfile)
+{
+//    for (const auto& n : dsoArray)
+//        if (n->NGC_nb == NGC)
+//            return n;
+//    return NebulaP();
+
+    QFile f(observingfile);
+    f.open(QIODevice::ReadOnly);
+    QStringList lines = (QString::fromUtf8(f.readAll())).split("\n");
+
+    if(!observingfile.startsWith("/sdcard/")){
+        for (int i=0;i<lines.length();i+=1){
+            QString line = lines[i];
+            qDebug()<<line;
+        }
+        return;
+    }
+
+
+
+    QList<QList<int>> objLis = {};
+    QMap<int,QList<int>> observedData;
+    QMap<int,QList<int>> observingData;
+
+    QMap<QString,int> typedic;
+    typedic["NGC"]=16;
+    typedic["M"]=20;
+    for (int i=0;i<lines.length();i+=1){
+        QString line = lines[i];
+        line=line.replace("\r","");
+        qDebug()<<line;
+        QRegularExpression re;
+        QRegularExpressionMatch match;
+
+        re=QRegularExpression("^([A-z]+)(\\d+)$");
+        match = re.match(line);
+        if (match.hasMatch()) {
+            QString catalog = match.captured(1);
+            int num = QString(match.captured(2)).toInt();
+            if (typedic.contains(catalog)){
+                objLis.append({typedic[catalog],num,0,0}); // catalog,num,observed,added
+            }
+        }
+
+        re=QRegularExpression("^(\\d+)$");
+        match = re.match(line);
+        if (match.hasMatch()) {
+            int num = QString(match.captured(1)).toInt();
+            objLis.append({-1,num,0,0});
+        }
+
+        re=QRegularExpression("^([A-z]+)(\\d+)\t(\\d)$");
+        match = re.match(line);
+        if (match.hasMatch()) {
+            QString catalog = match.captured(1);
+            int num = QString(match.captured(2)).toInt();
+            if (typedic.contains(catalog)){
+                objLis.append({typedic[catalog],num,QString(match.captured(3)).toInt(),0});
+            }
+        }
+
+        re=QRegularExpression("^(\\d+)\t(\\d)$");
+        match = re.match(line);
+        if (match.hasMatch()) {
+            int num = QString(match.captured(2)).toInt();
+            objLis.append({-1,num,QString(match.captured(3)).toInt(),0});
+        }
+    }
+
+    for (int i=0;i<objLis.length();i+=1){
+        qDebug()<<objLis[i];
+        if (objLis[i][2]==0){
+            if(!observingData.contains(objLis[i][0]))
+                observingData[objLis[i][0]]={};
+            if(!observingData[objLis[i][0]].contains(objLis[i][1]))
+                observingData[objLis[i][0]].append(objLis[i][1]);
+        }
+        else{
+            if(!observedData.contains(objLis[i][0]))
+                observedData[objLis[i][0]]={};
+            if(!observedData[objLis[i][0]].contains(objLis[i][1]))
+                observedData[objLis[i][0]].append(objLis[i][1]);
+        }
+    }
+    if (observedData.contains(16)){
+        for (const auto& n : dsoArray){
+            if(observedData[16].contains(n->NGC_nb))
+                n->observed_nb=true;
+        }
+    }
+    if (observingData.contains(16)){
+        for (const auto& n : dsoArray){
+            if(observingData[16].contains(n->NGC_nb))
+                n->observing_nb=true;
+        }
+    }
+
+}

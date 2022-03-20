@@ -37,6 +37,7 @@
 #include "LandscapeMgr.hpp"
 #include "StelTranslator.hpp"
 #include "StelActionMgr.hpp"
+#include "NebulaMgr.hpp"
 
 #include "SolarSystemEditor.hpp"
 #include "updatecomets.h"
@@ -1745,11 +1746,8 @@ void StelCore::selectObservingFileToUpdate()
     if (observingfile == NULL) {
         return;
     }
-    QFile f(observingfile);
-    f.open(QIODevice::ReadOnly);
-    QStringList lines = (QString::fromUtf8(f.readAll())).split("\n");
-    for (int i=0;i<lines.length();i+=1){
-        QString line = lines[i];
-        qDebug()<<line;
-    }
+
+    NebulaMgr* nebulaP =GETSTELMODULE(NebulaMgr);
+    nebulaP->setObservingList(observingfile);
+
 }
