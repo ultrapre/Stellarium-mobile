@@ -53,6 +53,7 @@
 #include <QRegExp>
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
+#include <QSettings>
 //#include <QMessageBox> //silas
 
 // Define version of valid Stellarium DSO Catalog
@@ -485,6 +486,18 @@ void NebulaMgr::init()
 
 	addAction("actionShow_Nebulas", N_("Display Options"), N_("Deep-sky objects"), "flagHintDisplayed", "D", "N");
 	addAction("actionSet_Nebula_TypeFilterUsage", N_("Display Options"), N_("Toggle DSO type filter"), "flagTypeFiltersUsage");
+
+
+
+
+    QSettings* conf1 = StelApp::getInstance().getSettings();
+    QString observingfile = conf1->value("astro/observingListFile").toString();
+    observingfile=observingfile.replace("file://","");
+    qDebug()<<"file: "<<observingfile;
+    if (observingfile == NULL) {
+        return;
+    }
+    setObservingList(observingfile);
 }
 
 struct DrawNebulaFuncObject
@@ -3345,13 +3358,23 @@ QStringList NebulaMgr::listMatchingObjects(const QString& objPrefix, int maxNbIt
 }
 
 
+int NebulaMgr::getDSOCatNum(Nebula n,int i){
+    if (i==16) return n.NGC_nb;
+    if (i==17) return n.IC_nb;
+    if (i==18) return n.M_nb;
+    if (i==20) return n.C_nb;
+    if (i==21) return n.B_nb;
+    if (i==27) return n.Cr_nb;
+    if (i==28) return n.Mel_nb;
+
+    if (i==42) return n.Tr_nb;
+    if (i==43) return n.St_nb;
+    if (i==44) return n.Ru_nb;
+    if (i==45) return n.VdBHa_nb;
+}
+
 void NebulaMgr::setObservingList(QString observingfile)
 {
-//    for (const auto& n : dsoArray)
-//        if (n->NGC_nb == NGC)
-//            return n;
-//    return NebulaP();
-
     QFile f(observingfile);
     f.open(QIODevice::ReadOnly);
     QStringList lines = (QString::fromUtf8(f.readAll())).split("\n");
@@ -3372,7 +3395,17 @@ void NebulaMgr::setObservingList(QString observingfile)
 
     QMap<QString,int> typedic;
     typedic["NGC"]=16;
-    typedic["M"]=20;
+    typedic["IC"]=17;
+    typedic["M"]=18;
+    typedic["C"]=20;
+    typedic["B"]=21;
+    typedic["Cr"]=27;
+    typedic["Mel"]=28;
+
+    typedic["Tr"]=42;
+    typedic["St"]=43;
+    typedic["Ru"]=44;
+    typedic["vdBHa"]=45;
     for (int i=0;i<lines.length();i+=1){
         QString line = lines[i];
         line=line.replace("\r","");
@@ -3430,17 +3463,19 @@ void NebulaMgr::setObservingList(QString observingfile)
                 observedData[objLis[i][0]].append(objLis[i][1]);
         }
     }
-    if (observedData.contains(16)){
-        for (const auto& n : dsoArray){
-            if(observedData[16].contains(n->NGC_nb))
-                n->observed_nb=true;
-        }
-    }
-    if (observingData.contains(16)){
-        for (const auto& n : dsoArray){
-            if(observingData[16].contains(n->NGC_nb))
-                n->observing_nb=true;
-        }
-    }
 
+    for (const auto& e : {16,17,18,20,21,27,28,42,43,44,45}){
+        if (observedData.contains(e)){
+            for (const auto& n : dsoArray){
+                if(observedData[e].contains(getDSOCatNum(*n,e)))
+                    n->observed_nb=true;
+            }
+        }
+        if (observingData.contains(e)){
+            for (const auto& n : dsoArray){
+                if(observingData[e].contains(getDSOCatNum(*n,e)))
+                    n->observing_nb=true;
+            }
+        }
+    }
 }

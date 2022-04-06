@@ -405,6 +405,9 @@ public:
     virtual QStringList listMatchingObjects(const QString& objPrefix, int maxNbItem=5, bool useStartOfWords=false) const;
 
     void setObservingList(QString observingfile);
+
+    int getDSOCatNum(Nebula n,int i);
+
 	///////////////////////////////////////////////////////////////////////////
 	// Properties setters and getters
 public slots:
