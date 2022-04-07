@@ -1,4 +1,4 @@
-//silas
+import QtQuick 2.0
 
 import QtQuick 2.2
 import QtQuick.Controls 2.5
@@ -7,81 +7,26 @@ import QtQuick.Controls.Styles 1.4
 import Stellarium 1.0
 import QtQuick.Dialogs 1.0
 
+
 StelDialog {
-    id: viewdiag
-    title: qsTr("View")
-    //width: rootStyle.niceMenuWidth
-    width: 240*stellarium.guiScaleFactor
-    height: childrenRect.height
+    id: viewdso
+    title: qsTr("DSO View")
+    width: rootStyle.niceMenuWidth
 
-    Column {
-        width: parent.width
-        Repeater {
-            model: viewModel
-            StelListItem {
-                text: qsTranslate("ctx", title);
-                withArrow: true
-                onClicked: viewdiag.openPage(page)
-            }
-        }
-    }
-/*
-    StelListItem {
-        text: qsTr("DSO View")
-        withArrow: true
-        onClicked: {
-            root.openPage("ViewDSO.qml")
-        }
-    }
-*/
-
-    ListModel {
-        id: viewModel
-        ListElement {
-            title: QT_TR_NOOP("View DSO")
-            page: "ViewDSO.qml"
-        }
-}
-/*
-//	property string current: stellarium.currentSkyCultureI18
-
-    ListView {
-        id: list
-        width: 80*rootStyle.scale
-        height: 400*rootStyle.scale
-        StelListItem {
-            id: list_dso
-            text: qsTr("DSO")
-        }
-//        StelListItem {
-//            y:list_dso.height*1
-//            id: list_ss
-//            text: qsTr("Solar")
-//        }
-    }
-
-
+    // XXX: I guess we could move the flickable + column into a custom item.
     Flickable {
-//        left: list.right
-//        right: parent.right
-        anchors {
-            left: list.right
-            top: parent.top
-            right: parent.right
-            bottom: parent.bottom
-            margins: rootStyle.margin
-
-        }
+        width: parent.width
+        height: rootStyle.maxMenuHeight
         clip: true
-        contentWidth: width
+        contentWidth: parent.width
         contentHeight: dsoAmountview.height+dsoLimitview.height+dsolistview.height+dsotypeview.height+dsoAdvView.height
         flickableDirection: Flickable.VerticalFlick
 
-
         GridLayout{
             id:dsoAmountview;
-            columns: 3
+            columns: 4
             y:0
+            //right:parent.width
             Text{
                 id: dsoAmountviewText
                 color: "grey"
@@ -99,7 +44,7 @@ StelDialog {
                     stellarium.updateSkyView()
                 }
                 //width: dsoAmountview.width-dsoAmountviewText.width
-                Layout.columnSpan:2
+                //Layout.columnSpan:2
 
             }
             Text{
@@ -116,13 +61,13 @@ StelDialog {
                     stellarium.writeDoubleSetting("astro/nebula_labels_amount", value)
                     stellarium.updateSkyView()
                 }
-                Layout.columnSpan:2
+                //Layout.columnSpan:2
             }
         }
 
         GridLayout{
             id:dsoLimitview;
-            columns: 1
+            columns: 6
             y:dsoAmountview.height+dsoAmountview.y
 //            TextAreaStyle{
 //                textColor: "white"
@@ -143,6 +88,7 @@ StelDialog {
                     text: "   "+qsTr("Mag Limit")
                     color: "grey"
                 }
+                Layout.columnSpan:2
             }
             Slider{
 //                width: dsoLimitview.width - chMagLimit.width
@@ -155,6 +101,7 @@ StelDialog {
                     stellarium.setCustomNebulaMagnitudeLimit(value)
                     stellarium.updateSkyView()
                 }
+                Layout.columnSpan:4
             }
             CheckBox{
 //                width: dsoLimitview.width - chMagLimit.width
@@ -168,6 +115,7 @@ StelDialog {
                     text: "   "+qsTr("Size Limit")
                     color: "grey"
                 }
+                Layout.columnSpan:2
             }
             RangeSlider{
                 from: 0
@@ -183,6 +131,7 @@ StelDialog {
                     stellarium.writeDoubleSetting("astro/size_limit_max", Math.exp(0.7*second.value))
                     stellarium.updateSkyView()
                 }
+                Layout.columnSpan:4
             }
         }
 
@@ -190,12 +139,12 @@ StelDialog {
 
         GridLayout {
                   id:dsolistview;
-                  columns: 3
+                  columns: 4
                   y:dsoLimitview.height+dsoLimitview.y
 
                   Text{
                       text:""
-                      Layout.columnSpan: 3
+                      Layout.columnSpan: parent.columns
                   }
 
                   CheckBox {id:chM
@@ -523,12 +472,13 @@ StelDialog {
 
         GridLayout {
                   id:dsotypeview;
-                  columns: 1
+                  columns: 2
                   y:dsolistview.height+dsolistview.y
 
 
                   Text{
                       text:""
+                      Layout.columnSpan: parent.columns
                   }
 
                   CheckBox {id:chDSOTypeFilter
@@ -673,6 +623,7 @@ StelDialog {
 
                   Text{
                       text:""
+                      Layout.columnSpan: parent.columns
                   }
 
                   CheckBox{
@@ -737,19 +688,5 @@ StelDialog {
                   }
         }
 
-
-//        GridLayout {
-//                  id:dsoObserveList;
-//                  columns: 1
-//                  y:dsoAdvView.height+dsoAdvView.y
-
-//                  Text{
-//                      text:""
-//                  }
-
-
-//        }
-
     }
-    */
 }
