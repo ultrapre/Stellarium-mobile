@@ -30,20 +30,6 @@ StelDialog {
 
         StelListItem {
             checkbox: true
-            action: "actionShow_Telrads"
-            setting: "astro/flag_telrads"
-            text: qsTr("Show telrads")
-        }
-
-        StelListItem {
-            checkbox: true
-            action: "actionShow_Toast_Survey"
-            setting: "astro/flag_toast_survey"
-            text: qsTr("Show toast survey")
-        }
-
-        StelListItem {
-            checkbox: true
             action: "actionShow_Planets_Hints"
             setting: "astro/flag_planets_hints"
             text: qsTr("Show planet markers")
@@ -120,6 +106,36 @@ StelDialog {
                 picker.valueChanged.connect(onValueChanged)
             }
         }
+
+        StelListItem {
+            checkbox: true
+            action: "actionShow_Telrads"
+            setting: "astro/flag_telrads"
+            text: qsTr("Show telrads")
+        }
+
+        StelListItem {
+            checkbox: true
+            action: "actionShow_Toast_Survey"
+            setting: "astro/flag_toast_survey"
+            text: qsTr("Show toast survey")
+        }
+
+        StelListItem {
+            checkbox: true
+            action: "actionHorizontal_Flip"
+            setting: "projection/flip_horz"
+            text: qsTr("Horizontal Flip")
+        }
+
+        StelListItem {
+            checkbox: true
+            action: "actionVertical_Flip"
+            setting: "projection/flip_vert"
+            text: qsTr("Vertical Flip")
+        }
+
+
         }
     }
 }

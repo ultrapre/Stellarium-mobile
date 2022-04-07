@@ -42,12 +42,6 @@ StelDialog {
                 onClicked: advanceddiag.openPage(page)
             }
         }
-        StelButton {
-            //y:dsoAmountview.height+dsoAmountview.y
-            text: qsTr("Restore default settings")
-            anchors.margins: rootStyle.margin
-            onClicked: stellarium.resetSettings()
-        }
     }
 
     ListModel {
@@ -59,6 +53,10 @@ StelDialog {
         ListElement {
             title: QT_TR_NOOP("Plan Observation")
             page: "Observation.qml"
+        }
+        ListElement {
+            title: QT_TR_NOOP("AdvancedSetting")
+            page: "AdvancedSetting.qml"
         }
     }
 

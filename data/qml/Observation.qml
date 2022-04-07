@@ -16,7 +16,7 @@ StelDialog {
     // XXX: I guess we could move the flickable + column into a custom item.
     Flickable {
         width: parent.width
-        height: rootStyle.maxMenuHeight
+        height: Math.min(columnObsevation.height, rootStyle.maxMenuHeight)
         clip: true
         contentWidth: parent.width
         contentHeight: columnObsevation.height

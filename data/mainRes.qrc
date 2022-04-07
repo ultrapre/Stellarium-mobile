@@ -79,5 +79,10 @@
         <file>qml/ValuePicker.qml</file>
         <file>qml/images/DSS.png</file>
         <file>qml/ViewDialog.qml</file>
+        <file>qml/ViewDSO.qml</file>
+        <file>qml/ViewSky.qml</file>
+        <file>qml/Comets.qml</file>
+        <file>qml/Observation.qml</file>
+        <file>qml/AdvancedSetting.qml</file>
     </qresource>
 </RCC>
