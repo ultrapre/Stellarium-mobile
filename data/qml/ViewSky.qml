@@ -61,7 +61,7 @@ StelDialog {
             rightText: stellarium.lightPollution
             withArrow: true
             onClicked: {
-                var picker = root.openPage("ValuePicker.qml")
+                var picker = viewsky.openPage("ValuePicker.qml")
                 picker.title = qsTr("Light pollution")
                 picker.min = 1
                 picker.max = 9
@@ -78,7 +78,7 @@ StelDialog {
             rightText: stellarium.milkyWayBrightness
             withArrow: true
             onClicked: {
-                var picker = root.openPage("ValuePicker.qml")
+                var picker = viewsky.openPage("ValuePicker.qml")
                 picker.title = qsTr("Milky Way brightness")
                 picker.min = 0
                 picker.max = 10
@@ -95,7 +95,7 @@ StelDialog {
             rightText: stellarium.linesThickness
             withArrow: true
             onClicked: {
-                var picker = root.openPage("ValuePicker.qml")
+                var picker = viewsky.openPage("ValuePicker.qml")
                 picker.title = qsTr("Thickness of lines")
                 picker.min = 0
                 picker.max = 8
@@ -133,6 +133,13 @@ StelDialog {
             action: "actionVertical_Flip"
             setting: "projection/flip_vert"
             text: qsTr("Vertical Flip")
+        }
+
+        StelListItem {
+            checkbox: true
+            action: "actionSwitch_Equatorial_Mount"
+            //setting: "projection/flip_vert"
+            text: qsTr("Equatorial Mount")
         }
 
 

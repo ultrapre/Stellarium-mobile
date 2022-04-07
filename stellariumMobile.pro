@@ -381,7 +381,13 @@ OTHER_FILES += \
 	data/qml/ValuePicker.qml \
 
 DISTFILES += \
+    android/AndroidManifest.xml \
+    data/qml/AdvancedSetting.qml \
+    data/qml/Comets.qml \
+    data/qml/Observation.qml \
+    data/qml/ViewDSO.qml \
     data/qml/ViewDialog.qml \
+    data/qml/ViewSky.qml \
     mobile-guide/guide.md
 
 ANDROID_ABIS = armeabi-v7a
