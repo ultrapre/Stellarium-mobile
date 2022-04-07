@@ -41,6 +41,10 @@ StelDialog {
             title: QT_TR_NOOP("View DSO")
             page: "ViewDSO.qml"
         }
+        ListElement {
+            title: QT_TR_NOOP("View Sky")
+            page: "ViewSky.qml"
+        }
 }
 /*
 //	property string current: stellarium.currentSkyCultureI18

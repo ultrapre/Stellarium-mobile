@@ -19,6 +19,51 @@
 
 import QtQuick 2.2
 import QtQuick.Dialogs 1.0
+
+import QtQuick.Controls 2.5
+import QtQuick.Layouts 1.12
+import QtQuick.Controls.Styles 1.4
+import Stellarium 1.0
+
+StelDialog {
+    id: advanceddiag
+    title: qsTr("Advanced")
+    //width: rootStyle.niceMenuWidth
+    width: 240*stellarium.guiScaleFactor
+    height: childrenRect.height
+
+    Column {
+        width: parent.width
+        Repeater {
+            model: advancedModel
+            StelListItem {
+                text: qsTranslate("ctx", title);
+                withArrow: true
+                onClicked: advanceddiag.openPage(page)
+            }
+        }
+        StelButton {
+            //y:dsoAmountview.height+dsoAmountview.y
+            text: qsTr("Restore default settings")
+            anchors.margins: rootStyle.margin
+            onClicked: stellarium.resetSettings()
+        }
+    }
+
+    ListModel {
+        id: advancedModel
+        ListElement {
+            title: QT_TR_NOOP("Comets")
+            page: "Comets.qml"
+        }
+        ListElement {
+            title: QT_TR_NOOP("Plan Observation")
+            page: "Observation.qml"
+        }
+    }
+
+}
+/*
 StelDialog {
 	id: root
 	title: qsTr("Advanced")
@@ -38,99 +83,6 @@ StelDialog {
 			width: root.width
 			height: childrenRect.height
 
-            StelListItem {
-                checkbox: true
-                action: "actionShow_Telrads"
-                setting: "astro/flag_telrads"
-                text: qsTr("Show telrads")
-            }
-
-            StelListItem {
-                checkbox: true
-                action: "actionShow_Toast_Survey"
-                setting: "astro/flag_toast_survey"
-                text: qsTr("Show toast survey")
-            }
-
-			StelListItem {
-				checkbox: true
-				action: "actionShow_Planets_Hints"
-				setting: "astro/flag_planets_hints"
-				text: qsTr("Show planet markers")
-			}
-
-			StelListItem {
-				checkbox: true
-				action: "actionShow_Ecliptic_Line"
-				setting: "viewing/flag_ecliptic_line"
-				text: qsTr("Show ecliptic line")
-			}
-
-			StelListItem {
-				checkbox: true
-				action: "actionShow_Meridian_Line"
-				setting: "viewing/flag_meridian_line"
-				text: qsTr("Show meridian line")
-			}
-
-			StelListItem {
-				checkbox: true
-				action: "actionShow_Constellation_Boundaries"
-				setting: "viewing/flag_constellation_boundaries"
-				text: qsTr("Constellation boundaries")
-			}
-
-			StelListItem {
-				text: qsTr("Light pollution")
-				rightText: stellarium.lightPollution
-				withArrow: true
-				onClicked: {
-					var picker = root.openPage("ValuePicker.qml")
-					picker.title = qsTr("Light pollution")
-					picker.min = 1
-					picker.max = 9
-					picker.value = stellarium.lightPollution
-					function onValueChanged() {
-						stellarium.lightPollution = picker.value
-					}
-					picker.valueChanged.connect(onValueChanged)
-				}
-			}
-
-			StelListItem {
-				text: qsTr("Milky Way brightness")
-				rightText: stellarium.milkyWayBrightness
-				withArrow: true
-				onClicked: {
-					var picker = root.openPage("ValuePicker.qml")
-					picker.title = qsTr("Milky Way brightness")
-					picker.min = 0
-					picker.max = 10
-					picker.value = stellarium.milkyWayBrightness
-					function onValueChanged() {
-						stellarium.milkyWayBrightness = picker.value
-					}
-					picker.valueChanged.connect(onValueChanged)
-				}
-			}
-
-			StelListItem {
-				text: qsTr("Thickness of lines")
-				rightText: stellarium.linesThickness
-				withArrow: true
-				onClicked: {
-					var picker = root.openPage("ValuePicker.qml")
-					picker.title = qsTr("Thickness of lines")
-					picker.min = 0
-					picker.max = 8
-					picker.value = stellarium.linesThickness
-					function onValueChanged() {
-						stellarium.linesThickness = picker.value
-					}
-					picker.valueChanged.connect(onValueChanged)
-				}
-			}
-
             StelButton {
                 text: qsTr("Update Comets (GVB)")
                 action: "action_updatecomets1"
@@ -142,52 +94,6 @@ StelDialog {
             }
 
             StelButton {
-                id: selectObservingFileButton
-                text: qsTr("Select Observing List File")
-                onClicked: {
-                    fds.open()
-                    console.log("opening:"+fds.fileUrl);
-                }
-                onTextChanged: {
-                    console.log(text+" "+fds.fileUrl);
-                    if(text=="Setting..."&&fds.fileUrl!=""){
-                        text = qsTr("Select Observing List File");
-                        stellarium.writeStringSetting("astro/observingListFile", fds.fileUrl)
-                        console.log("now set to:"+stellarium.getStringSetting("astro/observingListFile"))
-                    }
-                }
-            }
-
-            FileDialog {
-                    id:fds
-                    title: "选择文件"
-                    folder: "file:///sdcard"
-                    selectExisting: true
-                    selectFolder: false
-                    selectMultiple: false
-                    nameFilters: ["文件 (*.*)"]
-
-                    onAccepted: {
-                        console.log("Now folder: " + fds.folder);
-                        selectObservingFileButton.text = qsTr("Setting...");
-                        console.log("You choise: " + fds.fileUrl);
-                    }
-
-                    onRejected: {
-//                        labels.text = "";
-                        console.log("Canceled");
-//                        Qt.quit();
-                    }
-
-                }
-
-
-            StelButton {
-                text: qsTr("Apply Observing Filter")
-                action: "action_applyObserving"
-            }
-
-            StelButton {
                 text: qsTr("Restore default settings")
                 anchors.margins: rootStyle.margin
                 onClicked: stellarium.resetSettings()
@@ -196,3 +102,4 @@ StelDialog {
 		}
 	}
 }
+*/
