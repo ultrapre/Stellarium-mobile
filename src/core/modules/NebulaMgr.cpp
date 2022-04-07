@@ -1930,6 +1930,32 @@ StelObjectP NebulaMgr::searchByName(const QString& name) const
 {
 	QString objw = name.toUpper();
 
+
+    //silas
+    QRegExp catNumRx1("^(\\d{1,4})$");
+    if (catNumRx1.exactMatch(objw))
+    {
+        int num = catNumRx1.capturedTexts().at(1).toInt();
+        foreach (const NebulaP& n, dsoArray)
+        {
+            if (QString("NGC%1").arg(n->NGC_nb) == QString("NGC%1").arg(num) ||
+                    QString("NGC %1").arg(n->NGC_nb) == QString("NGC %1").arg(num))
+                return qSharedPointerCast<StelObject>(n);
+        }
+    }
+
+    QRegExp catNumRx8("^N(\\d+)$");
+    if (catNumRx8.exactMatch(objw))
+    {
+        int num = catNumRx8.capturedTexts().at(1).toInt();
+        foreach (const NebulaP& n, dsoArray)
+        {
+            if (QString("NGC%1").arg(n->NGC_nb) == QString("NGC%1").arg(num) ||
+                    QString("NGC %1").arg(n->NGC_nb) == QString("NGC %1").arg(num))
+            return qSharedPointerCast<StelObject>(n);
+        }
+    }
+
 	// Search by common names
 	for (const auto& n : dsoArray)
 	{
@@ -3192,6 +3218,32 @@ QStringList NebulaMgr::listMatchingObjectsI18n(const QString& objPrefix, int max
             result << constw;
     }
 
+
+    if (objw.size()>=1 && objw[0]=='N'){
+    QRegExp catNumRx11("^N(\\d+)$");
+    if (catNumRx11.exactMatch(objw))
+    {
+        int num = catNumRx11.capturedTexts().at(1).toInt();
+        foreach (const NebulaP& n, dsoArray)
+        {
+
+        if (n->NGC_nb==0) continue;
+        QString constw = QString("NGC%1").arg(n->NGC_nb);
+        QString constws = constw.mid(0, objw.size());
+        if (constws==QString("NGC%1").arg(num))
+        {
+            result << constws;
+            continue;
+        }
+        constw = QString("NGC %1").arg(n->NGC_nb);
+        constws = constw.mid(0, objw.size());
+        if (constws==QString("NGC %1").arg(num))
+            result << constw;
+        }
+    }
+    }
+
+
     // Search by caldwell objects number (possible formats are "C31" or "C 31")
     if (objw.size()>=1 && objw[0]=='C')
     {
@@ -3215,6 +3267,9 @@ QStringList NebulaMgr::listMatchingObjectsI18n(const QString& objPrefix, int max
     QString dson;
     bool find;
     // Search by common names
+    //exclude pure number
+    QRegExp catNumRx11("^(\\d+)$");
+    if (!catNumRx11.exactMatch(objw))
     foreach (const NebulaP& n, dsoArray)
     {
         dson = n->nameI18;
@@ -3234,6 +3289,7 @@ QStringList NebulaMgr::listMatchingObjectsI18n(const QString& objPrefix, int max
             result << dson;
     }
 
+
     result.sort();
     if (maxNbItem > 0)
     {
@@ -3249,6 +3305,28 @@ QStringList NebulaMgr::listMatchingObjects(const QString& objPrefix, int maxNbIt
     if (maxNbItem==0) return result;
 
      QString objw = objPrefix.toUpper();
+
+     //silas
+     if (objw.size()>=1 && objw[0]=='N'){
+     QRegExp catNumRx11("^N(\\d+)$");
+        if (catNumRx11.exactMatch(objw)){
+            int num = catNumRx11.capturedTexts().at(1).toInt();
+            result << QString("NGC%1").arg(num);
+        }
+     }
+     if (objw.size()>=1){
+        QRegExp catNumRx11("^(\\d+)$");
+        if (catNumRx11.exactMatch(objw)){
+            int num = catNumRx11.capturedTexts().at(1).toInt();
+            if (num <= 110 && num > 0)
+                result << QString("M%1").arg(num);
+            if (num <= 7840 && num > 0)
+                result << QString("NGC%1").arg(num);
+        }
+     }
+
+
+
     // Search by Messier objects number (possible formats are "M31" or "M 31")
     if (objw.size()>=1 && objw[0]=='M')
     {
@@ -3329,6 +3407,9 @@ QStringList NebulaMgr::listMatchingObjects(const QString& objPrefix, int maxNbIt
     QString dson;
     bool find;
     // Search by common names
+    //exclude pure number
+    QRegExp catNumRx11("^(\\d+)$");
+    if (!catNumRx11.exactMatch(objw))
     foreach (const NebulaP& n, dsoArray)
     {
         dson = n->englishName;
@@ -3347,6 +3428,7 @@ QStringList NebulaMgr::listMatchingObjects(const QString& objPrefix, int maxNbIt
         if (find)
             result << dson;
     }
+
 
     result.sort();
     if (maxNbItem > 0)

@@ -963,64 +963,65 @@ QString Nebula::getDSODesignation() const
 {
 	QString str = "";
 	// Get designation for DSO with priority as given here.
-	if (catalogFilters&CatM && M_nb>0)
-		str = QString("M %1").arg(M_nb);
-	else if (catalogFilters&CatC && C_nb>0)
-		str = QString("C %1").arg(C_nb);
-	else if (catalogFilters&CatNGC && NGC_nb>0)
-		str = QString("NGC %1").arg(NGC_nb);
-	else if (catalogFilters&CatIC && IC_nb>0)
-		str = QString("IC %1").arg(IC_nb);
-	else if (catalogFilters&CatB && B_nb>0)
-		str = QString("B %1").arg(B_nb);
-	else if (catalogFilters&CatSh2 && Sh2_nb>0)
-		str = QString("SH 2-%1").arg(Sh2_nb);
-	else if (catalogFilters&CatVdB && VdB_nb>0)
-		str = QString("vdB %1").arg(VdB_nb);
-	else if (catalogFilters&CatRCW && RCW_nb>0)
-		str = QString("RCW %1").arg(RCW_nb);
-	else if (catalogFilters&CatLDN && LDN_nb>0)
-		str = QString("LDN %1").arg(LDN_nb);
-	else if (catalogFilters&CatLBN && LBN_nb > 0)
-		str = QString("LBN %1").arg(LBN_nb);
-	else if (catalogFilters&CatCr && Cr_nb > 0)
-		str = QString("Cr %1").arg(Cr_nb);
-	else if (catalogFilters&CatMel && Mel_nb > 0)
-		str = QString("Mel %1").arg(Mel_nb);
-	else if (catalogFilters&CatPGC && PGC_nb > 0)
-		str = QString("PGC %1").arg(PGC_nb);
-	else if (catalogFilters&CatUGC && UGC_nb > 0)
-		str = QString("UGC %1").arg(UGC_nb);
-	else if (catalogFilters&CatCed && !Ced_nb.isEmpty())
-		str = QString("Ced %1").arg(Ced_nb);
-	else if (catalogFilters&CatArp && Arp_nb > 0)
-		str = QString("Arp %1").arg(Arp_nb);
-	else if (catalogFilters&CatVV && VV_nb > 0)
-		str = QString("VV %1").arg(VV_nb);
-	else if (catalogFilters&CatPK && !PK_nb.isEmpty())
-		str = QString("PK %1").arg(PK_nb);
-	else if (catalogFilters&CatPNG && !PNG_nb.isEmpty())
-		str = QString("PN G%1").arg(PNG_nb);
-	else if (catalogFilters&CatSNRG && !SNRG_nb.isEmpty())
-		str = QString("SNR G%1").arg(SNRG_nb);
-	else if (catalogFilters&CatACO && !ACO_nb.isEmpty())
-		str = QString("Abell %1").arg(ACO_nb);
-	else if (catalogFilters&CatHCG && !HCG_nb.isEmpty())
-		str = QString("HCG %1").arg(HCG_nb);	
-	else if (catalogFilters&CatESO && !ESO_nb.isEmpty())
-		str = QString("ESO %1").arg(ESO_nb);
-	else if (catalogFilters&CatVdBH && !VdBH_nb.isEmpty())
-		str = QString("vdBH %1").arg(VdBH_nb);
-	else if (catalogFilters&CatDWB && DWB_nb > 0)
-		str = QString("DWB %1").arg(DWB_nb);
-	else if (catalogFilters&CatTr && Tr_nb > 0)
-		str = QString("Tr %1").arg(Tr_nb);
-	else if (catalogFilters&CatSt && St_nb > 0)
-		str = QString("St %1").arg(St_nb);
-	else if (catalogFilters&CatRu && Ru_nb > 0)
-		str = QString("Ru %1").arg(Ru_nb);
-	else if (catalogFilters&CatVdBHa && VdBHa_nb > 0)
-		str = QString("vdB-Ha %1").arg(VdBHa_nb);
+
+    if ((catalogFilters&CatM  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && M_nb>0)
+        str = QString("M %1").arg(M_nb);
+    else if ((catalogFilters&CatC  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && C_nb>0)
+        str = QString("C %1").arg(C_nb);
+    else if ((catalogFilters&CatNGC  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && NGC_nb>0)
+        str = QString("NGC %1").arg(NGC_nb);
+    else if ((catalogFilters&CatIC  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && IC_nb>0)
+        str = QString("IC %1").arg(IC_nb);
+    else if ((catalogFilters&CatB  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && B_nb>0)
+        str = QString("B %1").arg(B_nb);
+    else if ((catalogFilters&CatSh2  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && Sh2_nb>0)
+        str = QString("SH 2-%1").arg(Sh2_nb);
+    else if ((catalogFilters&CatVdB  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && VdB_nb>0)
+        str = QString("vdB %1").arg(VdB_nb);
+    else if ((catalogFilters&CatRCW  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && RCW_nb>0)
+        str = QString("RCW %1").arg(RCW_nb);
+    else if ((catalogFilters&CatLDN  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && LDN_nb>0)
+        str = QString("LDN %1").arg(LDN_nb);
+    else if ((catalogFilters&CatLBN  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && LBN_nb > 0)
+        str = QString("LBN %1").arg(LBN_nb);
+    else if ((catalogFilters&CatMel  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && Mel_nb > 0)
+        str = QString("Mel %1").arg(Mel_nb);
+    else if ((catalogFilters&CatCr  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && Cr_nb > 0)
+        str = QString("Cr %1").arg(Cr_nb);
+    else if ((catalogFilters&CatPGC  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && PGC_nb > 0)
+        str = QString("PGC %1").arg(PGC_nb);
+    else if ((catalogFilters&CatUGC  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && UGC_nb > 0)
+        str = QString("UGC %1").arg(UGC_nb);
+    else if ((catalogFilters&CatCed  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && !Ced_nb.isEmpty())
+        str = QString("Ced %1").arg(Ced_nb);
+    else if ((catalogFilters&CatArp  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && Arp_nb > 0)
+        str = QString("Arp %1").arg(Arp_nb);
+    else if ((catalogFilters&CatVV  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && VV_nb > 0)
+        str = QString("VV %1").arg(VV_nb);
+    else if ((catalogFilters&CatPK  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && !PK_nb.isEmpty())
+        str = QString("PK %1").arg(PK_nb);
+    else if ((catalogFilters&CatPNG  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && !PNG_nb.isEmpty())
+        str = QString("PN G%1").arg(PNG_nb);
+    else if ((catalogFilters&CatSNRG  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && !SNRG_nb.isEmpty())
+        str = QString("SNR G%1").arg(SNRG_nb);
+    else if ((catalogFilters&CatACO  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && !ACO_nb.isEmpty())
+        str = QString("Abell %1").arg(ACO_nb);
+    else if ((catalogFilters&CatHCG  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && !HCG_nb.isEmpty())
+        str = QString("HCG %1").arg(HCG_nb);
+    else if ((catalogFilters&CatESO  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && !ESO_nb.isEmpty())
+        str = QString("ESO %1").arg(ESO_nb);
+    else if ((catalogFilters&CatVdBH  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && !VdBH_nb.isEmpty())
+        str = QString("vdBH %1").arg(VdBH_nb);
+    else if ((catalogFilters&CatDWB  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && DWB_nb > 0)
+        str = QString("DWB %1").arg(DWB_nb);
+    else if ((catalogFilters&CatTr  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && Tr_nb > 0)
+        str = QString("Tr %1").arg(Tr_nb);
+    else if ((catalogFilters&CatSt  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && St_nb > 0)
+        str = QString("St %1").arg(St_nb);
+    else if ((catalogFilters&CatRu  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && Ru_nb > 0)
+        str = QString("Ru %1").arg(Ru_nb);
+    else if ((catalogFilters&CatVdBHa  ||  catalogFilters&CatObserved || catalogFilters&CatObserving) && VdBHa_nb > 0)
+        str = QString("vdB-Ha %1").arg(VdBHa_nb);
 
 	return str;
 }
@@ -1061,8 +1062,8 @@ void Nebula::readDSO(QDataStream &in)
 	if (RCW_nb > 0) designations << QString("RCW %1").arg(RCW_nb);
 	if (LDN_nb > 0) designations << QString("LDN %1").arg(LDN_nb);
 	if (LBN_nb > 0) designations << QString("LBN %1").arg(LBN_nb);
-	if (Cr_nb > 0) designations << QString("Cr %1").arg(Cr_nb);
-	if (Mel_nb > 0) designations << QString("Mel %1").arg(Mel_nb);
+    if (Mel_nb > 0) designations << QString("Mel %1").arg(Mel_nb);
+    if (Cr_nb > 0) designations << QString("Cr %1").arg(Cr_nb);
 	if (PGC_nb > 0) designations << QString("PGC %1").arg(PGC_nb);
 	if (UGC_nb > 0) designations << QString("UGC %1").arg(UGC_nb);
 	if (!Ced_nb.isEmpty()) designations << QString("Ced %1").arg(Ced_nb);
