@@ -7,7 +7,6 @@ import QtQuick.Controls.Styles 1.4
 import Stellarium 1.0
 import QtQuick.Dialogs 1.0
 
-
 StelDialog {
     id: cometsplugin
     title: qsTr("Comets")
@@ -29,16 +28,32 @@ StelDialog {
             height: childrenRect.height
 
             StelButton {
+                id: updateComets1
                 text: qsTr("Update Comets (GVB)")
                 action: "action_updatecomets1"
+                onClicked: {
+                    cometMessage.show(qsTr("Updating comets, please wait few seconds..."))
+                }
             }
+
 
             StelButton {
                 text: qsTr("Update Comets (MPC)")
                 action: "action_updatecomets2"
+                onClicked: {
+                    cometMessage.show(qsTr("Updating comets, please wait few seconds..."))
+                }
             }
 
         }
     }
-
+    StelMessage {
+        id: cometMessage
+        anchors.verticalCenter: columnComets.width
+        y: columnComets.height
+        duration: 3000
+    }
 }
+
+
+

@@ -38,11 +38,11 @@ StelDialog {
     ListModel {
         id: viewModel
         ListElement {
-            title: QT_TR_NOOP("View Sky")
+            title: qsTr("View Sky")
             page: "ViewSky.qml"
         }
         ListElement {
-            title: QT_TR_NOOP("View DSO")
+            title: qsTr("View DSO")
             page: "ViewDSO.qml"
         }
 }

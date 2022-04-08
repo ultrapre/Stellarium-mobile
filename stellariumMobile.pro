@@ -12,7 +12,6 @@ INCLUDEPATH += \
 TEMPLATE = app
 QT += network gui sensors qml quick positioning concurrent widgets
 
-
 android {
 	QT += androidextras
 }
@@ -379,15 +378,15 @@ OTHER_FILES += \
 	data/qml/AdvancedDialog.qml \
 	data/qml/AnglePicker.qml \
 	data/qml/ValuePicker.qml \
+        data/qml/AdvancedSetting.qml \
+        data/qml/Comets.qml \
+        data/qml/Observation.qml \
+        data/qml/ViewDSO.qml \
+        data/qml/ViewDialog.qml \
+        data/qml/ViewSky.qml \
 
 DISTFILES += \
     android/AndroidManifest.xml \
-    data/qml/AdvancedSetting.qml \
-    data/qml/Comets.qml \
-    data/qml/Observation.qml \
-    data/qml/ViewDSO.qml \
-    data/qml/ViewDialog.qml \
-    data/qml/ViewSky.qml \
     mobile-guide/guide.md
 
 ANDROID_ABIS = armeabi-v7a
@@ -396,3 +395,4 @@ contains(ANDROID_TARGET_ARCH,) {
     ANDROID_ABIS = \
         armeabi-v7a
 }
+TRANSLATIONS+=mobileData/translations/stellarium/stellarium.ts

@@ -1,0 +1,609 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Language: zh_CN\n"
+"X-Source-Language: C\n"
+"X-Qt-Contexts: true\n"
+
+#: ../../../data/qml/AboutDialog.qml:24
+msgctxt "AboutDialog|"
+msgid "About"
+msgstr ""
+
+#: ../../../data/qml/AdvancedDialog.qml:30
+msgctxt "AdvancedDialog|"
+msgid "Advanced"
+msgstr ""
+
+#: ../../../data/qml/AdvancedDialog.qml:50
+msgctxt "AdvancedDialog|"
+msgid "Comets"
+msgstr ""
+
+#: ../../../data/qml/AdvancedDialog.qml:54
+msgctxt "AdvancedDialog|"
+msgid "Plan Observation"
+msgstr ""
+
+#: ../../../data/qml/AdvancedDialog.qml:58
+msgctxt "AdvancedDialog|"
+msgid "Advanced Setting"
+msgstr ""
+
+#: ../../../data/qml/AdvancedSetting.qml:14
+msgctxt "AdvancedSetting|"
+msgid "Advanced Setting"
+msgstr ""
+
+#: ../../../data/qml/AdvancedSetting.qml:34
+msgctxt "AdvancedSetting|"
+msgid "Restore default settings"
+msgstr ""
+
+#: ../../../data/qml/AnglePicker.qml:24
+msgctxt "AnglePicker|"
+msgid "Latitude"
+msgstr ""
+
+#: ../../../data/qml/AnglePicker.qml:24
+msgctxt "AnglePicker|"
+msgid "Longitude"
+msgstr ""
+
+#: ../../../data/qml/Comets.qml:12
+msgctxt "Comets|"
+msgid "Comets"
+msgstr ""
+
+#: ../../../data/qml/Comets.qml:32
+msgctxt "Comets|"
+msgid "Update Comets (GVB)"
+msgstr ""
+
+#: ../../../data/qml/Comets.qml:35 ../../../data/qml/Comets.qml:44
+msgctxt "Comets|"
+msgid "Updating comets, please wait few seconds..."
+msgstr ""
+
+#: ../../../data/qml/Comets.qml:41
+msgctxt "Comets|"
+msgid "Update Comets (MPC)"
+msgstr ""
+
+#: ../../../data/qml/InfoPanel.qml:129
+msgctxt "InfoPanel|"
+msgid "Unnamed"
+msgstr ""
+
+#: ../../../data/qml/LandscapesDialog.qml:5
+msgctxt "LandscapesDialog|"
+msgid "Landscape"
+msgstr ""
+
+#: ../../../data/qml/LocationCityPicker.qml:24
+msgctxt "LocationCityPicker|"
+msgid "Pick City"
+msgstr ""
+
+#: ../../../data/qml/LocationCityPicker.qml:24
+msgctxt "LocationCityPicker|"
+msgid "Pick Country"
+msgstr ""
+
+#: ../../../data/qml/LocationCityPicker.qml:44
+#: ../../../data/qml/LocationCityPicker.qml:49
+#: ../../../data/qml/LocationCityPicker.qml:78
+msgctxt "LocationCityPicker|"
+msgid "Filter"
+msgstr ""
+
+#: ../../../data/qml/LocationCityPicker.qml:107
+msgctxt "LocationCityPicker|"
+msgid "filter"
+msgstr ""
+
+#: ../../../data/qml/LocationDialog.qml:25
+msgctxt "LocationDialog|"
+msgid "Location"
+msgstr ""
+
+#: ../../../data/qml/LocationDialog.qml:37
+msgctxt "LocationDialog|"
+msgid "Use GPS"
+msgstr ""
+
+#: ../../../data/qml/LocationDialog.qml:37
+msgctxt "LocationDialog|"
+msgid " (searching)"
+msgstr ""
+
+#: ../../../data/qml/LocationDialog.qml:72
+msgctxt "LocationDialog|"
+msgid "Name/City:"
+msgstr ""
+
+#: ../../../data/qml/Observation.qml:13
+msgctxt "Observation|"
+msgid "Observation"
+msgstr ""
+
+#: ../../../data/qml/Observation.qml:33 ../../../data/qml/Observation.qml:41
+msgctxt "Observation|"
+msgid "Select Observing List File"
+msgstr ""
+
+#: ../../../data/qml/Observation.qml:59
+msgctxt "Observation|"
+msgid "Setting..."
+msgstr ""
+
+#: ../../../data/qml/Observation.qml:73
+msgctxt "Observation|"
+msgid "Apply Observing Filter"
+msgstr ""
+
+#: ../../../src/core/StelObserver.cpp:281
+msgctxt ""
+"S:|\"Planet name\" displayed when \"flying\" to another planet with Ctrl+G."
+msgid ""
+msgstr ""
+
+#: ../../../data/qml/SearchInput.qml:37 ../../../data/qml/SearchInput.qml:72
+#: ../../../data/qml/SearchInput.qml:89 ../../../data/qml/SearchInput.qml:98
+#: ../../../data/qml/SearchInput.qml:102
+msgctxt "SearchInput|"
+msgid "Search"
+msgstr ""
+
+#: ../../../data/qml/SettingsPanel.qml:24
+msgctxt "SettingsPanel|"
+msgid "Settings"
+msgstr ""
+
+#: ../../../data/qml/SettingsPanel.qml:42
+msgctxt "SettingsPanel|"
+msgid "Date and Time"
+msgstr ""
+
+#: ../../../data/qml/SettingsPanel.qml:46
+msgctxt "SettingsPanel|"
+msgid "Landscape"
+msgstr ""
+
+#: ../../../data/qml/SettingsPanel.qml:50
+msgctxt "SettingsPanel|"
+msgid "Location"
+msgstr ""
+
+#: ../../../data/qml/SettingsPanel.qml:54
+msgctxt "SettingsPanel|"
+msgid "View"
+msgstr ""
+
+#: ../../../data/qml/SettingsPanel.qml:58
+msgctxt "SettingsPanel|"
+msgid "Starlore"
+msgstr ""
+
+#: ../../../data/qml/SettingsPanel.qml:62
+msgctxt "SettingsPanel|"
+msgid "Advanced"
+msgstr ""
+
+#: ../../../data/qml/SettingsPanel.qml:66
+msgctxt "SettingsPanel|"
+msgid "About"
+msgstr ""
+
+#: ../../../data/qml/StarloreDialog.qml:24
+msgctxt "StarloreDialog|"
+msgid "Starlore"
+msgstr ""
+
+#: ../../../data/qml/StelDialog.qml:24
+msgctxt "StelDialog|"
+msgid "Stellarium"
+msgstr ""
+
+#: ../../../data/qml/TimeBar.qml:35
+msgctxt "TimeBar|"
+msgid "Real time"
+msgstr ""
+
+#: ../../../data/qml/TimeBar.qml:37
+msgctxt "TimeBar|"
+msgid "Stopped"
+msgstr ""
+
+#: ../../../data/qml/TimeDialog.qml:23
+msgctxt "TimeDialog|"
+msgid "Date and Time"
+msgstr ""
+
+#: ../../../data/qml/TimeDialog.qml:31
+msgctxt "TimeDialog|"
+msgid "Advance to night at startup"
+msgstr ""
+
+#: ../../../data/qml/TimeDialog.qml:38
+msgctxt "TimeDialog|"
+msgid "Set time to now"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:13
+msgctxt "ViewDSO|"
+msgid "DSO View"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:86 ../../../data/qml/ViewDSO.qml:88
+msgctxt "ViewDSO|"
+msgid "Mag Limit"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:113 ../../../data/qml/ViewDSO.qml:115
+msgctxt "ViewDSO|"
+msgid "Size Limit"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:155 ../../../data/qml/ViewDSO.qml:157
+msgctxt "ViewDSO|"
+msgid "M"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:165 ../../../data/qml/ViewDSO.qml:167
+msgctxt "ViewDSO|"
+msgid "C"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:175 ../../../data/qml/ViewDSO.qml:177
+msgctxt "ViewDSO|"
+msgid "NGC"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:185 ../../../data/qml/ViewDSO.qml:187
+msgctxt "ViewDSO|"
+msgid "IC"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:195 ../../../data/qml/ViewDSO.qml:197
+msgctxt "ViewDSO|"
+msgid "B"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:205 ../../../data/qml/ViewDSO.qml:207
+msgctxt "ViewDSO|"
+msgid "Sh2"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:215 ../../../data/qml/ViewDSO.qml:217
+msgctxt "ViewDSO|"
+msgid "vdB"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:225 ../../../data/qml/ViewDSO.qml:227
+msgctxt "ViewDSO|"
+msgid "RCW"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:235 ../../../data/qml/ViewDSO.qml:237
+msgctxt "ViewDSO|"
+msgid "LDN"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:245 ../../../data/qml/ViewDSO.qml:247
+msgctxt "ViewDSO|"
+msgid "LBN"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:255 ../../../data/qml/ViewDSO.qml:257
+msgctxt "ViewDSO|"
+msgid "Cr"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:265 ../../../data/qml/ViewDSO.qml:267
+msgctxt "ViewDSO|"
+msgid "Mel"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:275 ../../../data/qml/ViewDSO.qml:277
+msgctxt "ViewDSO|"
+msgid "PGC"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:285 ../../../data/qml/ViewDSO.qml:287
+msgctxt "ViewDSO|"
+msgid "UGC"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:295 ../../../data/qml/ViewDSO.qml:297
+msgctxt "ViewDSO|"
+msgid "Ced"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:305 ../../../data/qml/ViewDSO.qml:307
+msgctxt "ViewDSO|"
+msgid "Arp"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:315 ../../../data/qml/ViewDSO.qml:317
+msgctxt "ViewDSO|"
+msgid "VV"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:325 ../../../data/qml/ViewDSO.qml:327
+msgctxt "ViewDSO|"
+msgid "PK"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:335 ../../../data/qml/ViewDSO.qml:337
+msgctxt "ViewDSO|"
+msgid "PN G"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:345 ../../../data/qml/ViewDSO.qml:347
+msgctxt "ViewDSO|"
+msgid "SNR G"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:355 ../../../data/qml/ViewDSO.qml:357
+msgctxt "ViewDSO|"
+msgid "ACO"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:365 ../../../data/qml/ViewDSO.qml:367
+msgctxt "ViewDSO|"
+msgid "HCG"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:375 ../../../data/qml/ViewDSO.qml:377
+msgctxt "ViewDSO|"
+msgid "ESO"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:385 ../../../data/qml/ViewDSO.qml:387
+msgctxt "ViewDSO|"
+msgid "vdBH"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:395 ../../../data/qml/ViewDSO.qml:397
+msgctxt "ViewDSO|"
+msgid "DWB"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:405 ../../../data/qml/ViewDSO.qml:407
+msgctxt "ViewDSO|"
+msgid "Tr"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:415 ../../../data/qml/ViewDSO.qml:417
+msgctxt "ViewDSO|"
+msgid "St"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:425 ../../../data/qml/ViewDSO.qml:427
+msgctxt "ViewDSO|"
+msgid "Ru"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:435 ../../../data/qml/ViewDSO.qml:437
+msgctxt "ViewDSO|"
+msgid "vdB-Ha"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:445 ../../../data/qml/ViewDSO.qml:447
+msgctxt "ViewDSO|"
+msgid "Other"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:455 ../../../data/qml/ViewDSO.qml:457
+msgctxt "ViewDSO|"
+msgid "Observed"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:465 ../../../data/qml/ViewDSO.qml:467
+msgctxt "ViewDSO|"
+msgid "Observing"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:489 ../../../data/qml/ViewDSO.qml:491
+msgctxt "ViewDSO|"
+msgid "Type Filter"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:500 ../../../data/qml/ViewDSO.qml:502
+msgctxt "ViewDSO|"
+msgid "galaxies"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:510 ../../../data/qml/ViewDSO.qml:512
+msgctxt "ViewDSO|"
+msgid "active galaxies"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:520 ../../../data/qml/ViewDSO.qml:522
+msgctxt "ViewDSO|"
+msgid "interacting galaxies"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:530 ../../../data/qml/ViewDSO.qml:532
+msgctxt "ViewDSO|"
+msgid "open clusters"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:540 ../../../data/qml/ViewDSO.qml:542
+msgctxt "ViewDSO|"
+msgid "globular clusters"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:550 ../../../data/qml/ViewDSO.qml:552
+msgctxt "ViewDSO|"
+msgid "bright nebulae"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:560 ../../../data/qml/ViewDSO.qml:562
+msgctxt "ViewDSO|"
+msgid "dark nebulae"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:570 ../../../data/qml/ViewDSO.qml:572
+msgctxt "ViewDSO|"
+msgid "planetary nebulae"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:580 ../../../data/qml/ViewDSO.qml:582
+msgctxt "ViewDSO|"
+msgid "hydrogen regions"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:590 ../../../data/qml/ViewDSO.qml:592
+msgctxt "ViewDSO|"
+msgid "supernova remnants"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:600 ../../../data/qml/ViewDSO.qml:602
+msgctxt "ViewDSO|"
+msgid "galaxy clusters"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:610 ../../../data/qml/ViewDSO.qml:612
+msgctxt "ViewDSO|"
+msgid "other"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:635 ../../../data/qml/ViewDSO.qml:637
+msgctxt "ViewDSO|"
+msgid "Use proportional hints"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:647 ../../../data/qml/ViewDSO.qml:649
+msgctxt "ViewDSO|"
+msgid "outlines for dso"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:659 ../../../data/qml/ViewDSO.qml:661
+msgctxt "ViewDSO|"
+msgid "Use additional names of DSO"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:671 ../../../data/qml/ViewDSO.qml:673
+msgctxt "ViewDSO|"
+msgid "Use designations for screen labels"
+msgstr ""
+
+#: ../../../data/qml/ViewDSO.qml:683 ../../../data/qml/ViewDSO.qml:685
+msgctxt "ViewDSO|"
+msgid "Use surface brightness"
+msgstr ""
+
+#: ../../../data/qml/ViewDialog.qml:12
+msgctxt "ViewDialog|"
+msgid "View"
+msgstr ""
+
+#: ../../../data/qml/ViewDialog.qml:41
+msgctxt "ViewDialog|"
+msgid "View Sky"
+msgstr ""
+
+#: ../../../data/qml/ViewDialog.qml:45
+msgctxt "ViewDialog|"
+msgid "View DSO"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:13
+msgctxt "ViewSky|"
+msgid "Sky View"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:35
+msgctxt "ViewSky|"
+msgid "Show planet markers"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:42
+msgctxt "ViewSky|"
+msgid "Show ecliptic line"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:49
+msgctxt "ViewSky|"
+msgid "Show meridian line"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:56
+msgctxt "ViewSky|"
+msgid "Constellation boundaries"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:60 ../../../data/qml/ViewSky.qml:65
+msgctxt "ViewSky|"
+msgid "Light pollution"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:77 ../../../data/qml/ViewSky.qml:82
+msgctxt "ViewSky|"
+msgid "Milky Way brightness"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:94 ../../../data/qml/ViewSky.qml:99
+msgctxt "ViewSky|"
+msgid "Thickness of lines"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:114
+msgctxt "ViewSky|"
+msgid "Show telrads"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:121
+msgctxt "ViewSky|"
+msgid "Show toast survey"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:128
+msgctxt "ViewSky|"
+msgid "Horizontal Flip"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:135
+msgctxt "ViewSky|"
+msgid "Vertical Flip"
+msgstr ""
+
+#: ../../../data/qml/ViewSky.qml:142
+msgctxt "ViewSky|"
+msgid "Equatorial Mount"
+msgstr ""
+
+#: ../../../data/qml/main.qml:133
+msgctxt "main|"
+msgid "It is daytime, fast forward time until..."
+msgstr ""
+
+#: ../../../data/qml/main.qml:217
+msgctxt "main|"
+msgid "Settings"
+msgstr ""
+
+#: ../../../data/qml/main.qml:229
+msgctxt "main|"
+msgid "Open Quick Bar"
+msgstr ""
+
+#: ../../../data/qml/main.qml:265
+msgctxt "main|"
+msgid "GPS..."
+msgstr ""
+
+#: ../../../data/qml/main.qml:267
+msgctxt "main|"
+msgid "GPS"
+msgstr ""
+
+#: ../../../data/qml/main.qml:338
+msgctxt "main|"
+msgid "Drag sky to move in time"
+msgstr ""

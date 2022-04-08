@@ -47,15 +47,15 @@ StelDialog {
     ListModel {
         id: advancedModel
         ListElement {
-            title: QT_TR_NOOP("Comets")
+            title: qsTr("Comets")
             page: "Comets.qml"
         }
         ListElement {
-            title: QT_TR_NOOP("Plan Observation")
+            title: qsTr("Plan Observation")
             page: "Observation.qml"
         }
         ListElement {
-            title: QT_TR_NOOP("AdvancedSetting")
+            title: qsTr("Advanced Setting")
             page: "AdvancedSetting.qml"
         }
     }
