@@ -406,7 +406,7 @@ public:
 
     void setObservingList(QString observingfile);
 
-    int getDSOCatNum(Nebula n,int i);
+    QString getDSOCatNum(Nebula n,int i);
 
 	///////////////////////////////////////////////////////////////////////////
 	// Properties setters and getters

@@ -3440,19 +3440,36 @@ QStringList NebulaMgr::listMatchingObjects(const QString& objPrefix, int maxNbIt
 }
 
 
-int NebulaMgr::getDSOCatNum(Nebula n,int i){
-    if (i==16) return n.NGC_nb;
-    if (i==17) return n.IC_nb;
-    if (i==18) return n.M_nb;
-    if (i==20) return n.C_nb;
-    if (i==21) return n.B_nb;
-    if (i==27) return n.Cr_nb;
-    if (i==28) return n.Mel_nb;
-
-    if (i==42) return n.Tr_nb;
-    if (i==43) return n.St_nb;
-    if (i==44) return n.Ru_nb;
-    if (i==45) return n.VdBHa_nb;
+QString NebulaMgr::getDSOCatNum(Nebula n,int i){
+    if (i==16) return QString(n.NGC_nb);
+    if (i==17) return QString(n.IC_nb);
+    if (i==18) return QString(n.M_nb);
+    if (i==19) return QString(n.C_nb);
+    if (i==20) return QString(n.B_nb);
+    if (i==21) return QString(n.Sh2_nb);
+    if (i==22) return QString(n.VdB_nb);
+    if (i==23) return QString(n.RCW_nb);
+    if (i==24) return QString(n.LDN_nb);
+    if (i==25) return QString(n.LBN_nb);
+    if (i==26) return QString(n.Cr_nb);
+    if (i==27) return QString(n.Mel_nb);
+    if (i==28) return QString(n.PGC_nb);
+    if (i==29) return QString(n.UGC_nb);
+    if (i==30) return QString(n.Ced_nb);
+    if (i==31) return QString(n.Arp_nb);
+    if (i==32) return QString(n.VV_nb);
+    if (i==33) return QString(n.PK_nb);
+    if (i==34) return QString(n.PNG_nb);
+    if (i==35) return QString(n.SNRG_nb);
+    if (i==36) return QString(n.ACO_nb);
+    if (i==37) return QString(n.HCG_nb);
+    if (i==38) return QString(n.ESO_nb);
+    if (i==39) return QString(n.VdBH_nb);
+    if (i==40) return QString(n.DWB_nb);
+    if (i==41) return QString(n.Tr_nb);
+    if (i==42) return QString(n.St_nb);
+    if (i==43) return QString(n.Ru_nb);
+    if (i==44) return QString(n.VdBHa_nb);
 }
 
 void NebulaMgr::setObservingList(QString observingfile)
@@ -3479,24 +3496,32 @@ void NebulaMgr::setObservingList(QString observingfile)
     typedic["NGC"]=16;
     typedic["IC"]=17;
     typedic["M"]=18;
-    typedic["C"]=20;
-    typedic["B"]=21;
-    typedic["Sh"]=22;
-	typedic["vdB"]=23;
-	typedic["RCW"]=24;
-	typedic["LDN"]=25;
-	typedic["LBN"]=26;
-    typedic["Cr"]=27;
-    typedic["Mel"]=28;
-	typedic["PGC"]=29;
-	typedic["UGC"]=30;
-	typedic["Arp"]=32;
-	typedic["VV"]=33;
-	typedic["DWB"]=41;
-    typedic["Tr"]=42;
-    typedic["St"]=43;
-    typedic["Ru"]=44;
-    typedic["vdBHa"]=45;
+    typedic["C"]=19;
+    typedic["B"]=20;
+    typedic["Sh"]=21;
+	typedic["vdB"]=22;
+	typedic["RCW"]=23;
+	typedic["LDN"]=24;
+	typedic["LBN"]=25;
+    typedic["Cr"]=26;
+    typedic["Mel"]=27;
+	typedic["PGC"]=28;
+	typedic["UGC"]=29;
+	typedic["Ced"]=30;
+	typedic["Arp"]=31;
+	typedic["VV"]=32;
+	typedic["PK"]=33;
+	typedic["PNG"]=34;
+	typedic["SNRG"]=35;
+	typedic["ACO"]=36;
+	typedic["HCG"]=37;
+	typedic["ESO"]=38;
+	typedic["vdBH"]=39;
+	typedic["DWB"]=40;
+    typedic["Tr"]=41;
+    typedic["St"]=42;
+    typedic["Ru"]=43;
+    typedic["vdBHa"]=44;
 	
     for (int i=0;i<lines.length();i+=1){
         QString line = lines[i];
@@ -3505,7 +3530,7 @@ void NebulaMgr::setObservingList(QString observingfile)
         QRegularExpression re;
         QRegularExpressionMatch match;
 
-        re=QRegularExpression("^([A-z]+)(\\d+)$");
+        re=QRegularExpression("^([A-z]+) *(\\d+)$");
         match = re.match(line);
         if (match.hasMatch()) {
             QString catalog = match.captured(1);
@@ -3522,7 +3547,7 @@ void NebulaMgr::setObservingList(QString observingfile)
             objLis.append({-1,num,0,0});
         }
 
-        re=QRegularExpression("^([A-z]+)(\\d+)\t(\\d)$");
+        re=QRegularExpression("^([A-z]+) *(\\d+)\t(\\d)$");
         match = re.match(line);
         if (match.hasMatch()) {
             QString catalog = match.captured(1);
@@ -3556,7 +3581,7 @@ void NebulaMgr::setObservingList(QString observingfile)
         }
     }
 
-    for (const auto& e : {16,17,18,20,21,27,28,42,43,44,45}){
+    for (const auto& e : {16,17,18,20,21,22,23,24,25,26,27,28,42,43,44,45}){
         if (observedData.contains(e)){
             for (const auto& n : dsoArray){
                 if(observedData[e].contains(getDSOCatNum(*n,e)))
