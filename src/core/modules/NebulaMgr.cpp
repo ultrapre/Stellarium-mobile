@@ -3481,13 +3481,23 @@ void NebulaMgr::setObservingList(QString observingfile)
     typedic["M"]=18;
     typedic["C"]=20;
     typedic["B"]=21;
+    typedic["Sh"]=22;
+	typedic["vdB"]=23;
+	typedic["RCW"]=24;
+	typedic["LDN"]=25;
+	typedic["LBN"]=26;
     typedic["Cr"]=27;
     typedic["Mel"]=28;
-
+	typedic["PGC"]=29;
+	typedic["UGC"]=30;
+	typedic["Arp"]=32;
+	typedic["VV"]=33;
+	typedic["DWB"]=41;
     typedic["Tr"]=42;
     typedic["St"]=43;
     typedic["Ru"]=44;
     typedic["vdBHa"]=45;
+	
     for (int i=0;i<lines.length();i+=1){
         QString line = lines[i];
         line=line.replace("\r","");
