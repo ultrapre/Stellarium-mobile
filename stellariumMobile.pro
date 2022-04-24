@@ -386,8 +386,8 @@ OTHER_FILES += \
         data/qml/ViewSky.qml \
 
 DISTFILES += \
-    android/AndroidManifest.xml \
-    mobile-guide/guide.md
+    mobile-guide/guide.md \
+#    android/AndroidManifest.xml
 
 ANDROID_ABIS = armeabi-v7a
 
