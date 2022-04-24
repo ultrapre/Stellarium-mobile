@@ -3486,16 +3486,6 @@ void NebulaMgr::setObservingList(QString observingfile)
     else
         lines = content.split("\n");
 
-
-//    if(!observingfile.startsWith("/sdcard/")){
-//        for (int i=0;i<lines.length();i+=1){
-//            QString line = lines[i];
-//            qDebug()<<line;
-//        }
-//    }
-
-
-
     QMap<QString,int> typedic;
     typedic["NGC"]=16;
     typedic["IC"]=17;
@@ -3572,20 +3562,6 @@ void NebulaMgr::setObservingList(QString observingfile)
                     observingData[typedic[cat]].append(num);
             }
         }
-//        if (match.hasMatch()&&typedic.contains(match.captured(1))) {
-//            qDebug()<<match.captured(1)<<":"<<match.captured(2);
-//            if(!observedData.contains(typedic[match.captured(1)]))
-//                observedData[typedic[match.captured(1)]]={};
-//            if(!observedData[typedic[match.captured(1)]].contains(QString(match.captured(2))))
-//                observedData[typedic[match.captured(1)]].append(QString(match.captured(2)));
-//        }
-//        else if (match1.hasMatch()&&typedic.contains(match1.captured(1))) {
-//            qDebug()<<match1.captured(1)<<":"<<match1.captured(2);
-//            if(!observingData.contains(typedic[match1.captured(1)]))
-//                observingData[typedic[match1.captured(1)]]={};
-//            if(!observingData[typedic[match1.captured(1)]].contains(QString(match1.captured(2))))
-//                observingData[typedic[match1.captured(1)]].append(QString(match1.captured(2)));
-//        }
     }
 
 
@@ -3607,83 +3583,4 @@ void NebulaMgr::setObservingList(QString observingfile)
             }
         }
     }
-
-    /*
-    QList<QList<int>> objLis = {};
-    QMap<int,QList<int>> observedData;
-    QMap<int,QList<int>> observingData;
-
-    for (int i=0;i<lines.length();i+=1){
-        QString line = lines[i];
-        line=line.replace("\r","");
-        qDebug()<<line;
-        QRegularExpression re;
-        QRegularExpressionMatch match;
-
-        re=QRegularExpression("^([A-z]+) *(\\d+)$");
-        match = re.match(line);
-        if (match.hasMatch()) {
-            QString catalog = match.captured(1);
-            int num = QString(match.captured(2)).toInt();
-            if (typedic.contains(catalog)){
-                objLis.append({typedic[catalog],num,0,0}); // catalog,num,observed,added
-            }
-        }
-
-        re=QRegularExpression("^(\\d+)$");
-        match = re.match(line);
-        if (match.hasMatch()) {
-            int num = QString(match.captured(1)).toInt();
-            objLis.append({-1,num,0,0});
-        }
-
-        re=QRegularExpression("^([A-z]+) *(\\d+)\t(\\d)$");
-        match = re.match(line);
-        if (match.hasMatch()) {
-            QString catalog = match.captured(1);
-            int num = QString(match.captured(2)).toInt();
-            if (typedic.contains(catalog)){
-                objLis.append({typedic[catalog],num,QString(match.captured(3)).toInt(),0});
-            }
-        }
-
-        re=QRegularExpression("^(\\d+)\t(\\d)$");
-        match = re.match(line);
-        if (match.hasMatch()) {
-            int num = QString(match.captured(2)).toInt();
-            objLis.append({-1,num,QString(match.captured(3)).toInt(),0});
-        }
-    }
-
-    for (int i=0;i<objLis.length();i+=1){
-        qDebug()<<objLis[i];
-        if (objLis[i][2]==0){
-            if(!observingData.contains(objLis[i][0]))
-                observingData[objLis[i][0]]={};
-            if(!observingData[objLis[i][0]].contains(objLis[i][1]))
-                observingData[objLis[i][0]].append(objLis[i][1]);
-        }
-        else{
-            if(!observedData.contains(objLis[i][0]))
-                observedData[objLis[i][0]]={};
-            if(!observedData[objLis[i][0]].contains(objLis[i][1]))
-                observedData[objLis[i][0]].append(objLis[i][1]);
-        }
-    }
-
-    for (const auto& e : {16,17,18,20,21,22,23,24,25,26,27,28,42,43,44,45}){
-        if (observedData.contains(e)){
-            for (const auto& n : dsoArray){
-                if(observedData[e].contains(getDSOCatNum(*n,e)))
-                    n->observed_nb=true;
-            }
-        }
-        if (observingData.contains(e)){
-            for (const auto& n : dsoArray){
-                if(observingData[e].contains(getDSOCatNum(*n,e)))
-                    n->observing_nb=true;
-            }
-        }
-    }
-    */
 }
