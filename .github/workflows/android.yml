@@ -40,7 +40,15 @@ jobs:
     - name: show filetrees
       run: |
         ls -R
-    - uses: actions/upload-artifact@v1
+    #- uses: actions/upload-artifact@v1
+    #  with:
+    #    name: Debug-APK
+    #    path: android-build//build/outputs/apk/debug/android-build-debug.apk
+    - uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        name: Debug-APK
-        path: android-build//build/outputs/apk/debug/android-build-debug.apk
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "v0.90.0"
+        prerelease: true
+        title: "Stellarium mobile PreRelease"
+        files: |
+          android-build/build/outputs/apk/debug/android-build-debug.apk
