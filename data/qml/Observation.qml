@@ -52,7 +52,7 @@ StelDialog {
                     selectExisting: true
                     selectFolder: false
                     selectMultiple: false
-                    nameFilters: ["文件 (*.*)"]
+                    nameFilters: ["文件 (*.txt)"]
 
                     onAccepted: {
                         console.log("Now folder: " + fds.folder);

@@ -3441,23 +3441,23 @@ QStringList NebulaMgr::listMatchingObjects(const QString& objPrefix, int maxNbIt
 
 
 QString NebulaMgr::getDSOCatNum(Nebula n,int i){
-    if (i==16) return QString(n.NGC_nb);
-    if (i==17) return QString(n.IC_nb);
-    if (i==18) return QString(n.M_nb);
-    if (i==19) return QString(n.C_nb);
-    if (i==20) return QString(n.B_nb);
-    if (i==21) return QString(n.Sh2_nb);
-    if (i==22) return QString(n.VdB_nb);
-    if (i==23) return QString(n.RCW_nb);
-    if (i==24) return QString(n.LDN_nb);
-    if (i==25) return QString(n.LBN_nb);
-    if (i==26) return QString(n.Cr_nb);
-    if (i==27) return QString(n.Mel_nb);
-    if (i==28) return QString(n.PGC_nb);
-    if (i==29) return QString(n.UGC_nb);
+    if (i==16) return QString::number(n.NGC_nb);
+    if (i==17) return QString::number(n.IC_nb);
+    if (i==18) return QString::number(n.M_nb);
+    if (i==19) return QString::number(n.C_nb);
+    if (i==20) return QString::number(n.B_nb);
+    if (i==21) return QString::number(n.Sh2_nb);
+    if (i==22) return QString::number(n.VdB_nb);
+    if (i==23) return QString::number(n.RCW_nb);
+    if (i==24) return QString::number(n.LDN_nb);
+    if (i==25) return QString::number(n.LBN_nb);
+    if (i==26) return QString::number(n.Cr_nb);
+    if (i==27) return QString::number(n.Mel_nb);
+    if (i==28) return QString::number(n.PGC_nb);
+    if (i==29) return QString::number(n.UGC_nb);
     if (i==30) return QString(n.Ced_nb);
-    if (i==31) return QString(n.Arp_nb);
-    if (i==32) return QString(n.VV_nb);
+    if (i==31) return QString::number(n.Arp_nb);
+    if (i==32) return QString::number(n.VV_nb);
     if (i==33) return QString(n.PK_nb);
     if (i==34) return QString(n.PNG_nb);
     if (i==35) return QString(n.SNRG_nb);
@@ -3465,46 +3465,56 @@ QString NebulaMgr::getDSOCatNum(Nebula n,int i){
     if (i==37) return QString(n.HCG_nb);
     if (i==38) return QString(n.ESO_nb);
     if (i==39) return QString(n.VdBH_nb);
-    if (i==40) return QString(n.DWB_nb);
-    if (i==41) return QString(n.Tr_nb);
-    if (i==42) return QString(n.St_nb);
-    if (i==43) return QString(n.Ru_nb);
-    if (i==44) return QString(n.VdBHa_nb);
+    if (i==40) return QString::number(n.DWB_nb);
+    if (i==41) return QString::number(n.Tr_nb);
+    if (i==42) return QString::number(n.St_nb);
+    if (i==43) return QString::number(n.Ru_nb);
+    if (i==44) return QString::number(n.VdBHa_nb);
+    return QString::number(n.DSO_nb);
 }
 
 void NebulaMgr::setObservingList(QString observingfile)
 {
     QFile f(observingfile);
     f.open(QIODevice::ReadOnly);
-    QStringList lines = (QString::fromUtf8(f.readAll())).split("\n");
-
-    if(!observingfile.startsWith("/sdcard/")){
-        for (int i=0;i<lines.length();i+=1){
-            QString line = lines[i];
-            qDebug()<<line;
-        }
-        return;
-    }
-
+    QString content=QString::fromUtf8(f.readAll());
+    QStringList lines;
+    if (content.contains("\\r\n"))
+        lines = content.split("\\r\n");
+    else if (content.contains("\r\n"))
+        lines = content.split("\r\n");
+    else
+        lines = content.split("\n");
 
 
-    QList<QList<int>> objLis = {};
-    QMap<int,QList<int>> observedData;
-    QMap<int,QList<int>> observingData;
+//    if(!observingfile.startsWith("/sdcard/")){
+//        for (int i=0;i<lines.length();i+=1){
+//            QString line = lines[i];
+//            qDebug()<<line;
+//        }
+//    }
+
+
 
     QMap<QString,int> typedic;
     typedic["NGC"]=16;
     typedic["IC"]=17;
     typedic["M"]=18;
+    typedic["Messier"]=18;
     typedic["C"]=19;
+    typedic["Caldwell"]=19;
     typedic["B"]=20;
+    typedic["Barnard"]=20;
     typedic["Sh"]=21;
+    typedic["Sharpless"]=21;
 	typedic["vdB"]=22;
 	typedic["RCW"]=23;
 	typedic["LDN"]=24;
 	typedic["LBN"]=25;
     typedic["Cr"]=26;
+    typedic["Collinder"]=26;
     typedic["Mel"]=27;
+    typedic["Melotte"]=27;
 	typedic["PGC"]=28;
 	typedic["UGC"]=29;
 	typedic["Ced"]=30;
@@ -3519,10 +3529,90 @@ void NebulaMgr::setObservingList(QString observingfile)
 	typedic["vdBH"]=39;
 	typedic["DWB"]=40;
     typedic["Tr"]=41;
+    typedic["Trumpler"]=41;
     typedic["St"]=42;
+    typedic["Stock"]=42;
     typedic["Ru"]=43;
+    typedic["Ruprecht"]=43;
     typedic["vdBHa"]=44;
-	
+
+
+    QMap<int,QList<QString>> observingData;
+    QMap<int,QList<QString>> observedData;
+
+    for (auto line : lines){
+        line=line.replace("\r","").replace("\\r","");
+        QRegularExpressionMatch match,match1;
+        match=QRegularExpression("^([A-z]+) *(.+)\t(.*)$").match(line);
+        match1=QRegularExpression("^([A-z]+) *(.+)$").match(line);
+        if (match.hasMatch()){
+            QString cat=match.captured(1);
+            QString num=match.captured(2);
+            if (cat=="Sh"&&num.startsWith("2-"))
+                num=num.mid(2);
+            if (typedic.contains(cat)) {
+                qDebug()<<cat<<":"<<num;
+                if(!observedData.contains(typedic[cat]))
+                    observedData[typedic[cat]]={};
+                if(!observedData[typedic[cat]].contains(num))
+                    observedData[typedic[cat]].append(num);
+            }
+        }
+        else if(match1.hasMatch()){
+            match=match1;
+            QString cat=match.captured(1);
+            QString num=match.captured(2);
+            if (cat=="Sh"&&num.startsWith("2-"))
+                num=num.mid(2);
+            if (typedic.contains(cat)) {
+                qDebug()<<cat<<":"<<num;
+                if(!observingData.contains(typedic[cat]))
+                    observingData[typedic[cat]]={};
+                if(!observingData[typedic[cat]].contains(num))
+                    observingData[typedic[cat]].append(num);
+            }
+        }
+//        if (match.hasMatch()&&typedic.contains(match.captured(1))) {
+//            qDebug()<<match.captured(1)<<":"<<match.captured(2);
+//            if(!observedData.contains(typedic[match.captured(1)]))
+//                observedData[typedic[match.captured(1)]]={};
+//            if(!observedData[typedic[match.captured(1)]].contains(QString(match.captured(2))))
+//                observedData[typedic[match.captured(1)]].append(QString(match.captured(2)));
+//        }
+//        else if (match1.hasMatch()&&typedic.contains(match1.captured(1))) {
+//            qDebug()<<match1.captured(1)<<":"<<match1.captured(2);
+//            if(!observingData.contains(typedic[match1.captured(1)]))
+//                observingData[typedic[match1.captured(1)]]={};
+//            if(!observingData[typedic[match1.captured(1)]].contains(QString(match1.captured(2))))
+//                observingData[typedic[match1.captured(1)]].append(QString(match1.captured(2)));
+//        }
+    }
+
+
+    for (int e=16;e<45;e++){
+        if (observingData.contains(e)){
+            for (const auto& n : dsoArray){
+                if(observingData[e].contains(getDSOCatNum(*n,e))){
+                    qDebug()<<QString::number(e)<<getDSOCatNum(*n,e);
+                    n->observing_nb=true;
+                }
+            }
+        }
+        if (observedData.contains(e)){
+            for (const auto& n : dsoArray){
+                if(observedData[e].contains(getDSOCatNum(*n,e))){
+                    qDebug()<<QString::number(e)<<getDSOCatNum(*n,e);
+                    n->observed_nb=true;
+                }
+            }
+        }
+    }
+
+    /*
+    QList<QList<int>> objLis = {};
+    QMap<int,QList<int>> observedData;
+    QMap<int,QList<int>> observingData;
+
     for (int i=0;i<lines.length();i+=1){
         QString line = lines[i];
         line=line.replace("\r","");
@@ -3595,4 +3685,5 @@ void NebulaMgr::setObservingList(QString observingfile)
             }
         }
     }
+    */
 }
