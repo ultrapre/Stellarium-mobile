@@ -14,6 +14,12 @@
 
 
 
+***how to use observing function***
+
+Add multi lines of DSO-id in observingList.txt and copy it to sdcard. Select observing list *.txt file and apply filter, only set observing in catalog filter.
+
+
+
 **Build me:**
 
 Source of fork: https://www.stellarium-labs.com/stellarium-mobile/
