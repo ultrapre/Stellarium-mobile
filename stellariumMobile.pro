@@ -39,8 +39,8 @@ android {
 	QT += androidextras
 	ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 	ANDROID_PACKAGE = com.ultrapre.stellarium
-        ANDROID_MINIMUM_VERSION = 21
-	ANDROID_TARGET_VERSION = 24
+    #ANDROID_MINIMUM_VERSION = 21
+	#ANDROID_TARGET_VERSION = 24
 	ANDROID_APP_NAME = Stellarium Mobile
 
 	data_dir.source = mobileData/data
