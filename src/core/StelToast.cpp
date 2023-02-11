@@ -38,8 +38,6 @@ ToastTile::ToastTile(ToastSurvey* survey, int level, int x, int y)
 	// create the texture
 	imagePath = survey->getTilePath(level, x, y);
 
-//    qDebug()<<"looking for: "<<imagePath; //silas
-
 	if (level==0)
 	{
 		boundingCap.n=Vec3d(1,0,0);
@@ -125,16 +123,13 @@ void ToastTile::prepareDraw(Vec3f color)
 	{
 		if (!texture.isNull())
 			qDebug() << "can't get texture" << imagePath << texture->getErrorMessage();
-		empty = true;
-//        qDebug() << "fail image: s1 " << imagePath << texture->getErrorMessage(); //silas
+        empty = true;
 		return;
 	}
     if (!texture->canBind()){
-//        qDebug() << "fail image: s2 " << imagePath << texture->getErrorMessage();//silas
 		return;
     }
 
-//    qDebug() << "success image: s3 "<<imagePath;
 	// Get the opengl arrays
 	if (vertexArray.empty())
 	{

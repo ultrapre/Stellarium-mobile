@@ -40,7 +40,7 @@ ToastMgr::ToastMgr() :
 	setObjectName("ToastMgr");
 	fader = new LinearFader();
 
-    QResource::registerResource(StelFileMgr::getUserDir()+"/StellariumData.rcc"); //silas
+    QResource::registerResource(StelFileMgr::getUserDir()+"/StellariumData.rcc");
 }
 
 ToastMgr::~ToastMgr()
@@ -60,7 +60,7 @@ void ToastMgr::init()
 	survey = new ToastSurvey(toastHost+"/" + toastDir + "/{level}/{x}_{y}.jpg", toastLevel);
 	survey->setParent(this);
 
-    // Hide deep-sky survey by default:silas debug
+    // Hide deep-sky survey by default:
     setFlagShow(conf->value("astro/flag_toast_survey", false).toBool());
 //    qDebug()<<toastHost+"/" + toastDir + "/{level}/{x}_{y}.jpg";
 

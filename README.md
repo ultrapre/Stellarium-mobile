@@ -32,4 +32,4 @@ IOS build Kits: macOS 10.13.6 + XCode 10.1 + 5.12.3, please use original 1.29.6 
 
 [fixing way here](https://github.com/ultrapre/stellarium_lite)
 
-
+If build error, remove AndroidManifest.xml and change sdk version in project.

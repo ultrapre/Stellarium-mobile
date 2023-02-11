@@ -104,8 +104,7 @@ Item {
 	StelCheckBox {
 		id: checkboxElem
 		visible: root.checkbox
-		checked: stelAction.checked
-//        color: "white" //silas
+        checked: stelAction.checked
 		anchors {
 			right: parent.right
 			margins: rootStyle.margin

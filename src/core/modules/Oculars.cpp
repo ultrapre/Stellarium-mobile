@@ -1792,7 +1792,7 @@ void Oculars::paintTelrad()
 		Vec2i centerScreen(projector->getViewportPosX()+projector->getViewportWidth()/2,
 				   projector->getViewportPosY()+projector->getViewportHeight()/2);
 		const float pixelsPerRad = projector->getPixelPerRadAtCenter(); // * params.devicePixelsPerPixel;
-//        qDebug()<<"silas: Now paint telrad:"<<num_oc<<" :"<<telradFOV[2];
+//        qDebug()<<"Now paint telrad:"<<num_oc<<" :"<<telradFOV[2];
 //        num_oc++;
 
         painter.setColor(0.77,0.45,0.16,1);

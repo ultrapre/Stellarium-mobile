@@ -54,7 +54,6 @@
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
 #include <QSettings>
-//#include <QMessageBox> //silas
 
 // Define version of valid Stellarium DSO Catalog
 // This number must be incremented each time the content or file format of the stars catalogs change
@@ -192,7 +191,7 @@ void NebulaMgr::init()
 	Q_ASSERT(conf);
 
 	Nebula::buildTypeStringMap();
-//	nebulaFont.setPixelSize(StelApp::getInstance().getScreenFontSize()); //silas
+//	nebulaFont.setPixelSize(StelApp::getInstance().getScreenFontSize());
     nebulaFont.setPixelSize(StelApp::getInstance().getSettings()->value("gui/base_font_size", 13).toInt());
 	connect(&StelApp::getInstance(), SIGNAL(screenFontSizeChanged(int)), SLOT(setFontSizeFromApp(int)));
 	// Load circle texture
@@ -537,7 +536,7 @@ struct DrawNebulaFuncObject
 			sPainter->getProjector()->project(n->XYZ,n->XY);
 			n->drawLabel(*sPainter, maxMagLabels);
 			n->drawHints(*sPainter, maxMagHints);
-//			n->drawOutlines(*sPainter, maxMagHints); //silas
+//			n->drawOutlines(*sPainter, maxMagHints);
 		}
 	}
 	float maxMagHints;
@@ -879,7 +878,7 @@ void NebulaMgr::drawPointer(const StelCore* core, StelPainter& sPainter)
 
 		if (Nebula::drawHintProportional)
 			size*=1.2f;
-        size+=20.f + 10.f*std::sin(3.f * static_cast<float>(StelApp::getInstance().getTotalRunTime())); //silas
+        size+=20.f + 10.f*std::sin(3.f * static_cast<float>(StelApp::getInstance().getTotalRunTime()));
 		sPainter.drawSprite2dMode(static_cast<float>(pos[0])-size*0.5f, static_cast<float>(pos[1])-size*0.5f, 10, 90);
 		sPainter.drawSprite2dMode(static_cast<float>(pos[0])-size*0.5f, static_cast<float>(pos[1])+size*0.5f, 10, 0);
 		sPainter.drawSprite2dMode(static_cast<float>(pos[0])+size*0.5f, static_cast<float>(pos[1])+size*0.5f, 10, -90);
@@ -1930,8 +1929,6 @@ StelObjectP NebulaMgr::searchByName(const QString& name) const
 {
 	QString objw = name.toUpper();
 
-
-    //silas
     QRegExp catNumRx1("^(\\d{1,4})$");
     if (catNumRx1.exactMatch(objw))
     {
@@ -3164,7 +3161,7 @@ QStringList NebulaMgr::listMatchingObjectsI18n(const QString& objPrefix, int max
     // Search by Messier objects number (possible formats are "M31" or "M 31")
     if (objw.size()>=1 && objw[0]=='M')
     {
-        foreach (const NebulaP& n, dsoArray) //silas
+        foreach (const NebulaP& n, dsoArray)
         {
             if (n->M_nb==0) continue;
             QString constw = QString("M%1").arg(n->M_nb);
@@ -3306,7 +3303,6 @@ QStringList NebulaMgr::listMatchingObjects(const QString& objPrefix, int maxNbIt
 
      QString objw = objPrefix.toUpper();
 
-     //silas
      if (objw.size()>=1 && objw[0]=='N'){
      QRegExp catNumRx11("^N(\\d+)$");
         if (catNumRx11.exactMatch(objw)){

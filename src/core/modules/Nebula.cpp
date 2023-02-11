@@ -170,8 +170,7 @@ QString Nebula::getMagnitudeInfoString(const StelCore *core, const InfoStringGro
 				emag = QString("(%1").arg(emag);
 		}
 		res = QString("%1: <b>%2</b> %3 %4<br />").arg(tmag, QString::number(mag, 'f', decimals), fsys, emag);
-	}
-    //silas
+    }
 //	res += getExtraInfoStrings(Magnitude).join("");
 	return res;
 }
@@ -620,7 +619,7 @@ float Nebula::getBMagnitudeWithExtinction(const StelCore* core) const
 double Nebula::getAngularSize(const StelCore *) const
 {
 	float size = majorAxisSize;
-    if (minorAxisSize>0) //silas
+    if (minorAxisSize>0)
 		size = (majorAxisSize+minorAxisSize)*0.5f;
 	return static_cast<double>(size);
 }
@@ -918,7 +917,7 @@ void Nebula::drawHints(StelPainter& sPainter, float maxMagHints) const
 	if (!objectInDisplayedType())
 		col.set(0.f,0.f,0.f);
 
-    sPainter.setColor(col[0], col[1], col[2], 1); //silas
+    sPainter.setColor(col[0], col[1], col[2], 1);
 	sPainter.setBlending(true, GL_ONE, GL_ONE);
 
 	// Rotation looks good only for galaxies.

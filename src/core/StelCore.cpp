@@ -212,8 +212,7 @@ void StelCore::init()
 	actionsMgr->addAction("actionGo_Home_Global", movementGroup, N_("Go to home"), this, "returnToHome()", "Ctrl+H");
 	actionsMgr->addAction("actionHorizontal_Flip", displayGroup, N_("Flip scene horizontally"), this, "flipHorz", "Ctrl+Shift+H", "", true);
 	actionsMgr->addAction("actionVertical_Flip", displayGroup, N_("Flip scene vertically"), this, "flipVert", "Ctrl+Shift+V", "", true);
-	
-    //silas
+
     actionsMgr->addAction("action_updatecomets1", "Plugins", N_("Update Comets (GVB)"), this, "UpdateCometsCore1()");
     actionsMgr->addAction("action_updatecomets2", "Plugins", N_("Update Comets (MPC)"), this, "UpdateCometsCore2()");
 

@@ -139,7 +139,7 @@ void SolarSystemEditor::init()
 	isInitialized = true;
 
     // key bindings and other actions
-    //silas,fix
+    // fix
 //    addAction("actionShow_MPC_Import", N_("Solar System Editor"), N_("Import orbital elements in MPC format..."), mainWindow, "newImportMPC()", "Ctrl+Alt+S");
 
 }
@@ -411,7 +411,6 @@ QHash<QString,QString> SolarSystemEditor::listAllLoadedObjectsInFile(QString fil
 
 	QStringList groups = solarSystemIni.childGroups();
 
-    //silas:used?
     //QStringList planetNames = solarSystem->getAllMinorPlanetCommonEnglishNames();
     QStringList planetNames;
 	QHash<QString,QString> loadedObjects;
@@ -483,8 +482,7 @@ bool SolarSystemEditor::removeSsoWithName(QString name)
 
 	//Reload the Solar System
 	//solarSystem->reloadPlanets();
-	// Better: just remove this one object!
-    //silas remove
+    // Better: just remove this one object!
 //	solarSystem->removeMinorPlanet(name);
 	emit solarSystemChanged();
 

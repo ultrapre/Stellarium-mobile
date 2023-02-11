@@ -120,8 +120,6 @@ int main(int argc, char **argv)
 	// for the rendering.  This is not optimized, but might fix some random
 	// crashes on android.
 
-
-    //silas
 #ifdef Q_OS_ANDROID
     setenv("QSG_RENDER_LOOP", "basic", 1);
 #endif

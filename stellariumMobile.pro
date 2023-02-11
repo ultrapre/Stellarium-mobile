@@ -392,7 +392,7 @@ OTHER_FILES += \
 
 DISTFILES += \
     mobile-guide/guide.md \
-#    android/AndroidManifest.xml \
+    android/AndroidManifest.xml \
 
 ANDROID_ABIS = armeabi-v7a
 

@@ -86,7 +86,6 @@ void StelFileMgr::init()
 		qFatal("Error: cannot create user config directory: %s", e.what());
 	}
 
-    //silas
     fileLocations.append(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
 
 	// OK, now we have the userDir set, add it to the search path

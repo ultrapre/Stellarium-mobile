@@ -224,8 +224,7 @@ void cometOrbitPosFunc(double jd,double xyz[3], void* userDataPtr)
 // Init and load the solar system data
 void SolarSystem::loadPlanets()
 {
-
-    qDebug()<<"Silas:External: "<<QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    qDebug()<<"External: "<<QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 	qDebug() << "Loading Solar System data (1: planets and moons) ...";
 
 
@@ -263,8 +262,7 @@ void SolarSystem::loadPlanets()
 	}
 
 	foreach (const QString& solarSystemFile, solarSystemFiles)
-	{
-        qDebug()<<solarSystemFile<<" progressing:silas";
+    {
 		if (loadPlanets(solarSystemFile))
 		{
             qDebug() << "File ssystem_minor.ini is loaded successfully..."<<solarSystemFile;

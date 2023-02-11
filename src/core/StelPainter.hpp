@@ -26,7 +26,7 @@
 #include <QString>
 #include <QVarLengthArray>
 #include <QFontMetrics>
-#include "config.h" //silas
+#include "config.h"
 
 class QOpenGLShaderProgram;
 
