@@ -60,6 +60,11 @@ android {
 	DEPLOYMENTFOLDERS = data_dir textures_dir landscapes_dir nebulae_dir skycultures_dir stars_dir translations_dir
 
 	include(deployment.pri)
+
+        ANDROID_EXTRA_LIBS = \
+        $$PWD/libcrypto_1_1.so \
+        $$PWD/libssl_1_1.so
+
 }
 
 ios {
