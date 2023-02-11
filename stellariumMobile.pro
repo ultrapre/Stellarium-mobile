@@ -39,8 +39,8 @@ android {
 	QT += androidextras
 	ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 	ANDROID_PACKAGE = com.ultrapre.stellarium
-    #ANDROID_MINIMUM_VERSION = 21
-	#ANDROID_TARGET_VERSION = 24
+        ANDROID_MINIMUM_VERSION = 26
+        ANDROID_TARGET_VERSION = 26
 	ANDROID_APP_NAME = Stellarium Mobile
 
 	data_dir.source = mobileData/data
@@ -60,6 +60,11 @@ android {
 	DEPLOYMENTFOLDERS = data_dir textures_dir landscapes_dir nebulae_dir skycultures_dir stars_dir translations_dir
 
 	include(deployment.pri)
+
+        ANDROID_EXTRA_LIBS = \
+        $$PWD/libcrypto_1_1.so \
+        $$PWD/libssl_1_1.so
+
 }
 
 ios {
@@ -387,12 +392,12 @@ OTHER_FILES += \
 
 DISTFILES += \
     mobile-guide/guide.md \
-#    android/AndroidManifest.xml
+#    android/AndroidManifest.xml \
 
-#ANDROID_ABIS = armeabi-v7a
-#
-#contains(ANDROID_TARGET_ARCH,) {
-#    ANDROID_ABIS = \
-#        armeabi-v7a
-#}
+ANDROID_ABIS = armeabi-v7a
+
+contains(ANDROID_TARGET_ARCH,) {
+    ANDROID_ABIS = \
+        armeabi-v7a
+}
 TRANSLATIONS+=mobileData/translations/stellarium/stellarium.ts

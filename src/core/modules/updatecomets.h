@@ -1,15 +1,6 @@
 #ifndef UPDATECOMETS_H
 #define UPDATECOMETS_H
 
-#include "StelApp.hpp"
-#include "StelFileMgr.hpp"
-#include "StelJsonParser.hpp"
-#include "StelModuleMgr.hpp"
-#include "StelTranslator.hpp"
-#include "SolarSystem.hpp"
-#include "StelProgressController.hpp"
-//#include "SearchDialog.hpp"
-#include "StelUtils.hpp"
 
 #include <QGuiApplication>
 #include <QClipboard>
@@ -33,20 +24,6 @@
 //#include <QColorDialog>
 //#include <QFileDialog>
 #include <QImageReader>
-
-#include "StelApp.hpp"
-#include "StelFileMgr.hpp"
-#include "StelModuleMgr.hpp"
-#include "StelApp.hpp"
-#include "StelFileMgr.hpp"
-#include "StelModuleMgr.hpp"
-#include "StelTranslator.hpp"
-#include "Planet.hpp"
-#include "SolarSystem.hpp"
-//#include "StelGui.hpp"
-#include "StelModule.hpp"
-//#include "CAIMainWindow.hpp"
-
 #include <QHash>
 #include <QList>
 #include <QString>
@@ -63,18 +40,6 @@
 #include <QNetworkReply>
 #include <QStandardItemModel>
 
-#include "StelUtils.hpp"
-#include "StelApp.hpp"
-//#include "StelGui.hpp"
-//#include "StelGuiItems.hpp"
-#include "StelFileMgr.hpp"
-#include "StelIniParser.hpp"
-#include "StelLocaleMgr.hpp"
-#include "StelModuleMgr.hpp"
-#include "StelObjectMgr.hpp"
-#include "SolarSystem.hpp"
-#include "Orbit.hpp"
-
 #include <QDate>
 #include <QDebug>
 #include <QDir>
@@ -82,9 +47,6 @@
 #include <QSettings>
 #include <QString>
 
-#include <cmath>
-#include <stdexcept>
-#include "StelModule.hpp"
 #include "SolarSystemEditor.hpp"
 
 //! Convenience type for storage of SSO properties in ssystem_minor.ini format.
@@ -124,6 +86,8 @@ public:
     class StelProgressController * downloadProgressBar;//
     class StelProgressController * queryProgressBar;//
 
+    QString downloadUrl;
+
 public slots:
     void startDownload(QString urlString);
     void downloadComplete(QNetworkReply *reply);
@@ -135,6 +99,8 @@ public slots:
     void populateCandidateObjects(QList<SsoElements> objects);
     void addObjects();
 
+    void setDownloadUrl(QString url);
+    void startDownloads();
 };
 
 

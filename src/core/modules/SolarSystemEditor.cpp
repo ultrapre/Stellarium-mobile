@@ -444,7 +444,6 @@ bool SolarSystemEditor::removeSsoWithName(QString name)
 	if (name.isEmpty())
 		return false;
 
-	//qDebug() << name;
 //	if (defaultSsoIdentifiers.keys().contains(name))
 //	{
 //		qWarning() << "You can't delete the default Solar System objects like" << name << "for the moment.";
@@ -506,13 +505,11 @@ bool SolarSystemEditor::removeSsoWithName(QString name)
 */
 SsoElements SolarSystemEditor::readMpcOneLineCometElements(QString oneLineElements) const
 {
-	SsoElements result;
-	//qDebug() << "readMpcOneLineCometElements started...";
+    SsoElements result;
 
 	QRegExp mpcParser("^\\s*(\\d{4})?([A-Z])((?:\\w{6}|\\s{6})?[0a-zA-Z])?\\s+(\\d{4})\\s+(\\d{2})\\s+(\\d{1,2}\\.\\d{3,4})\\s+(\\d{1,2}\\.\\d{5,6})\\s+(\\d\\.\\d{5,6})\\s+(\\d{1,3}\\.\\d{3,4})\\s+(\\d{1,3}\\.\\d{3,4})\\s+(\\d{1,3}\\.\\d{3,4})\\s+(?:(\\d{4})(\\d\\d)(\\d\\d))?\\s+(\\-?\\d{1,2}\\.\\d)\\s+(\\d{1,2}\\.\\d)\\s+(\\S.{1,54}\\S)(?:\\s+(\\S.*))?$");//
 
-	int match = mpcParser.indexIn(oneLineElements);
-	//qDebug() << "RegExp captured:" << match << mpcParser.capturedTexts();
+    int match = mpcParser.indexIn(oneLineElements);
 
 	if (match < 0)
 	{
@@ -577,8 +574,8 @@ SsoElements SolarSystemEditor::readMpcOneLineCometElements(QString oneLineElemen
 	int fraction = static_cast<int>((dayFraction - day) * 24 * 60 * 60);
 	int seconds = fraction % 60; fraction /= 60;
 	int minutes = fraction % 60; fraction /= 60;
-	int hours = fraction % 24;
-	//qDebug() << hours << minutes << seconds << fraction;
+    int hours = fraction % 24;
+
 	QTime timePerihelionPassage(hours, minutes, seconds, 0);
 	QDateTime dtPerihelionPassage(datePerihelionPassage, timePerihelionPassage, Qt::UTC);
 	double jdPerihelionPassage = StelUtils::qDateTimeToJd(dtPerihelionPassage);
@@ -991,8 +988,6 @@ bool SolarSystemEditor::appendToSolarSystemConfigurationFile(QList<SsoElements> 
 
 
     QString customSolarSystemFilePath = StelFileMgr::getUserDir()+"/data/ssystem_minor.ini";
-    qDebug() << "appendToSolarSystemConfigurationFile begin ... "<<customSolarSystemFilePath;
-    qDebug() << "objectList.length():"<<objectList.length();
 
 	//Check if the configuration file exists
 	if (!QFile::exists(customSolarSystemFilePath))
@@ -1003,6 +998,7 @@ bool SolarSystemEditor::appendToSolarSystemConfigurationFile(QList<SsoElements> 
 
 	QHash<QString,QString> loadedObjects = listAllLoadedSsoIdentifiers();
 
+    /*
 	//Remove duplicates (identified by name, not by section name)
 	QSettings * solarSystemSettings = new QSettings(customSolarSystemFilePath, StelIniFormat);
 	if (solarSystemSettings->status() != QSettings::NoError)
@@ -1010,6 +1006,7 @@ bool SolarSystemEditor::appendToSolarSystemConfigurationFile(QList<SsoElements> 
 		qDebug() << "Error opening ssystem_minor.ini:" << QDir::toNativeSeparators(customSolarSystemFilePath);
 		return false;
 	}
+    qDebug() << "before Loop...";
 	for (auto object : objectList)
 	{
 		QString name = object.value("name").toString();
@@ -1031,15 +1028,19 @@ bool SolarSystemEditor::appendToSolarSystemConfigurationFile(QList<SsoElements> 
 			solarSystemSettings->remove(group);
 		}
 	}
+
+    qDebug() << "after Loop...";
 	solarSystemSettings->sync();
 	delete solarSystemSettings;
 	solarSystemSettings = Q_NULLPTR;
+    */
 
 	//Write to file. (Handle as regular text file, not QSettings.)
-	//TODO: The usual validation
-	qDebug() << "Appending to file...";
+    //TODO: The usual validation
+
 	QFile solarSystemConfigurationFile(customSolarSystemFilePath);
-	if(solarSystemConfigurationFile.open(QFile::WriteOnly | QFile::Append | QFile::Text))
+//	if(solarSystemConfigurationFile.open(QFile::WriteOnly | QFile::Append | QFile::Text))
+    if(solarSystemConfigurationFile.open(QFile::WriteOnly | QFile::Text))
 	{
 		QTextStream output (&solarSystemConfigurationFile);
 		bool appendedAtLeastOne = false;
@@ -1065,13 +1066,11 @@ bool SolarSystemEditor::appendToSolarSystemConfigurationFile(QList<SsoElements> 
                 output << QString("%1 = %2").arg(key).arg(object.value(key).toString()) << "\n";
 			}
 			output.flush();
-            qDebug() << "Appended successfully:" << sectionName;
+            //qDebug() << "Appended successfully:" << sectionName;
 			appendedAtLeastOne = true;
 		}
 
-		solarSystemConfigurationFile.close();
-		qDebug() << "appendToSolarSystemConfigurationFile appended: " << appendedAtLeastOne;
-
+        solarSystemConfigurationFile.close();
 		return appendedAtLeastOne;
 	}
 	else
@@ -1144,7 +1143,6 @@ bool SolarSystemEditor::updateSolarSystemConfigurationFile(QList<SsoElements> ob
 		"orbit_SemiMajorAxis",
 		"orbit_TimeAtPericenter"};
 
-	qDebug() << "Updating objects...";
 	for (auto object : objectList)
 	{
 		QString name = object.value("name").toString();
@@ -1237,8 +1235,7 @@ bool SolarSystemEditor::updateSolarSystemConfigurationFile(QList<SsoElements> ob
 			}
 		}
 
-		solarSystem.endGroup();
-		qDebug() << "Updated successfully" << sectionName;
+        solarSystem.endGroup();
 	}
 
 	return true;
