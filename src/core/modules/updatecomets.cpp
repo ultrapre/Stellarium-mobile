@@ -71,7 +71,6 @@ void UpdateComets::startDownload(QString urlString)
         qWarning() << "Invalid URL:" << urlString;
         return;
     }
-    //qDebug() << url.toString();
 
     //TODO: Interface changes!
 
@@ -224,11 +223,10 @@ void UpdateComets::populateCandidateObjects(QList<SsoElements> objects)
     model->clear();
     model->setColumnCount(1);
 
-    qDebug()<<"populate Candidate Objects: model->insertRow() start";
     for (auto object : objects)
     {
         QString name = object.value("name").toString();
-        //qDebug()<<"populate Candidate Objects:"<<name;
+
         if (name.isEmpty())
             continue;
 
@@ -288,7 +286,7 @@ void UpdateComets::populateCandidateObjects(QList<SsoElements> objects)
         }
 
         model->insertRow(insertionIndex, item);
-        //qDebug()<<"model->insertRow()"<<insertionIndex<<item;
+
     }
 
     //Scroll to the first items
@@ -318,7 +316,6 @@ void UpdateComets::addObjects()
 {
 //    disconnect(ssoManager, SIGNAL(solarSystemChanged()), this, SLOT(resetDialog()));
 
-    qDebug()<<"UpdateComets: add Objects";
     QList<QString> checkedObjectsNames;
 
     //Extract the marked objects
@@ -335,7 +332,7 @@ void UpdateComets::addObjects()
     }
 
 
-    //qDebug() << "Checked:" << checkedObjectsNames;
+
 
     QList<SsoElements> approvedForAddition;
     for (int i = 0; i < candidatesForAddition.count(); i++)
@@ -389,8 +386,6 @@ void UpdateComets::addObjects()
 
 void UpdateComets::startDownloads()
 {
-    int msgid=0;
-    qDebug()<<msgid++;//debug
 
     if(downloadUrl==""){
         downloadUrl = "http://astro.vanbuitenen.nl/cometelements?format=mpc&mag=obs";
@@ -401,9 +396,6 @@ void UpdateComets::startDownloads()
         qWarning() << "Invalid URL:" << downloadUrl;
         return;
     }
-    //qDebug() << url.toString();
-
-    qDebug()<<msgid++;//debug
 
     //TODO: Interface changes!
 
@@ -416,8 +408,6 @@ void UpdateComets::startDownloads()
 //        enableInterface(false);
 //        ui->pushButtonAbortDownload->setVisible(true);
 
-    qDebug()<<msgid++;//debug
-
     connect(networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(downloadComplete(QNetworkReply*)));
     QNetworkRequest request;
     request.setUrl(QUrl(url));
@@ -426,16 +416,10 @@ void UpdateComets::startDownloads()
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     #endif
 
-    qDebug()<<msgid++;//debug//
-
     downloadReply = networkManager->get(request);
-
-    qDebug()<<msgid++;//debug
 
     connect(downloadReply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(updateDownloadProgress(qint64,qint64)));
 
-
-    qDebug()<<msgid++;//debug
 }
 
 void UpdateComets::setDownloadUrl(QString url)
