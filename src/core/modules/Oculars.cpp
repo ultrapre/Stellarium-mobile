@@ -471,6 +471,11 @@ void Oculars::handleMouseClicks(class QMouseEvent* event)
 
 void Oculars::init()
 {
+
+    QSettings* conf = StelApp::getInstance().getSettings();
+    Q_ASSERT(conf);
+    flagShowTelrad = conf->value("astro/flag_telrads", true).toBool();
+
 	// Load settings from ocular.ini
 	try {
 		validateAndLoadIniFile();
@@ -1413,8 +1418,12 @@ void Oculars::toggleCrosshairs(bool show)
 void Oculars::toggleTelrad(bool show)
 {
 	if(show!=flagShowTelrad)
-	{
+    {
 		flagShowTelrad = show;
+
+        QSettings* conf = StelApp::getInstance().getSettings();
+        Q_ASSERT(conf);
+        conf->setValue("astro/flag_telrads", flagShowTelrad);
 
 		StelMovementMgr* movementMgr = StelApp::getInstance().getCore()->getMovementMgr();
 		if (show)
