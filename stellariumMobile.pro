@@ -39,8 +39,8 @@ android {
 	QT += androidextras
 	ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 	ANDROID_PACKAGE = com.ultrapre.stellarium
-        ANDROID_MINIMUM_VERSION = 21
-	ANDROID_TARGET_VERSION = 24
+        ANDROID_MINIMUM_VERSION = 26
+        ANDROID_TARGET_VERSION = 26
 	ANDROID_APP_NAME = Stellarium Mobile
 
 	data_dir.source = mobileData/data
@@ -386,8 +386,8 @@ OTHER_FILES += \
         data/qml/ViewSky.qml \
 
 DISTFILES += \
-    android/AndroidManifest.xml \
-    mobile-guide/guide.md
+    mobile-guide/guide.md \
+#    android/AndroidManifest.xml \
 
 ANDROID_ABIS = armeabi-v7a
 
