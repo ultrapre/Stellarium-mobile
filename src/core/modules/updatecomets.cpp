@@ -1,5 +1,47 @@
 #include "updatecomets.h"
 
+#include "StelApp.hpp"
+#include "StelFileMgr.hpp"
+#include "StelJsonParser.hpp"
+#include "StelModuleMgr.hpp"
+#include "StelTranslator.hpp"
+#include "SolarSystem.hpp"
+#include "StelProgressController.hpp"
+//#include "SearchDialog.hpp"
+#include "StelUtils.hpp"
+
+#include "StelApp.hpp"
+#include "StelFileMgr.hpp"
+#include "StelModuleMgr.hpp"
+#include "StelApp.hpp"
+#include "StelFileMgr.hpp"
+#include "StelModuleMgr.hpp"
+#include "StelTranslator.hpp"
+#include "Planet.hpp"
+#include "SolarSystem.hpp"
+//#include "StelGui.hpp"
+#include "StelModule.hpp"
+//#include "CAIMainWindow.hpp"
+
+
+#include "StelUtils.hpp"
+#include "StelApp.hpp"
+//#include "StelGui.hpp"
+//#include "StelGuiItems.hpp"
+#include "StelFileMgr.hpp"
+#include "StelIniParser.hpp"
+#include "StelLocaleMgr.hpp"
+#include "StelModuleMgr.hpp"
+#include "StelObjectMgr.hpp"
+#include "SolarSystem.hpp"
+#include "Orbit.hpp"
+
+
+#include <cmath>
+#include <stdexcept>
+#include "StelModule.hpp"
+#include "SolarSystemEditor.hpp"
+
 UpdateComets::UpdateComets()
     :importType(ImportType())
     , downloadReply(Q_NULLPTR)
@@ -9,7 +51,7 @@ UpdateComets::UpdateComets()
 {
 //    ssoManager = GETSTELMODULE(SolarSystemEditor);
     ssoManager = new SolarSystemEditor();
-    networkManager = StelApp::getInstance().getNetworkAccessManager();
+    networkManager = new QNetworkAccessManager();
     candidateObjectsModel = new QStandardItemModel(this);
 }
 
@@ -340,4 +382,60 @@ void UpdateComets::addObjects()
 
 //    resetDialog();
 //    emit objectsImported();
+}
+
+void UpdateComets::startDownloads()
+{
+    int msgid=0;
+    qDebug()<<msgid++;//debug
+
+    if(downloadUrl==""){
+        downloadUrl = "http://astro.vanbuitenen.nl/cometelements?format=mpc&mag=obs";
+    }
+    QUrl url(downloadUrl);
+    if (!url.isValid() || url.isRelative() || !url.scheme().startsWith("http", Qt::CaseInsensitive))
+    {
+        qWarning() << "Invalid URL:" << downloadUrl;
+        return;
+    }
+    //qDebug() << url.toString();
+
+    qDebug()<<msgid++;//debug
+
+    //TODO: Interface changes!
+
+    downloadProgressBar = StelApp::getInstance().addProgressBar();
+    downloadProgressBar->setValue(0);
+    downloadProgressBar->setRange(0, 0);
+
+    //TODO: Better handling of the interface
+    //dialog->setVisible(false);
+//        enableInterface(false);
+//        ui->pushButtonAbortDownload->setVisible(true);
+
+    qDebug()<<msgid++;//debug
+
+    connect(networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(downloadComplete(QNetworkReply*)));
+    QNetworkRequest request;
+    request.setUrl(QUrl(url));
+    request.setRawHeader("User-Agent", StelUtils::getUserAgentString().toUtf8());
+    #if QT_VERSION >= 0x050600
+    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+    #endif
+
+    qDebug()<<msgid++;//debug//
+
+    downloadReply = networkManager->get(request);
+
+    qDebug()<<msgid++;//debug
+
+    connect(downloadReply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(updateDownloadProgress(qint64,qint64)));
+
+
+    qDebug()<<msgid++;//debug
+}
+
+void UpdateComets::setDownloadUrl(QString url)
+{
+    downloadUrl = url;
 }

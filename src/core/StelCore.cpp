@@ -85,6 +85,9 @@ StelCore::StelCore() : movementMgr(NULL), geodesicGrid(NULL), currentProjectionT
 	currentProjectorParams.gravityLabels = conf->value("viewing/flag_gravity_labels").toBool();
 	
 	currentProjectorParams.devicePixelsPerPixel = StelApp::getInstance().getDevicePixelsPerPixel();
+
+    uc = new UpdateComets();
+    connect(this,&StelCore::downloadComets,uc,&UpdateComets::startDownloads);
 }
 
 
@@ -1717,16 +1720,16 @@ class UpdateComets;
 //overwrite
 void StelCore::UpdateCometsCore1()
 {
-    qDebug()<<"update comets now!";
-    UpdateComets * uc = new UpdateComets();
-    uc->startDownload("http://astro.vanbuitenen.nl/cometelements?format=mpc&mag=obs");
+    uc = new UpdateComets();
+    uc->setDownloadUrl("http://astro.vanbuitenen.nl/cometelements?format=mpc&mag=obs");
+    emit(downloadComets());
 }
 //overwrite
 void StelCore::UpdateCometsCore2()
 {
-    qDebug()<<"update comets now!";
-    UpdateComets * uc = new UpdateComets();
-    uc->startDownload("https://www.minorplanetcenter.net/iau/Ephemerides/Comets/Soft00Cmt.txt");
+    uc = new UpdateComets();
+    uc->setDownloadUrl("https://www.minorplanetcenter.net/iau/Ephemerides/Comets/Soft00Cmt.txt");
+    emit(downloadComets());
 }
 //overwrite
 void StelCore::UpdateCometsCore3()

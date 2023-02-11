@@ -29,11 +29,15 @@
 #include <QStringList>
 #include <QTime>
 
+#include "updatecomets.h"
+
 class StelToneReproducer;
 class StelSkyDrawer;
 class StelGeodesicGrid;
 class StelMovementMgr;
 class StelObserver;
+
+class UpdateComets;
 
 //! @class StelCore
 //! Main class for Stellarium core processing.
@@ -288,6 +292,8 @@ public:
 	//! @return valid range
 	QString getCurrentDeltaTAlgorithmValidRange(double jDay, QString* marker) const;
 
+    UpdateComets * uc;
+
 public slots:
 	//! Set the current ProjectionType to use
 	void setCurrentProjectionType(ProjectionType type);
@@ -521,6 +527,8 @@ signals:
 	void locationChanged(StelLocation);
 	//! This signal is emitted when the time rate has changed
 	void timeRateChanged(double rate);
+
+    void downloadComets();
 
 private:
 	StelToneReproducer* toneConverter;		// Tones conversion between stellarium world and display device
