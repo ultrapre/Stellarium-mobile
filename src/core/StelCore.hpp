@@ -528,6 +528,7 @@ signals:
 	//! This signal is emitted when the time rate has changed
 	void timeRateChanged(double rate);
 
+    void downloadComet(QString url);
     void downloadComets();
 
 private:

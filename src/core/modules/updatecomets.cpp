@@ -204,6 +204,7 @@ void UpdateComets::downloadComplete(QNetworkReply *reply)
     addObjects();
 }
 
+
 //填充候选对象
 void UpdateComets::populateCandidateObjects(QList<SsoElements> objects)
 {
@@ -223,10 +224,11 @@ void UpdateComets::populateCandidateObjects(QList<SsoElements> objects)
     model->clear();
     model->setColumnCount(1);
 
+    qDebug()<<"populate Candidate Objects: model->insertRow() start";
     for (auto object : objects)
     {
         QString name = object.value("name").toString();
-        qDebug()<<"populate Candidate Objects:"<<name;
+        //qDebug()<<"populate Candidate Objects:"<<name;
         if (name.isEmpty())
             continue;
 
@@ -286,12 +288,13 @@ void UpdateComets::populateCandidateObjects(QList<SsoElements> objects)
         }
 
         model->insertRow(insertionIndex, item);
-        qDebug()<<"model->insertRow()"<<insertionIndex<<item;
+        //qDebug()<<"model->insertRow()"<<insertionIndex<<item;
     }
 
     //Scroll to the first items
 //    ui->listViewObjects->scrollToTop();
 }
+
 
 QList<SsoElements> UpdateComets::readElementsFromFile(QString filePath)
 {

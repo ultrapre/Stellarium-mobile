@@ -87,7 +87,7 @@ StelCore::StelCore() : movementMgr(NULL), geodesicGrid(NULL), currentProjectionT
 	currentProjectorParams.devicePixelsPerPixel = StelApp::getInstance().getDevicePixelsPerPixel();
 
     uc = new UpdateComets();
-    connect(this,&StelCore::downloadComets,uc,&UpdateComets::startDownloads);
+    connect(this,&StelCore::downloadComet,uc,&UpdateComets::startDownload);
 }
 
 
@@ -1720,23 +1720,23 @@ class UpdateComets;
 //overwrite
 void StelCore::UpdateCometsCore1()
 {
-    uc = new UpdateComets();
-    uc->setDownloadUrl("http://astro.vanbuitenen.nl/cometelements?format=mpc&mag=obs");
-    emit(downloadComets());
+//    uc = new UpdateComets();
+//    uc->setDownloadUrl("http://astro.vanbuitenen.nl/cometelements?format=mpc&mag=obs");
+    emit(downloadComet("http://astro.vanbuitenen.nl/cometelements?format=mpc&mag=obs"));
 }
 //overwrite
 void StelCore::UpdateCometsCore2()
 {
-    uc = new UpdateComets();
-    uc->setDownloadUrl("https://www.minorplanetcenter.net/iau/Ephemerides/Comets/Soft00Cmt.txt");
-    emit(downloadComets());
+//    uc = new UpdateComets();
+//    uc->setDownloadUrl("https://www.minorplanetcenter.net/iau/Ephemerides/Comets/Soft00Cmt.txt");
+    emit(downloadComet("https://www.minorplanetcenter.net/iau/Ephemerides/Comets/Soft00Cmt.txt"));
 }
 //overwrite
 void StelCore::UpdateCometsCore3()
 {
-    qDebug()<<"update comets now!";
-    UpdateComets * uc = new UpdateComets();
-    uc->startDownload("https://www.minorplanetcenter.net/iau/MPCORB/CometEls.txt");
+//    qDebug()<<"update comets now!";
+//    UpdateComets * uc = new UpdateComets();
+//    uc->startDownload("https://www.minorplanetcenter.net/iau/MPCORB/CometEls.txt");
 }
 
 //overwrite

@@ -1001,8 +1001,10 @@ bool SolarSystemEditor::appendToSolarSystemConfigurationFile(QList<SsoElements> 
 		return false;
 	}
 
+    qDebug() << "before listAllLoadedSsoIdentifiers...";
 	QHash<QString,QString> loadedObjects = listAllLoadedSsoIdentifiers();
 
+    /*
 	//Remove duplicates (identified by name, not by section name)
 	QSettings * solarSystemSettings = new QSettings(customSolarSystemFilePath, StelIniFormat);
 	if (solarSystemSettings->status() != QSettings::NoError)
@@ -1010,6 +1012,7 @@ bool SolarSystemEditor::appendToSolarSystemConfigurationFile(QList<SsoElements> 
 		qDebug() << "Error opening ssystem_minor.ini:" << QDir::toNativeSeparators(customSolarSystemFilePath);
 		return false;
 	}
+    qDebug() << "before Loop...";
 	for (auto object : objectList)
 	{
 		QString name = object.value("name").toString();
@@ -1031,15 +1034,19 @@ bool SolarSystemEditor::appendToSolarSystemConfigurationFile(QList<SsoElements> 
 			solarSystemSettings->remove(group);
 		}
 	}
+
+    qDebug() << "after Loop...";
 	solarSystemSettings->sync();
 	delete solarSystemSettings;
 	solarSystemSettings = Q_NULLPTR;
+    */
 
 	//Write to file. (Handle as regular text file, not QSettings.)
 	//TODO: The usual validation
 	qDebug() << "Appending to file...";
 	QFile solarSystemConfigurationFile(customSolarSystemFilePath);
-	if(solarSystemConfigurationFile.open(QFile::WriteOnly | QFile::Append | QFile::Text))
+//	if(solarSystemConfigurationFile.open(QFile::WriteOnly | QFile::Append | QFile::Text))
+    if(solarSystemConfigurationFile.open(QFile::WriteOnly | QFile::Text))
 	{
 		QTextStream output (&solarSystemConfigurationFile);
 		bool appendedAtLeastOne = false;
@@ -1065,7 +1072,7 @@ bool SolarSystemEditor::appendToSolarSystemConfigurationFile(QList<SsoElements> 
                 output << QString("%1 = %2").arg(key).arg(object.value(key).toString()) << "\n";
 			}
 			output.flush();
-            qDebug() << "Appended successfully:" << sectionName;
+            //qDebug() << "Appended successfully:" << sectionName;
 			appendedAtLeastOne = true;
 		}
 
