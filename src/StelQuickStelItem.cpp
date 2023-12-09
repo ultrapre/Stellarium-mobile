@@ -211,9 +211,9 @@ QString StelQuickStelItem::getSelectedObjectInfo() const
 	StelCore* core = StelApp::getInstance().getCore();
 	StelObjectP object = selected[0];
 	// If the object name already tells the catalog number, no need to show it again in the infos.
-	if (getSelectedObjectName().contains(
-	            object->getInfoString(core, StelObject::PlainText | StelObject::CatalogNumber).trimmed()))
-		infoTextFilters &= ~StelObject::CatalogNumber;
+//	if (getSelectedObjectName().contains(
+//	            object->getInfoString(core, StelObject::PlainText | StelObject::CatalogNumber).trimmed()))
+//		infoTextFilters &= ~StelObject::CatalogNumber;
 	return object->getInfoString(core, infoTextFilters);
 }
 
