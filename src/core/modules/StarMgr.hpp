@@ -54,6 +54,21 @@ typedef struct
 	QString stype;		//! Spectral type
 } varstar;
 
+typedef struct
+{
+    QString designation;	//! WDS designation
+    int observation;	//! Date of last satisfactory observation, yr
+    float positionAngle;	//! Position Angle at date of last satisfactory observation, deg
+    float separation;	//! Separation at date of last satisfactory observation, arcsec
+} wds;
+
+typedef struct
+{
+    int sao;
+    int hd;
+    int hr;
+} crossid;
+
 //! @class StarMgr
 //! Stores the star catalogue data.
 //! Used to render the stars themselves, as well as determine the color table
@@ -200,6 +215,12 @@ public:
 	//! Hipparcos catalogue number.
 	static QString getGcvsName(int hip);
 
+    //! Get the cross-identification designations for a star with a specified
+    //! Hipparcos catalogue number.
+    //! @param hip The Hipparcos number of star
+    //! @return cross-identification data
+    static QString getCrossIdentificationDesignations(QString hip);
+
 	//! Get the type of variability for a variable star with a specified
 	//! Hipparcos catalogue number.
 	static QString getGcvsVariabilityType(int hip);
@@ -272,6 +293,10 @@ private:
 	//! @param the path to a file containing the GCVS.
 	void loadGcvs(const QString& GcvsFile);
 
+    //! Loads cross-identification data from a file.
+    //! @param the path to a file containing the cross-identification data.
+    void loadCrossIdentificationData(const QString& crossIdFile);
+
 	//! Gets the maximum search level.
 	// TODO: add a non-lame description - what is the purpose of the max search level?
 	int getMaxSearchLevel() const;
@@ -324,6 +349,11 @@ private:
 	static QHash<int, varstar> varStarsMapI18n;
 	static QMap<QString, int> varStarsIndexI18n;
 
+    static QMap<QString, crossid> crossIdMap;
+    static QMap<int, int> saoStarsIndex;
+    static QMap<int, int> hdStarsIndex;
+    static QMap<int, int> hrStarsIndex;
+
 	QFont starFont;
 	static bool flagSciNames;
 	Vec3f labelColor;
@@ -336,7 +366,6 @@ private:
 	QVariantMap starSettings;
 	QVariantList catalogsDescription;
 };
-
 
 #endif // _STARMGR_HPP_
 

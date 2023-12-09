@@ -76,6 +76,11 @@ QMap<QString,int> StarMgr::sciAdditionalNamesIndexI18n;
 QHash<int, varstar> StarMgr::varStarsMapI18n;
 QMap<QString, int> StarMgr::varStarsIndexI18n;
 
+QMap<QString, crossid> StarMgr::crossIdMap;
+QMap<int, int> StarMgr::saoStarsIndex;
+QMap<int, int> StarMgr::hdStarsIndex;
+QMap<int, int> StarMgr::hrStarsIndex;
+
 QStringList initStringListFromFile(const QString& file_name)
 {
 	QStringList list;
@@ -962,12 +967,48 @@ StelObjectP StarMgr::searchByNameI18n(const QString& nameI18n) const
 {
 	QString objw = nameI18n.toUpper();
 
-	// Search by HP number if it's an HP formated number
-	QRegExp rx("^\\s*(HIP|HP)\\s*(\\d+)\\s*$", Qt::CaseInsensitive);
-	if (rx.exactMatch(objw))
-	{
-		return searchHP(rx.capturedTexts().at(2).toInt());
-	}
+//	// Search by HP number if it's an HP formated number
+//	QRegExp rx("^\\s*(HIP|HP)\\s*(\\d+)\\s*$", Qt::CaseInsensitive);
+//	if (rx.exactMatch(objw))
+//	{
+//		return searchHP(rx.capturedTexts().at(2).toInt());
+//	}
+
+    // Search by HP number if it's an HP formatted number. The final part (A/B/...) is ignored
+    static const QRegularExpression rx("^\\s*(HP|HIP)\\s*(\\d+)\\s*.*$", QRegularExpression::CaseInsensitiveOption);
+    QRegularExpressionMatch match=rx.match(objw);
+    if (match.hasMatch())
+        return searchHP(match.captured(2).toInt());
+
+    // Search by SAO number if it's an SAO formatted number
+    static const QRegularExpression rx2("^\\s*(SAO)\\s*(\\d+)\\s*$", QRegularExpression::CaseInsensitiveOption);
+    match=rx2.match(objw);
+    if (match.hasMatch())
+    {
+        auto sao = saoStarsIndex.find(match.captured(2).toInt());
+        if (sao!=saoStarsIndex.end())
+            return searchHP(sao.value());
+    }
+
+    // Search by HD number if it's an HD formatted number
+    static const QRegularExpression rx3("^\\s*(HD)\\s*(\\d+)\\s*$", QRegularExpression::CaseInsensitiveOption);
+    match=rx3.match(objw);
+    if (match.hasMatch())
+    {
+        auto hd = hdStarsIndex.find(match.captured(2).toInt());
+        if (hd!=hdStarsIndex.end())
+            return searchHP(hd.value());
+    }
+
+    // Search by HR number if it's an HR formatted number
+    static const QRegularExpression rx4("^\\s*(HR)\\s*(\\d+)\\s*$", QRegularExpression::CaseInsensitiveOption);
+    match=rx4.match(objw);
+    if (match.hasMatch())
+    {
+        auto hr = hrStarsIndex.find(match.captured(2).toInt());
+        if (hr!=hrStarsIndex.end())
+            return searchHP(hr.value());
+    }
 
 	// Search by I18n common name
 	QMap<QString,int>::const_iterator it(commonNamesIndexI18n.find(objw));
@@ -1230,23 +1271,95 @@ QStringList StarMgr::listMatchingObjects(const QString& objPrefix, int maxNbItem
 			break;
 	}
 
-	// Add exact Hp catalogue numbers
-	QRegExp hpRx("^(HIP|HP)\\s*(\\d+)\\s*$");
-	hpRx.setCaseSensitivity(Qt::CaseInsensitive);
-	if (hpRx.exactMatch(objw))
-	{
-		bool ok;
-		int hpNum = hpRx.capturedTexts().at(2).toInt(&ok);
-		if (ok)
-		{
-			StelObjectP s = searchHP(hpNum);
-			if (s && maxNbItem>0)
-			{
-				result << QString("HIP%1").arg(hpNum);
-				maxNbItem--;
-			}
-		}
-	}
+    // Add exact Hp catalogue numbers. The final part (A/B/...) is ignored
+    static const QRegularExpression hpRx("^(HIP|HP)\\s*(\\d+)\\s*.*$", QRegularExpression::CaseInsensitiveOption);
+    QRegularExpressionMatch match=hpRx.match(objw);
+    if (match.hasMatch())
+    {
+        bool ok;
+        int hpNum = match.captured(2).toInt(&ok);
+        if (ok)
+        {
+            StelObjectP s = searchHP(hpNum);
+            if (s && maxNbItem>0)
+            {
+                result << QString("HIP%1").arg(hpNum);
+                maxNbItem--;
+            }
+        }
+    }
+
+    // Add exact SAO catalogue numbers
+    static const QRegularExpression saoRx("^(SAO)\\s*(\\d+)\\s*$", QRegularExpression::CaseInsensitiveOption);
+    match=saoRx.match(objw);
+    if (match.hasMatch())
+    {
+        int saoNum = match.captured(2).toInt();
+        auto sao = saoStarsIndex.find(saoNum);
+        if (sao!=saoStarsIndex.end())
+        {
+            StelObjectP s = searchHP(sao.value());
+            if (s && maxNbItem>0)
+            {
+                result << QString("SAO%1").arg(saoNum);
+                maxNbItem--;
+            }
+        }
+    }
+
+    // Add exact HD catalogue numbers
+    static const QRegularExpression hdRx("^(HD)\\s*(\\d+)\\s*$", QRegularExpression::CaseInsensitiveOption);
+    match=hdRx.match(objw);
+    if (match.hasMatch())
+    {
+        int hdNum = match.captured(2).toInt();
+        auto hd = hdStarsIndex.find(hdNum);
+        if (hd!=hdStarsIndex.end())
+        {
+            StelObjectP s = searchHP(hd.value());
+            if (s && maxNbItem>0)
+            {
+                result << QString("HD%1").arg(hdNum);
+                maxNbItem--;
+            }
+        }
+    }
+
+    // Add exact HR catalogue numbers
+    static const QRegularExpression hrRx("^(HR)\\s*(\\d+)\\s*$", QRegularExpression::CaseInsensitiveOption);
+    match=hrRx.match(objw);
+    if (match.hasMatch())
+    {
+        int hrNum = match.captured(2).toInt();
+        auto hr = hrStarsIndex.find(hrNum);
+        if (hr!=hrStarsIndex.end())
+        {
+            StelObjectP s = searchHP(hr.value());
+            if (s && maxNbItem>0)
+            {
+                result << QString("HR%1").arg(hrNum);
+                maxNbItem--;
+            }
+        }
+    }
+
+//    // Add exact WDS catalogue numbers
+//    static const QRegularExpression wdsRx("^(WDS)\\s*(\\S+)\\s*$", QRegularExpression::CaseInsensitiveOption);
+//    if (wdsRx.match(objw).hasMatch())
+//    {
+//        for (auto wds = wdsStarsIndexI18n.lowerBound(objw); wds != wdsStarsIndexI18n.end(); ++wds)
+//        {
+//            if (wds.key().startsWith(objw))
+//            {
+//                if (maxNbItem==0)
+//                    break;
+//                result << getWdsName(wds.value());
+//                --maxNbItem;
+//            }
+//            else
+//                break;
+//        }
+//    }
 
 	result.sort();
 	return result;
@@ -1280,7 +1393,112 @@ void StarMgr::updateSkyCulture(const QString& skyCultureDir)
 	else
 		loadGcvs(fic);
 
+    fic = StelFileMgr::findFile("stars/default/cross-id.dat");
+    if (fic.isEmpty())
+        qWarning() << "WARNING: could not load cross-identification data file: stars/default/cross-id.dat";
+    else
+        loadCrossIdentificationData(fic);
+
 	// Turn on sci names/catalog names for western culture only
 	setFlagSciNames(skyCultureDir.startsWith("western"));
 	updateI18n();
+}
+
+
+// Load cross-identification data from file
+void StarMgr::loadCrossIdentificationData(const QString& crossIdFile)
+{
+    crossIdMap.clear();
+    saoStarsIndex.clear();
+    hdStarsIndex.clear();
+    hrStarsIndex.clear();
+
+    qDebug().noquote() << "Loading cross-identification data from" << QDir::toNativeSeparators(crossIdFile);
+    QFile ciFile(crossIdFile);
+    if (!ciFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qWarning().noquote() << "WARNING - could not open" << QDir::toNativeSeparators(crossIdFile);
+        return;
+    }
+    const QStringList& allRecords = QString::fromUtf8(ciFile.readAll()).split('\n');
+    ciFile.close();
+
+    crossid crossIdData;
+
+    int readOk=0;
+    int totalRecords=0;
+    int lineNumber=0;
+    // record structure is delimited with a 'tab' character. Example record strings:
+    // "1	128522	224700"
+    // "2	165988	224690"
+    for (const auto& record : allRecords)
+    {
+        ++lineNumber;
+        // skip comments and empty lines
+        if (record.startsWith("//") || record.startsWith("#") || record.isEmpty())
+            continue;
+
+        ++totalRecords;
+        const QStringList& fields = record.split('\t');
+        if (fields.size()!=5)
+        {
+            qWarning().noquote() << "WARNING - parse error at line" << lineNumber << "in" << QDir::toNativeSeparators(crossIdFile)
+                   << " - record does not match record pattern";
+            continue;
+        }
+        else
+        {
+            // The record is the right format.  Extract the fields
+            bool ok;
+            int hip = fields.at(0).toInt(&ok);
+            if (!ok)
+            {
+                qWarning().noquote() << "WARNING - parse error at line" << lineNumber << "in" << QDir::toNativeSeparators(crossIdFile)
+                       << " - failed to convert " << fields.at(0) << "to a number";
+                continue;
+            }
+
+            QString hipstar = QString("%1%2").arg(hip).arg(fields.at(1).trimmed());
+            crossIdData.sao = fields.at(2).toInt(&ok);
+            crossIdData.hd = fields.at(3).toInt(&ok);
+            crossIdData.hr = fields.at(4).toInt(&ok);
+
+            crossIdMap[hipstar] = crossIdData;
+            if (crossIdData.sao>0)
+                saoStarsIndex[crossIdData.sao] = hip;
+            if (crossIdData.hd>0)
+                hdStarsIndex[crossIdData.hd] = hip;
+            if (crossIdData.hr>0)
+                hrStarsIndex[crossIdData.hr] = hip;
+
+            ++readOk;
+        }
+    }
+
+    qDebug().noquote() << "Loaded" << readOk << "/" << totalRecords << "cross-identification data records for stars";
+}
+
+
+QString StarMgr::getCrossIdentificationDesignations(QString hip)
+{
+    QStringList designations;
+    auto cr = crossIdMap.find(hip);
+    if (cr==crossIdMap.end() && hip.right(1).toUInt()==0)
+        cr = crossIdMap.find(hip.left(hip.size()-1));
+
+    if (cr!=crossIdMap.end())
+    {
+        crossid crossIdData = cr.value();
+        if (crossIdData.sao>0)
+            designations << QString("SAO %1").arg(crossIdData.sao);
+
+        if (crossIdData.hr>0)
+            designations << QString("HR %1").arg(crossIdData.hr);
+
+        if (crossIdData.hd>0)
+            designations << QString("HD %1").arg(crossIdData.hd);
+
+    }
+
+    return designations.join(" - ");
 }

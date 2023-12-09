@@ -103,6 +103,21 @@ QString StarWrapper1::getInfoString(const StelCore *core, const InfoStringGroup&
 		const QString addSciName = StarMgr::getSciAdditionalName(s->hip);
 		const QString varSciName = StarMgr::getGcvsName(s->hip);
 
+
+
+        QStringList designations;
+
+        QString hip, hipq;
+        hipq = QString("%1%2").arg(s->hip).arg(StarMgr::convertToComponentIds(s->componentIds));
+
+
+        const QString crossIndexData = StarMgr::getCrossIdentificationDesignations(hipq);
+        if (!crossIndexData.isEmpty())
+            designations.append(crossIndexData);
+        QString designationsList = designations.join(" - ");
+
+
+
 		bool nameWasEmpty=true;
 		if (flags&Name)
 		{
@@ -123,10 +138,18 @@ QString StarWrapper1::getInfoString(const StelCore *core, const InfoStringGroup&
 		if ((flags&CatalogNumber) && (flags&Name) && !nameWasEmpty)
 			oss << " - ";
 
-		if (flags&CatalogNumber || (nameWasEmpty && (flags&Name)))
-			oss << "HIP " << s->hip;
-		if (s->componentIds)
-			oss << " " << StarMgr::convertToComponentIds(s->componentIds);
+        if (flags&CatalogNumber || (nameWasEmpty && (flags&Name))){
+            oss << "HIP " << s->hip;
+            if (s->componentIds)
+                oss << " " << StarMgr::convertToComponentIds(s->componentIds);
+
+            if(designationsList != "")
+                oss << " - ";
+            oss << designationsList;
+        }
+
+//		if (s->componentIds)
+//            oss << " " << StarMgr::convertToComponentIds(s->componentIds);
 
 		if ((flags&Name) || (flags&CatalogNumber))
 			oss << "</h2>";
